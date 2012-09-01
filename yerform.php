@@ -437,22 +437,33 @@
             require_once 'lib/swift_required.php';
 
             // Create the Transport
-            //if ( function_exists('proc_open') ) { print_o( 'yes');  } else { print_o( 'no' ); }
-            //$transport = Swift_SendmailTransport::newInstance('/usr/sbin/sendmail');
-            //$transport = Swift_MailTransport::newInstance();
-
-            $transport = Swift_SmtpTransport::newInstance( 'server.net', 123, 'ssl' )
-            ->setUsername( 'post+domain.de' )
-            ->setPassword( '12345678' );
-
+                
+                // if ( function_exists('proc_open') ) { print_o( 'yes');  } else { print_o( 'no' ); }
+            
+                /* PHP Mail
+                    $transport = Swift_MailTransport::newInstance();
+                */
+            
+                /* Sendmail
+                    $transport = Swift_SendmailTransport::newInstance('/usr/sbin/sendmail');
+                */
+            
+                /* Smtp & SSL
+                    $transport = Swift_SmtpTransport::newInstance( 'server.net', 123, 'ssl' )
+                        ->setUsername( 'post+domain.de' )
+                        ->setPassword( '12345678' );
+                */
+            
+            $transport = Swift_MailTransport::newInstance();
+            
             // Create the Mailer using your created Transport
-            $mailer = Swift_Mailer::newInstance($transport);
+            $mailer = Swift_Mailer::newInstance( $transport );
 
             // Create a message
             $message = Swift_Message::newInstance( $mail_subject )
-            ->setFrom( array( $sender_mail => $sender_name ) )
-            ->setTo( array( $this->config['recipient_mail'] => $this->config['recipient_name'] ) )
-            ->setBody( $mail_text );
+                ->setFrom( array( $sender_mail => $sender_name ) )
+                ->setTo( array( $this->config['recipient_mail'] => $this->config['recipient_name'] ) )
+                ->setBody( $mail_text );
 
             // Send the message
             $result = $mailer->send( $message );
