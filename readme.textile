@@ -1,0 +1,103 @@
+h1. yerform
+
+Is a PHP class to create forms, handle validation and sending.
+This documentation is incomplete!
+
+h2. Setup
+
+include the yerform.php
+
+<pre><code>$form = new yerForm();
+$form->form_id = 'my_contact_form';
+</code></pre>
+
+h3. Configuration
+
+<pre><code>$form->config( array(
+    'honeypot' => 'Honeypot',
+    'mail_subject' => 'Contact',
+    'field_sender_mail' => 'email',
+    'fields_sender_name' => array( 'surename', 'familyname' ),
+    'recipient_mail' => 'my email',
+    'recipient_name' => 'my name',
+    'mail_text' => "
+        Contactform
+        Name: {surename} {familyname}
+        E-Mail: {email}
+        Message:
+        {message}
+    ",
+    'message_error_main' => 'Could not send form!',
+    'message_mail_sending' => 'Is sending!',
+    'message_mail_sent' => 'Sended!'
+    )
+);
+</code></pre>
+
+h2. Building the form structure
+
+<pre><code>$form->set( 'fieldset_begin', array(
+    'legend'=>'Contactdata'
+    )
+);
+    $form->set( 'list_begin' );
+        /* a field */
+        /* or a field group */
+        $form->set( 'group_begin', array(
+            'label' => 'Groupname',
+            'layout' => 'table'
+            )
+        );
+        /* some fields */
+        $form->set( 'group_end');
+    $form->set( 'list_end' );
+$form->set( 'fieldset_end' );
+</code></pre>
+
+h2. The fields
+
+h3. Text
+
+<pre><code>$form->set( 'field_text', array(
+    'name' => 'surename',
+    'label' => 'Surename',
+    'layout' => 'table'
+);
+</code></pre>
+
+h3. Textarea
+
+<pre><code>$form->set( 'field_textarea', array(
+    'name' => 'nachricht',
+	'label' => 'Ihre Nachricht',
+	'layout' => 'table'
+	)
+);
+</code></pre>
+
+h2. Validation
+
+Just a sample, where to place the validation array:
+
+<pre><code>$form->set( 'field_text', array(
+    'name' => 'surename',
+    'label' => 'Surename',
+    'layout' => 'table',
+    'validation' => array(
+        0 => array(
+            'type' => 'required',
+            'cond' => true,
+            'message' => $messages['required']
+            )
+        )
+    )
+);</code></pre>
+
+h3. Required
+
+<pre><code>array(
+    'type' => 'required',
+    'cond' => true,
+    'message' => $messages['required']
+)
+</code></pre>
