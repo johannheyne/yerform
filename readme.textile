@@ -59,14 +59,14 @@ h2. The fields
 h3. Text
 
 <pre><code>$form->set( 'field_text', array(
-	'name' => 'surename',
-	'label' => 'Surename',
-	'sufix' => '',
-	'size' => '40',
-	'maxlength' => '200',
-	'layout' => false,
-	'padding' => array( 0, 0 ),
-	'class' => false
+    'name' => 'surename',
+    'label' => 'Surename',
+    'sufix' => '',
+    'size' => '40',
+    'maxlength' => '200',
+    'layout' => false,
+    'padding' => array( 0, 0 ),
+    'class' => false
 );
 </code></pre>
 
@@ -100,20 +100,20 @@ This is usefull for giving horizontal orientated fields some spacing.
 h3. Textarea
 
 <pre><code>$form->set( 'field_textarea', array(
-	'name' => 'nachricht',
-	'label' => 'Ihre Nachricht',
-	'layout' => false
-	)
+    'name' => 'nachricht',
+    'label' => 'Ihre Nachricht',
+    'layout' => false
+    )
 );
 </code></pre>
 
 h3. Checkbox
 
 <pre><code>$form->set( 'field_checkbox', array(
-	'name' => 'flugangebot',
-	'label' => 'yes',
-	'data' => 'yes'
-	)
+    'name' => 'flugangebot',
+    'label' => 'yes',
+    'data' => 'yes'
+    )
 );
 </code></pre>
 
