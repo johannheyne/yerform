@@ -548,7 +548,7 @@
         protected function field_text( $p = array() ) {
             
             $p += array(
-                'label' => 'Ohne Namen', 
+                'label' => 'no name', 
                 'name' => 'noname',
                 'array' => false,
                 'size' => $this->field_text_size,
@@ -580,7 +580,7 @@
         protected function field_textarea( $p = array() ) {
             
             $p += array(
-                'label' => 'Ohne Namen', 
+                'label' => 'no name', 
                 'name' => 'noname',
                 'array' => false,
                 'cols' => $this->field_textarea_cols,
@@ -619,7 +619,7 @@
         protected function field_select( $p = array() ) {
             
             $p += array(
-                'label' => 'Ohne Namen', 
+                'label' => 'no name', 
                 'name' => 'noname',
                 'value' => '',
                 'array' => false,
@@ -664,7 +664,7 @@
         protected function field_date( $p = array() ) {
 
             $p += array(
-                'label' => 'Ohne Namen', 
+                'label' => 'no name', 
                 'name' => 'noname',
                 'array' => false,
                 'size' => $this->field_text_size,
@@ -731,7 +731,7 @@
         protected function field_checkbox( $p = array() ) {
 
             $p += array(
-                'label' => 'Ohne Namen', 
+                'label' => 'no name', 
                 'name' => 'noname',
                 'array' => false,
                 'data' => 'checked',
@@ -961,7 +961,7 @@
         protected function fieldset_begin( $p = array() ) {
 
             $p += array(
-                'legend' => 'Ohne Titel',
+                'legend' => 'no titel',
                 'class' => false
             );
 
