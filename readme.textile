@@ -59,8 +59,9 @@ h2. The fields
 h3. Text
 
 <pre><code>$form->set( 'field_text', array(
-    'name' => 'surename',
-    'label' => 'Surename',
+    'name' => 'no name',
+    'array' => false,
+    'label' => 'no name',
     'sufix' => '',
     'size' => '40',
     'maxlength' => '200',
@@ -72,6 +73,9 @@ h3. Text
 
 *name*
 <em>(string)</em> The name and Id of the field.
+
+*array*
+<em>(integer)</em> For fields with same name like a checkboxset.
 
 *label*
 <em>(string)</em> The label of the field.
@@ -100,9 +104,14 @@ This is usefull for giving horizontal orientated fields some spacing.
 h3. Textarea
 
 <pre><code>$form->set( 'field_textarea', array(
-    'name' => 'nachricht',
-    'label' => 'Ihre Nachricht',
+    'name' => 'noname',
+    'array' => false,
+    'label' => 'no name', 
+    'cols' => $this->field_textarea_cols,
+    'rows' => $this->field_textarea_rows,
+    'padding' => array(0,0),
     'layout' => false
+
     )
 );
 </code></pre>
