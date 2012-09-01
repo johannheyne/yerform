@@ -59,18 +59,60 @@ h2. The fields
 h3. Text
 
 <pre><code>$form->set( 'field_text', array(
-    'name' => 'surename',
-    'label' => 'Surename',
-    'layout' => 'table'
+	'name' => 'surename',
+	'label' => 'Surename',
+	'sufix' => '',
+	'size' => '40',
+	'maxlength' => '200',
+	'layout' => false,
+	'padding' => array( 0, 0 ),
+	'class' => false
 );
 </code></pre>
+
+*name*
+<em>(string)</em> The name and Id of the field.
+
+*label*
+<em>(string)</em> The label of the field.
+
+*sufix*
+<em>(string)</em> Displaying after the Field.
+
+*size*
+<em>(integer)</em> Define the size of the textfield. 
+The <em>default</em> is $form->field_text_size = 40.
+
+*maxlength*
+<em>(integer)</em> Define the maximal lenght of the textfields content. 
+The <em>default</em> is $form->field_text_maxlength = 200.
+
+*layout*
+<em>(false | string)</em> Define the orientation in the layout. Can be false or 'horizontal'.
+
+*padding*
+<em>(array( integer-left, integer-right ))</em> Define the left and right padding of the field list-item. 
+This is usefull for giving horizontal orientated fields some spacing.
+
+*class*
+<em>(string)</em> Define a class on the field list-item.
 
 h3. Textarea
 
 <pre><code>$form->set( 'field_textarea', array(
-    'name' => 'nachricht',
+	'name' => 'nachricht',
 	'label' => 'Ihre Nachricht',
-	'layout' => 'table'
+	'layout' => false
+	)
+);
+</code></pre>
+
+h3. Checkbox
+
+<pre><code>$form->set( 'field_checkbox', array(
+	'name' => 'flugangebot',
+	'label' => 'yes',
+	'data' => 'yes'
 	)
 );
 </code></pre>
