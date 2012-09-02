@@ -24,7 +24,6 @@
         public $field_textarea_cols = 70;
         public $field_textarea_rows = 7;
         public $required_label_sufix = '<span class="required">*</span>';
-        public $layout_root = false; /* can be table */
         public $messages = false;
         public $validation = false;
         
@@ -84,7 +83,7 @@
             );
 
             $this->set[] = array(
-                'f' =>  $f,
+                'f' => $f,
                 'p' => $p
             );
 
@@ -165,11 +164,19 @@
                 }
 
                 // walk the form settings
+				foreach( $this->set as $key => $item) {
+					if ( $item['p']['display'] === true ) {
+
+                        if ( $item['f'] === 'field_hidden' )    $this->field_hidden( $item['p'] );
+                       
+                    }
+                }
+				
                 foreach( $this->set as $key => $item) {
 
                     if ( $item['p']['display'] === true ) {
 
-                        if ( $item['f'] === 'list_begin' )      $this->list_begin();
+                        if ( $item['f'] === 'list_begin' )      $this->list_begin( $item['p'] );
                         if ( $item['f'] === 'list_end' )        $this->list_end();
                         if ( $item['f'] === 'group_begin' )     $this->group_begin( $item['p'] );
                         if ( $item['f'] === 'group_end' )       $this->group_end();
@@ -178,6 +185,7 @@
                         if ( $item['f'] === 'field_select' )    $this->field_select( $item['p'] );
                         if ( $item['f'] === 'field_checkbox' )  $this->field_checkbox( $item['p'] );
                         if ( $item['f'] === 'field_date' )      $this->field_date( $item['p'] );
+                        if ( $item['f'] === 'field_html' )      $this->field_html( $item['p'] );
                         if ( $item['f'] === 'form_buttons' )    $this->form_buttons( $item['p'] );
                         if ( $item['f'] === 'fieldset_begin' )  $this->fieldset_begin( $item['p'] );
                         if ( $item['f'] === 'fieldset_end' )    $this->fieldset_end( $item['p'] );
@@ -464,7 +472,10 @@
                 ->setFrom( array( $sender_mail => $sender_name ) )
                 ->setTo( array( $this->config['recipient_mail'] => $this->config['recipient_name'] ) )
                 ->setBody( $mail_text );
-
+			
+			//print_o( $mail_subject . $sender_mail .  $sender_name . $mail_text . $this->config['recipient_mail'] . $this->config['recipient_name'] );
+			//print_o( $message );
+			
             // Send the message
             $result = $mailer->send( $message );
             if ( $result ) {
@@ -760,6 +771,65 @@
         
         
         /** 
+        * HTML
+        * gibt HTML-Code aus.
+        *
+        * @child    get_label()
+        * @vari     list_item_before
+        * @vari     fields_before
+        * @vari     fields_after
+        * @vari     code
+        */
+        
+        protected function field_html( $p = array() ) {
+            
+            $p += array(
+                'padding' => array(0,0),
+                'layout' => false,
+                'content' => false
+            );
+            
+            $p['fieldtype'] = 'html';
+            
+            $ret = '';
+            $ret .= $this->list_item_before( $p );
+            $ret .= $p['content'];
+            $ret .= $this->list_item_after();
+            $this->code .= $ret;
+        }
+		
+		
+		
+		/** 
+        * Hidden
+        * gibt den HTML-Code für ein Hidden-Feld aus.
+        *
+        * @child    get_label()
+        * @vari     list_item_before
+        * @vari     fields_before
+        * @vari     fields_after
+        * @vari     code
+        */
+        
+        protected function field_hidden( $p = array() ) {
+            
+            $p += array(
+                'name' => 'noname',
+                'array' => false,
+                'value' => false
+            );
+            
+            $p['fieldtype'] = 'hidden';
+            
+            $ret = '';
+
+            $ret .= '<input name="' . $this->get_field_name( $p ) . '" type="hidden" value="' . $this->get_field_value( $p ) . '"/>';
+            $this->code .= $ret;
+        }
+		
+		
+		
+		/** 
         * Strukturelemente, Begin und Ende von Listen.
         *
         * @vari     list_before
@@ -767,11 +837,16 @@
         * @vari     code
         */
 
-        protected function list_begin() {
-        
-            $css = '';
-            if ( $this->layout_root ) $css = ' ' . $this->layout_root;
-            $this->code .= str_replace('>', ' class="root' . $css . '">', $this->list_before);
+        protected function list_begin( $p = array() ) {
+        	
+			$p += array(
+				'class' => false
+			);
+	
+            $class = false;
+            if ( $p['class'] ) $class .= ' ' . $p['class'];
+
+            $this->code .= str_replace('>', ' class="root' . $class . '">', $this->list_before);
         }
         
         protected function list_end() {
@@ -866,10 +941,16 @@
         */
 
         protected function get_label( $p = array() ) {
+			
+			$p += array(
+                'label' => 'no name', 
+                'name' => 'noname',
+                'label_sufix' => false
+            );
 
             $ret = '';
             $ret .= str_replace('">', ' depht-' . $this->depht . '">', $this->label_before);
-            $ret .= '<label for="' . $p['name'] . '">' . $p['label'] . $this->get_require_label_sufix( $p ) . '</label>';
+            $ret .= '<label for="' . $p['name'] . '">' . $p['label'] . $this->get_require_label_sufix( $p ) . '</label>' . $p['label_sufix'];
             $ret .= $this->label_after;
             
             return $ret;
@@ -890,14 +971,18 @@
             $p += array(
                 'submit' => true,
                 'submit_label' => 'Submit',
+                'submit_class' => false,
+                'submit_btn_class' => false,
                 'reset' => true,
-                'reset_label' => 'Reset'
+                'reset_label' => 'Reset',
+                'reset_class' => false,
+                'reset_btn_class' => false
             );
 
             $ret = '';
             $ret .= '<div class="form-buttons">';
-            if ( $p['reset'] ) $ret .= '<input class="btn-reset" name="reset" type="reset" value="' . $p['reset_label'] . '"/>';
-            $ret .= '<input class="btn-submit" name="submit" type="submit" value="' . $p['submit_label'] . '"/>';
+            if ( $p['reset'] ) $ret .= '<div class="reset ' . $p['reset_class'] . '"><input class="btn-reset ' . $p['reset_btn_class'] . '" name="reset" type="reset" value="' . $p['reset_label'] . '"/></div>';
+            $ret .= '<div class="submit ' . $p['submit_class'] . '"><input class="btn-submit ' . $p['submit_btn_class'] . '" name="submit" type="submit" value="' . $p['submit_label'] . '"/></div>';
             $ret .= '</div>';
             
             $this->code .= $ret;
