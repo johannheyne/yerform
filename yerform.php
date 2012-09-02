@@ -5,7 +5,6 @@
     *
     * An e-mail class for 5.2.0 or newer
     *
-    * @package      CodeIgniter
     * @author       Johann Heyne
     * @copyright    Copyright (c) Johann Heyne
     * @license      MIT
