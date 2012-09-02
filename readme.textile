@@ -7,11 +7,11 @@ h2. Roadmap
 
 Building forms can be horrible, they are allways different and webdesigners are talented in making it nearly impossible. This piece of code tries to put the beast in a cage.
 
-[ ] basic css styling, focusing on layoutoptions
-[ ] definable dateformat for validation
-[ ] complete documentation
-[x] validation for email
-[x] initial release
+- basic css styling, focusing on layoutoptions
+- definable dateformat for validation
+- complete documentation
+- [done] validation for email
+- [done] initial release
 
 Just ask me for your needs at mail@johannheyne.de or create a new issue.
 
