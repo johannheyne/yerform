@@ -9,7 +9,7 @@ This documentation is incomplete and corrupting changes still may ahead!
 h2. Roadmap
 
 * basic css styling, focusing on layoutoptions
-* definable dateformat for validation
+* definable dateformat for date validation
 * complete documentation
 
 * [done] validation for email
@@ -190,16 +190,6 @@ h3. Date
 )
 </code></pre>
 
-*checkdate*
-If a date not exists for example 32.13.2012
-
-*message-dateformat*
-If the date does not fit the format "dd.mm.yy"
-The date format will be changeable in futur.
-
-*message-min-max*
-If the date does not fit the given range of min and/or max.
-
 *min max*
 <em>(You can use the same date definitions as for strtotime())</em> Define the minimum and maximum of the date.
 For example:
@@ -212,3 +202,14 @@ For example:
 '-1 year +2 days'
 'next Thursday'
 'last Monday'
+
+*checkdate*
+If a date not exists for example 32.13.2012
+
+*message-dateformat*
+If the date does not fit the format "dd.mm.yy"
+The date format will be changeable in futur.
+
+*message-min-max*
+If the date does not fit the given range of min and/or max.
+

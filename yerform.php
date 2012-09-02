@@ -9,7 +9,7 @@
     * @author       Johann Heyne
     * @copyright    Copyright (c) Johann Heyne
     * @license      MIT
-    * @link         johannheyne.de
+    * @link         https://github.com/johannheyne/yerform
     */
     
     class yerForm {
