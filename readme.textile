@@ -1,7 +1,19 @@
 h1. yerform
 
-Is a PHP class to create forms, handle validation and sending.
-This documentation is incomplete!
+is a PHP class to create forms, handle validation and sending.
+This documentation is incomplete and corrupting changes still may ahead!
+
+h2. Roadmap
+
+Building forms can be horrible, they are allways different and webdesigners are talented in making it nearly impossible. This piece of code tries to put the beast in a cage.
+
+[ ] basic css styling, focusing on layoutoptions
+[ ] definable dateformat for validation
+[ ] complete documentation
+[x] validation for email
+[x] initial release
+
+Just ask me for your needs at mail@johannheyne.de or create a new issue.
 
 h2. Setup
 
@@ -177,7 +189,7 @@ h3. Date
 </code></pre>
 
 *checkdate*
-If a date do not exists like 32.13.2012
+If a date not exists for example 32.13.2012
 
 *message-dateformat*
 If the date does not fit the format "dd.mm.yy"
