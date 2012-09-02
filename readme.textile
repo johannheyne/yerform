@@ -11,6 +11,7 @@ h2. Roadmap
 * basic css styling, focusing on layoutoptions
 * definable dateformat for date validation
 * complete documentation
+* captcha
 
 * [done] validation for email
 * [done] initial release
@@ -43,7 +44,7 @@ h3. Configuration
     ",
     'message_error_main' => 'Could not send form! Check the following fields: {fields}',
     'message_mail_sending' => 'Is sending!',
-    'message_mail_sent' => 'Sended!'
+    'message_mail_sent' => 'Sent!'
     )
 );
 </code></pre>
@@ -182,7 +183,7 @@ h3. Date
 
 <pre><code>array(
     'type' => 'date',
-    'min' => '1 day',
+    'min' => '+1 day',
     'max' => '+2 year',
     'checkdate' => $messages['checkdate'],
     'message-dateformat' => $messages['dateformat'],
