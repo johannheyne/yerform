@@ -8,12 +8,12 @@ This documentation is incomplete and corrupting changes still may ahead!
 
 h2. Roadmap
 
-- basic css styling, focusing on layoutoptions
-- definable dateformat for validation
-- complete documentation
+* basic css styling, focusing on layoutoptions
+* definable dateformat for validation
+* complete documentation
 
-- [done] validation for email
-- [done] initial release
+* [done] validation for email
+* [done] initial release
 
 Just ask me for your needs at mail@johannheyne.de or create a new issue.
 
