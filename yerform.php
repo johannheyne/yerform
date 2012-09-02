@@ -1,5 +1,17 @@
 <?php
     
+    /**
+    * yerform
+    *
+    * An e-mail class for 5.2.0 or newer
+    *
+    * @package      CodeIgniter
+    * @author       Johann Heyne
+    * @copyright    Copyright (c) Johann Heyne
+    * @license      MIT
+    * @link         johannheyne.de
+    */
+    
     class yerForm {
         
         protected $list_before = '<ul>';
@@ -88,6 +100,7 @@
             );
 
             if (
+                $f === 'field_hidden' OR
                 $f === 'field_text' OR
                 $f === 'field_textarea' OR
                 $f === 'field_select' OR
@@ -164,14 +177,14 @@
                 }
 
                 // walk the form settings
-				foreach( $this->set as $key => $item) {
-					if ( $item['p']['display'] === true ) {
+                foreach( $this->set as $key => $item) {
+                    if ( $item['p']['display'] === true ) {
 
                         if ( $item['f'] === 'field_hidden' )    $this->field_hidden( $item['p'] );
                        
                     }
                 }
-				
+                
                 foreach( $this->set as $key => $item) {
 
                     if ( $item['p']['display'] === true ) {
@@ -296,7 +309,6 @@
                                     if ( isset( $valid['max'] ) ) {
                                         if ( $timestamp > $this->datestamp( $valid['max'] ) ) $this->validation[ $p['name'] ][] = $valid['message-min-max'];
                                     }
-
                                 }
 
                                 // dependency
@@ -309,18 +321,18 @@
                                     if ( !$this->ifit( $value, $valid['dependency']['operator'], 0 ) ) {
                                         $this->validation[ $p['name'] ][] =  $valid['dependency']['message'];
                                     }
-
                                 }
                             }
 
-                            // integer
-                            if ( $valid['type'] === 'integer' ) {
-                                if ( $this->get_field_value( $p ) !== '' ) {
+                             // integer
+                             if ( $valid['type'] === 'integer' ) {
+                                 if ( $this->get_field_value( $p ) !== '' ) {
+                               
                                     if ( !is_numeric( $this->get_field_value( $p ) ) OR (int)$this->get_field_value( $p ) != $this->get_field_value( $p ) ) {
-                                        $this->validation[ $this->get_field_name( $p ) ][] = $valid['message'];
-                                    }
-                                }
-                            }
+                                         $this->validation[ $this->get_field_name( $p ) ][] = $valid['message'];
+                                     }
+                                 }
+                             }
 
                             // range
                             if ( $valid['type'] === 'range' AND !isset( $this->validation[ $this->get_field_name( $p ) ] ) AND $this->get_field_value( $p ) != '' ) {
@@ -335,10 +347,22 @@
 
                                         $this->validation[ $this->get_field_name( $p ) ][] = $valid['message'];
                                     }
-
-                                    //print_o($this->validation[ $this->get_field_name( $p ) ]);
                                 }
                             }
+                        
+                            
+                            // email
+                            if ( $valid['type'] === 'email' ) {
+                                if ( $this->get_field_value( $p ) !== '' ) {
+
+                                    if ( !filter_var( $this->get_field_value( $p ), FILTER_VALIDATE_EMAIL ) ) {
+                                        $this->validation[ $this->get_field_name( $p ) ][] = $valid['message'];
+                                    }
+                                }
+                            }
+
+                            
+
                         }
                     }
                 }
@@ -472,10 +496,10 @@
                 ->setFrom( array( $sender_mail => $sender_name ) )
                 ->setTo( array( $this->config['recipient_mail'] => $this->config['recipient_name'] ) )
                 ->setBody( $mail_text );
-			
-			//print_o( $mail_subject . $sender_mail .  $sender_name . $mail_text . $this->config['recipient_mail'] . $this->config['recipient_name'] );
-			//print_o( $message );
-			
+            
+            //print_o( $mail_subject . $sender_mail .  $sender_name . $mail_text . $this->config['recipient_mail'] . $this->config['recipient_name'] );
+            //print_o( $message );
+            
             // Send the message
             $result = $mailer->send( $message );
             if ( $result ) {
@@ -532,10 +556,23 @@
 
             $ret = '';
             
+            /* get fields of validation error and build a string */
+            $fieldnames_string = false;
+            foreach ( $this->validation as $key => $item ) {
+                $fieldnames[] = $this->fields[$key]['label'];
+            }
+            if ( isset( $fieldnames ) ) $fieldnames_string = implode( ', ', $fieldnames );
+            
+            /* loop the messages */
             if ( is_array( $this->messages ) ) {
                 $ret .= '<div class="messages">';
                 foreach($this->messages as $key => $value ) {
-                    $ret .= '<p class="error">' . $this->config[ $key ] . '</p>';
+                    
+                    $message = $this->config[ $key ];
+                    
+                    if ( $fieldnames_string ) $message = str_replace( '{fields}', $fieldnames_string, $message );
+                    
+                    $ret .= '<div class="error">' . $message . '</div>';
                 }
                 $ret .= '</div>';
             }
@@ -797,10 +834,10 @@
             $ret .= $this->list_item_after();
             $this->code .= $ret;
         }
-		
-		
-		
-		/** 
+        
+        
+        
+        /** 
         * Hidden
         * gibt den HTML-Code für ein Hidden-Feld aus.
         *
@@ -826,10 +863,10 @@
             $ret .= '<input name="' . $this->get_field_name( $p ) . '" type="hidden" value="' . $this->get_field_value( $p ) . '"/>';
             $this->code .= $ret;
         }
-		
-		
-		
-		/** 
+        
+        
+        
+        /** 
         * Strukturelemente, Begin und Ende von Listen.
         *
         * @vari     list_before
@@ -838,11 +875,11 @@
         */
 
         protected function list_begin( $p = array() ) {
-        	
-			$p += array(
-				'class' => false
-			);
-	
+            
+            $p += array(
+                'class' => false
+            );
+    
             $class = false;
             if ( $p['class'] ) $class .= ' ' . $p['class'];
 
@@ -941,8 +978,8 @@
         */
 
         protected function get_label( $p = array() ) {
-			
-			$p += array(
+            
+            $p += array(
                 'label' => 'no name', 
                 'name' => 'noname',
                 'label_sufix' => false
@@ -1008,6 +1045,9 @@
             $tag = $this->list_item_before;
 
             $class = 'field-item';
+            
+            if ( isset( $this->validation[ $this->get_field_name( $p ) ] ) ) $class .= ' fielderror';
+            
             if ( isset($p['fieldtype']) ) $class .= ' field-item-type-' . $p['fieldtype'];
             if ( $p['class'] ) $class .= ' ' . $p['class'];
 
@@ -1017,7 +1057,7 @@
             $style = '';
             if ( $p['padding'][0] > 0 ) $style .= 'padding-left: ' . $p['padding'][0] . 'px;';
             if ( $p['padding'][1] > 0 ) $style .= 'padding-right: ' . $p['padding'][1] . 'px;';
-
+            
             $ret = str_replace('>', ' style="' . $style . '" class="' . $class . '">', $tag);
             if ( $this->depht > 1 ) $ret .= '<div class="fields-wrap' . $class2 . '">';
             
