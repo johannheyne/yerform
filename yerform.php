@@ -1071,7 +1071,8 @@
 
             $p += array(
                 'legend' => 'no titel',
-                'class' => false
+                'class' => false,
+                'require_info' => false
             );
 
             $class = '';
@@ -1079,6 +1080,10 @@
 
             $this->code .= '<fieldset' . $class . '>';
             $this->code .= '<legend>' . $p['legend'] . '</legend>';
+
+            if ( $p['require_info'] ) {
+                $this->require_info( $p['require_info'] );
+            }
         }
 
         protected function fieldset_end() {
