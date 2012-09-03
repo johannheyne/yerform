@@ -3,7 +3,7 @@
     /**
     * yerform
     *
-    * An e-mail class for 5.2.0 or newer
+    * an e-mail form class for PHP 5.2.0 or newer
     *
     * @author       Johann Heyne
     * @copyright    Copyright (c) Johann Heyne
@@ -57,21 +57,21 @@
         public function config( $p = array() ) {
 
             $p += array(
-            'honeypot' => false,
-            'mail_subject' => false,
-            'sender_mail' => false,
-            'sender_name' => false,
-            'field_sender_mail' => false,
-            'fields_sender_name' => false,
-            'recipient_mail' => false,
-            'recipient_name' => false,
-            'mail_text' => false,
-            'sender_mail' => false,
-            'sender_name' => false,
-            'message_error_main' => 'The formular could not be send!',
-            'message_mail_sending' => 'The e-mail is sending!',
-            'message_mail_sent' => 'The e-mail was sent!',
-            'message_honeypot' => 'Yer cheating!'
+                'honeypot' => false,
+                'mail_subject' => false,
+                'sender_mail' => false,
+                'sender_name' => false,
+                'field_sender_mail' => false,
+                'fields_sender_name' => false,
+                'recipient_mail' => false,
+                'recipient_name' => false,
+                'mail_text' => false,
+                'sender_mail' => false,
+                'sender_name' => false,
+                'message_error_main' => 'The formular could not be send!',
+                'message_mail_sending' => 'The e-mail is sending!',
+                'message_mail_sent' => 'The e-mail was sent!',
+                'message_honeypot' => 'Yer cheating!'
             );
 
             foreach ( $p as $key => $value ) {
@@ -218,21 +218,6 @@
 
         protected function validation() {
             
-            /*
-                validation
-                    min & max
-                        formating as for php strtotime()
-                            "now"
-                            "05-07-2012"
-                            "05-07-2012 -1 day"
-                            "10 September 2000"
-                            "+1 day"
-                            "+1 week"
-                            "-1 year +2 days"
-                            "next Thursday"
-                            "last Monday"
-            */
-
             /* go thru each item of set */
             foreach( $this->set as $num => $field ) {
 
