@@ -145,7 +145,7 @@
             // mail sending
             if ( $this->send === true ) {
 
-                echo '<meta http-equiv="refresh" content="0; URL=' . $this-conf['sent_page'] . '?sent=true">';
+                echo '<meta http-equiv="refresh" content="0; URL=' . $this->conf['sent_page'] . '?sent=true">';
                 $this->messages['message_mail_sending'] = true;
                 $this->messages();
                 
