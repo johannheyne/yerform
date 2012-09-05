@@ -1089,9 +1089,10 @@
             );
 
             $class = '';
-            if ( $p['class'] ) $class = ' class="' . $p['class'] . '"';
+            if ( $p['class'] ) $class = ' class="fieldset ' . $p['class'] . '"';
 
-            $this->code .= '<fieldset' . $class . '>';
+            $this->code .= '<div' . $class . '>';
+            $this->code .= '<fieldset>';
             $this->code .= '<legend class="' . $p['class_legend'] . '">' . $p['legend'] . '</legend>';
 
             if ( $p['require_info'] ) {
@@ -1101,7 +1102,7 @@
 
         protected function fieldset_end() {
 
-            $this->code .= '</fieldset>';
+            $this->code .= '</fieldset></div>';
         }
         
         
