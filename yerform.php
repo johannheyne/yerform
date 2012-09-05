@@ -57,6 +57,7 @@
         public function config( $p = array() ) {
 
             $p += array(
+                'form_class' => false,
                 'honeypot' => false,
                 'mail_subject' => false,
                 'sender_mail' => false,
@@ -504,7 +505,7 @@
         protected function get_form() {
 
             $ret = '';
-            $ret .= '<form id="' . $this->form_id . '" class="form" action="" method="post" enctype="multipart/form-data" name="form" target="_self">';
+            $ret .= '<form id="' . $this->form_id . '" class="form ' . $this->config['form_class'] . '" action="" method="post" enctype="multipart/form-data" name="form" target="_self">';
             $ret .= $this->code;
             $ret .= '</form>';
             

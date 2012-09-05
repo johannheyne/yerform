@@ -29,6 +29,7 @@ $form->form_id = 'my_contact_form';
 h3. Configuration
 
 <pre><code>$form->config( array(
+    'form_class' => false,
     'honeypot' => 'Honeypot',
     'mail_subject' => 'Contact',
     'field_sender_mail' => 'email',
