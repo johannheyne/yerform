@@ -60,6 +60,7 @@
 
             $p += array(
                 'form_class' => false,
+                'sent_page' => false,
                 'honeypot' => false,
                 'mail_subject' => false,
                 'sender_mail' => false,
@@ -144,7 +145,7 @@
             // mail sending
             if ( $this->send === true ) {
 
-                echo '<meta http-equiv="refresh" content="0; URL=?sent=true">';
+                echo '<meta http-equiv="refresh" content="0; URL=' . $this-conf['sent_page'] . '?sent=true">';
                 $this->messages['message_mail_sending'] = true;
                 $this->messages();
                 
