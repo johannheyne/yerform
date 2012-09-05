@@ -1080,7 +1080,7 @@
             if ( $p['class'] ) $class = ' class="' . $p['class'] . '"';
 
             $this->code .= '<fieldset' . $class . '>';
-            $this->code .= '<legend>' . $p['legend'] . '</legend>';
+            $this->code .= '<legend class="' . $p['class_legend'] . '">' . $p['legend'] . '</legend>';
 
             if ( $p['require_info'] ) {
                 $this->require_info( $p['require_info'] );
