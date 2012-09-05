@@ -21,6 +21,8 @@
         protected $label_after = '</div>';
         protected $fields_before = '<div class="fields">';
         protected $fields_after = '</div>';
+        protected $field_before = '<div class="field">';
+        protected $field_after = '</div>';
         protected $depht = 1;
         protected $code = '';
         protected $request = false;
@@ -596,10 +598,12 @@
             $ret .= $this->list_item_before( $p );
             $ret .= $this->get_label( $p );
             $ret .= $this->fields_before;
+            $ret .= $this->field_before;
             $ret .= '<input class="form-field field-margin-right" type="text" id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" value="' . $this->get_field_value( $p ) . '" size="' . $p['size'] . '" maxlength="' . $p['maxlength'] . '"/>';
+            $ret .= $this->field_after;
+            $ret .= $this->get_field_sufix( $p );
             $ret .= $this->get_field_messages( $p );
             $ret .= $this->fields_after;
-            $ret .= $this->get_field_sufix( $p );
             $ret .= $this->list_item_after();
             $this->code .= $ret;
         }
@@ -628,10 +632,12 @@
             $ret .= $this->list_item_before( $p );
             $ret .= $this->get_label( $p );
             $ret .= $this->fields_before;
+            $ret .= $this->field_before;
             $ret .= '<textarea id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" cols="' . $p['cols'] . '" rows="' . $p['rows'] . '">' . $this->get_field_value( $p ) . '</textarea>';
+            $ret .= $this->field_after;
+            $ret .= $this->get_field_sufix( $p );
             $ret .= $this->get_field_messages( $p );
             $ret .= $this->fields_after;
-            $ret .= $this->get_field_sufix( $p );
             $ret .= $this->list_item_after();
             $this->code .= $ret;
         }
@@ -667,16 +673,17 @@
             $ret .= $this->list_item_before( $p );
             $ret .= $this->get_label( $p );
             $ret .= $this->fields_before;
-            
+            $ret .= $this->field_before;
             $ret .= '<select name="' . $this->get_field_name( $p ) . '">';
             foreach($p['data'] as $key => $value) {
                 if ( $this->get_field_value( $p ) == $key ) { $selected = ' selected'; } else { $selected = ''; }
                 $ret .= '<option value="' . $key . '"' . $selected . '>' . $value . '</option>';
             }
             $ret .= '</select>';
+            $ret .= $this->field_after;
+            $ret .= $this->get_field_sufix( $p );
             $ret .= $this->get_field_messages( $p );
             $ret .= $this->fields_after;
-            $ret .= $this->get_field_sufix( $p );
             $ret .= $this->list_item_after();
             $this->code .= $ret;
         }
@@ -740,7 +747,9 @@
             $ret .= $this->list_item_before( $p );
             $ret .= $this->get_label( $p );
             $ret .= $this->fields_before;
+            $ret .= $this->field_before;
             $ret .= '<input class="form-field field-margin-right' . $class . '" type="text" id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" value="' . $this->get_field_value( $p ) . '" size="' . $p['size'] . '" maxlength="' . $p['maxlength'] . '"' .  $data . '/>';
+            $ret .= $this->field_after;
             $ret .= $this->get_field_messages( $p );
             $ret .= $this->fields_after;
             $ret .= $this->list_item_after();
@@ -780,7 +789,9 @@
             $ret = '';
             $ret .= $this->list_item_before( $p );
             $ret .= $this->fields_before;
+            $ret .= $this->field_before;
             $ret .= '<input class="form-field field-margin-right" type="checkbox" id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" value="' . $p['data'] . '"' . $checked . '/>';
+            $ret .= $this->field_after;
             $ret .= $this->get_field_messages( $p );
             $ret .= $this->fields_after;
             $ret .= $this->get_label( $p );
