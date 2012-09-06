@@ -26,6 +26,7 @@
         protected $depht = 1;
         protected $code = '';
         protected $request = false;
+        protected $files = false;
         protected $send = false;
         protected $set = false;
         protected $fields = false;
@@ -47,6 +48,7 @@
 
             if ( $_REQUEST AND isset( $_REQUEST['submit'] ) ) {
                 $this->request = $_REQUEST;
+                $this->files = $_FILES;
             }
         }
         
@@ -72,10 +74,10 @@
                 'mail_text' => false,
                 'sender_mail' => false,
                 'sender_name' => false,
-                'message_error_main' => 'The formular could not be send!',
-                'message_mail_sending' => 'The e-mail is sending!',
-                'message_mail_sent' => 'The e-mail was sent!',
-                'message_honeypot' => 'Yer cheating!'
+                'message_error_main' => array( 'typ'=>'error', 'text'=>'The formular could not be send!' ),
+                'message_mail_sending' => array( 'typ'=>'info', 'text'=>'The e-mail is sending!' ),
+                'message_mail_sent' => array( 'typ'=>'info', 'text'=>'The e-mail was sent!' ),
+                'message_honeypot' => array( 'typ'=>'info', 'text'=>'Yer cheating!' )
             );
 
             foreach ( $p as $key => $value ) {
@@ -108,6 +110,7 @@
                 $f === 'field_textarea' OR
                 $f === 'field_select' OR
                 $f === 'field_checkbox' OR
+                $f === 'field_file' OR
                 $f === 'field_date'
             ) {
                 $this->fields[ $p['name'] ] = $p;
@@ -245,7 +248,8 @@
 
                         // type of required, disables all other validations rules 
                         if ( $valid['type'] === 'required' AND $valid['cond'] === true ) {
-                            if ( !isset( $this->request[ $p['name'] ] ) OR $this->request[ $p['name'] ] === '' ) $this->validation[ $p['name'] ][] = $valid['message'];
+                            if ( !isset( $this->request[ $p['name'] ] ) AND $this->files[ $p['name'] ]['error'] !== 0  ) $this->validation[ $p['name'] ][] = $valid['message'];
+                            if ( isset( $this->request[ $p['name'] ] ) AND $this->request[ $p['name'] ] === '' ) $this->validation[ $p['name'] ][] = $valid['message'];
                         }
 
                         // all other validation rules 
@@ -557,6 +561,7 @@
             
             /* get fields of validation error and build a string */
             $fieldnames_string = false;
+            
             foreach ( $this->validation as $key => $item ) {
                 $fieldnames[] = $this->fields[$key]['label'];
             }
@@ -571,7 +576,7 @@
                     
                     if ( $fieldnames_string ) $message = str_replace( '{fields}', $fieldnames_string, $message );
                     
-                    $ret .= '<div class="error">' . $message . '</div>';
+                    $ret .= '<div class="' . $message['typ'] . '">' . $message['text'] . '</div>';
                 }
                 $ret .= '</div>';
             }
