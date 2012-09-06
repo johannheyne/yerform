@@ -27,7 +27,7 @@
         protected $code = '';
         protected $request = false;
         protected $files = false;
-        protected $send = false;
+        protected $sent = false;
         protected $set = false;
         protected $fields = false;
         protected $config = false;
@@ -146,9 +146,9 @@
 
 
             // mail sending
-            if ( $this->send === true ) {
+            if ( $this->sent === true ) {
 
-                echo '<meta http-equiv="refresh" content="0; URL=' . $this->conf['sent_page'] . '?sent=true">';
+                echo '<meta http-equiv="refresh" content="0; URL=' . $this->config['sent_page'] . '?sent=true">';
                 $this->messages['message_mail_sending'] = true;
                 $this->messages();
                 
@@ -451,7 +451,7 @@
                 print_o($mail->ErrorInfo );
             }
             else {
-                $this->send = true;
+                $this->sent = true;
                 $this->request = false;
             }*/
 
@@ -495,7 +495,7 @@
             if ( isset($_FILES) ) {
                 foreach ( $_FILES as $key => $item ) {
                     if ( $item['tmp_name'] != '' ) {
-                        $message->attach(Swift_Attachment::fromPath( $item['tmp_name'] ));
+                        $message->attach( Swift_Attachment::fromPath( $item['tmp_name'] )->setFilename($item['name']) );
                     }
                 }
             }
@@ -506,7 +506,7 @@
             // Send the message
             $result = $mailer->send( $message );
             if ( $result ) {
-                $this->send = true;
+                $this->sent = true;
                 $this->request = false;
             }
 
@@ -562,8 +562,10 @@
             /* get fields of validation error and build a string */
             $fieldnames_string = false;
             
-            foreach ( $this->validation as $key => $item ) {
-                $fieldnames[] = $this->fields[$key]['label'];
+            if ( isset ( $this->validation ) AND is_array( $this->validation ) ) {
+                foreach ( $this->validation as $key => $item ) {
+                    $fieldnames[] = $this->fields[$key]['label'];
+                }
             }
             if ( isset( $fieldnames ) ) $fieldnames_string = implode( ', ', $fieldnames );
             
