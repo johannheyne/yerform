@@ -201,6 +201,7 @@
                         if ( $item['f'] === 'field_select' )    $this->field_select( $item['p'] );
                         if ( $item['f'] === 'field_checkbox' )  $this->field_checkbox( $item['p'] );
                         if ( $item['f'] === 'field_date' )      $this->field_date( $item['p'] );
+                        if ( $item['f'] === 'field_file' )      $this->field_file( $item['p'] );
                         if ( $item['f'] === 'field_html' )      $this->field_html( $item['p'] );
                         if ( $item['f'] === 'form_buttons' )    $this->form_buttons( $item['p'] );
                         if ( $item['f'] === 'fieldset_begin' )  $this->fieldset_begin( $item['p'] );
@@ -232,6 +233,7 @@
                 if ( 
                     $f === 'field_text' OR
                     $f === 'field_date' OR  
+                    $f === 'field_file' OR  
                     $f === 'field_select'   
                 ) {
 
@@ -485,6 +487,15 @@
                 ->setTo( array( $this->config['recipient_mail'] => $this->config['recipient_name'] ) )
                 ->setBody( $mail_text );
             
+            // Attache files
+            if ( isset($_FILES) ) {
+                foreach ( $_FILES as $key => $item ) {
+                    if ( $item['tmp_name'] != '' ) {
+                        $message->attach(Swift_Attachment::fromPath( $item['tmp_name'] ));
+                    }
+                }
+            }
+           
             //print_o( $mail_subject . $sender_mail .  $sender_name . $mail_text . $this->config['recipient_mail'] . $this->config['recipient_name'] );
             //print_o( $message );
             
@@ -799,6 +810,46 @@
             $ret .= $this->get_field_sufix( $p );
             $ret .= $this->list_item_after();
             
+            $this->code .= $ret;
+        }
+        
+        
+        
+        /** 
+        * File
+        * gibt den HTML-Code für ein Dateifeld aus.
+        *
+        * @child    get_label()
+        * @vari     list_item_before
+        * @vari     fields_before
+        * @vari     fields_after
+        * @vari     code
+        */
+        
+        protected function field_file( $p = array() ) {
+            
+            $p += array(
+                'label' => 'no name', 
+                'name' => 'noname',
+                'array' => false,
+                'size' => $this->field_text_size / 2,
+                'padding' => array(0,0),
+                'layout' => false
+            );
+            
+            $p['fieldtype'] = 'file';
+            
+            $ret = '';
+            $ret .= $this->list_item_before( $p );
+            $ret .= $this->get_label( $p );
+            $ret .= $this->fields_before;
+            $ret .= $this->field_before;
+            $ret .= '<input name="' . $this->get_field_name( $p ) . '" type="file" size="' . $p['size'] . '">';
+            $ret .= $this->field_after;
+            $ret .= $this->get_field_sufix( $p );
+            $ret .= $this->get_field_messages( $p );
+            $ret .= $this->fields_after;
+            $ret .= $this->list_item_after();
             $this->code .= $ret;
         }
         
