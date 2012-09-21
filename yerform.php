@@ -78,6 +78,7 @@
 
             $p += array(
                 'form_class' => false,
+                'action' => false,
                 'sent_page' => false,
                 'honeypot' => false,
                 'mail_subject' => false,
@@ -551,7 +552,7 @@
         protected function get_form() {
 
             $ret = '';
-            $ret .= '<form id="' . $this->form_id . '" class="form ' . $this->config['form_class'] . '" action="" method="post" enctype="multipart/form-data" name="form" target="_self">';
+            $ret .= '<form id="' . $this->form_id . '" class="form ' . $this->config['form_class'] . '" action="' . $this->config['action'] . '" method="post" enctype="multipart/form-data" name="form" target="_self">';
             $ret .= $this->code;
             $ret .= '</form>';
             

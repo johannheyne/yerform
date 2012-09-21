@@ -30,6 +30,7 @@ h3. Configuration
 
 <pre><code>$form->config( array(
     'form_class' => false,
+    'action' => false,
     'sent_page' => false,
     'honeypot' => 'Honeypot',
     'mail_subject' => 'Contact',
