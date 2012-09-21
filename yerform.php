@@ -163,12 +163,24 @@
 
             // mail sending
             if ( $this->sent === true ) {
-
-                echo '<meta http-equiv="refresh" content="0; URL=' . $this->config['sent_page'] . '?sent=true">';
-                $this->messages['message_mail_sending'] = true;
-                $this->messages();
+            
+                $_GET['ajax'] = 'y';
                 
-                echo $this->get_form();
+                if ( !$_GET['ajax'] ) {
+                    echo '<meta http-equiv="refresh" content="0; URL=' . $this->config['sent_page'] . '?sent=true">';
+                    $this->messages['message_mail_sending'] = true;
+                    $this->messages();
+                
+                    echo $this->get_form();
+                }
+                else {
+                    
+                    $this->messages['message_mail_sent'] = true;
+                    $this->messages();
+
+                    echo $this->get_form();
+                }
+                
             }
 
 
