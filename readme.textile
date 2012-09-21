@@ -195,7 +195,13 @@ h3. Date
     'type' => 'date',
     'min' => '+1 day',
     'max' => '+2 year',
-    'checkdate' => $messages['checkdate'],
+    'dependency' => array(
+        'field' => 'fieldname',
+        'value' => '+1 day',
+        'operator' => '>=',
+        'message' => $messages['date-dependency']
+	),
+    'message-checkdate' => $messages['checkdate'],
     'message-dateformat' => $messages['dateformat'],
     'message-min-max' => $messages['date-min-max']
 )
@@ -213,6 +219,9 @@ For example:
 '-1 year +2 days'
 'next Thursday'
 'last Monday'
+
+*dependency*
+Depending the value with the value of another date-field.
 
 *checkdate*
 If a date not exists for example 32.13.2012
