@@ -51,6 +51,10 @@ h3. Configuration
 );
 </code></pre>
 
+*sent_page*
+<em>(string)</em> URL to redirect, after a form was sent.
+The <em>default</em> is false.
+
 h2. Building the form structure
 
 <pre><code>$form->set( 'fieldset_begin', array(
@@ -128,7 +132,6 @@ h3. Textarea
     'rows' => $this->field_textarea_rows,
     'padding' => array(0,0),
     'layout' => false
-
     )
 );
 </code></pre>
