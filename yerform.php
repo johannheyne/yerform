@@ -45,7 +45,6 @@
         public function __construct() {
 
             $this->config['honeypot'] = false;
-
             if ( $_REQUEST ) {
                 
                 foreach ( $_REQUEST as $key => $value ) {
@@ -54,6 +53,7 @@
                 
                  $this->files = $_FILES;
             }
+            
         }
         
         
@@ -141,7 +141,8 @@
         */
 
         public function run() {
-
+            
+            
             // if request
             if ( $this->request ) {
 
