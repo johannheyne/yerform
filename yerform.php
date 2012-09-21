@@ -46,7 +46,7 @@
 
             $this->config['honeypot'] = false;
 
-            if ( $_REQUEST AND isset( $_REQUEST['submit'] ) ) {
+            if ( $_REQUEST ) {
                 
                 foreach ( $_REQUEST as $key => $value ) {
                    $this->request[ $key ] = $this->sanitize( $value );
