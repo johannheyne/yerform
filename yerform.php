@@ -313,7 +313,7 @@
 
                                 // checkdate
                                 if ( !isset( $this->validation[ $p['name'] ] ) AND !checkdate( $date[1], $date[0], $date[2] ) ) {
-                                    $this->validation[ $p['name'] ][] = $valid['checkdate'];
+                                    $this->validation[ $p['name'] ][] = $valid['message-checkdate'];
                                 }
 
                                 // min-max
