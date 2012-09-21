@@ -59,7 +59,7 @@
         
         
         /** 
-        * Sanitizing
+        * sanitizing
         */
         
         protected function sanitize( $string ) {
