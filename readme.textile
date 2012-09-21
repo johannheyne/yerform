@@ -57,8 +57,12 @@ The <em>default</em> is false.
 
 h2. Building the form structure
 
+The basic structure are fieldsets. Inside a fieldset belongs a list. Inside a list belongs fields. A field represents a single list-item. But you can use groups for nesting the list.
+
 <pre><code>$form->set( 'fieldset_begin', array(
-    'legend'=>'Contactdata'
+    'legend'=>'Contactdata',
+    'class'=>false,
+    'require_info'=>'*required'
     )
 );
     $form->set( 'list_begin' );
