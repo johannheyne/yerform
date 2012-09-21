@@ -47,9 +47,25 @@
             $this->config['honeypot'] = false;
 
             if ( $_REQUEST AND isset( $_REQUEST['submit'] ) ) {
-                $this->request = $_REQUEST;
-                $this->files = $_FILES;
+                
+                foreach ( $_REQUEST as $key => $value ) {
+                   $this->request[ $key ] = $this->sanitize( $value );
+                }
+                
+                 $this->files = $_FILES;
             }
+        }
+        
+        
+        
+        /** 
+        * Sanitizing
+        */
+        
+        protected function sanitize( $string ) {
+            $string = strip_tags( $string );
+            $string = htmlspecialchars( $string, ENT_QUOTES );
+            return $string;
         }
         
         
