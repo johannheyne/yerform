@@ -15,9 +15,9 @@ jQuery(document).ready(function(){
 			changeYear: true,
 			changeMonth: true,
 			buttonImageOnly: true,
-			buttonImage: "/1dk8ekm5/wp-content/themes/rsa/assets/jquery-ui/datepicker-icon.png",
+			buttonImage: "/1dk8ekm5/wp-content/themes/name/assets/jquery-ui/datepicker-icon.png",
 			showOn: 'both',
-			buttonText: 'wähle Datum…',
+			buttonText: 'choose date…',
 			minDate: min,
 			maxDate: max
 		});
