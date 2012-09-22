@@ -457,40 +457,9 @@
 
 
 
-            // mail it with PHPMailer
-
-            /*require_once 'class.phpmailer.php';
-            $mail = new PHPMailer();
-
-            $mail->CharSet = 'utf-8';
-            $mail->IsSMTP();
-            $mail->SMTPAuth = true;                  // enable SMTP authentication
-            $mail->SMTPDebug  = 1;                     // enables SMTP debug information (for testing)
-            $mail->Host = "mail.yourdomain.com"; // sets the SMTP server
-            //$mail->Port = 587;                    // set the SMTP port for the GMAIL server
-            $mail->Username = "mail+reiseservice-africa.de"; // SMTP account username
-            $mail->Password = "xnL?bfC2sEpC";        // SMTP account password
-            // enables SMTP debug information (for testing)
-            $mail->SetFrom( $sender_mail, $sender_name );
-            $mail->AddReplyTo( $sender_mail, $sender_name );
-            $mail->AddAddress( $this->config['recipient_mail'], $this->config['recipient_name'] );
-            $mail->Subject = 'Kontaktformular';
-            $mail->Body = eregi_replace( "[\]",'', $mail_text );
-            if ( isset($_FILES['file']['tmp_name']) && $_FILES['file']['tmp_name'] !== '' ) $mail->AddAttachment( $_FILES['file']['tmp_name'], $_FILES['file']['name']) ; // attachment
-            if ( !$mail->Send() ) {
-                print_o($mail->ErrorInfo );
-            }
-            else {
-                $this->sent = true;
-                $this->request = false;
-            }*/
-
-
-
-
             // mail it with Swiftmailer
 
-            require_once 'lib/swift_required.php';
+            require_once 'swift/lib/swift_required.php';
 
             // Create the Transport
                 
