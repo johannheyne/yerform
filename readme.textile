@@ -10,6 +10,7 @@ h2. Roadmap
 
 * basic css styling, focusing on layoutoptions
 * definable dateformat for date validation
+* config swift (PHP Mail, Sendmail, Smtp & SSL)
 * complete documentation
 * captcha
 
