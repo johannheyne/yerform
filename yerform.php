@@ -692,7 +692,7 @@
             $ret .= $this->get_label( $p );
             $ret .= $this->fields_before;
             $ret .= $this->field_before;
-            $ret .= '<select name="' . $this->get_field_name( $p ) . '">';
+            $ret .= '<select id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '">';
             foreach($p['data'] as $key => $value) {
                 if ( $this->get_field_value( $p ) == $key ) { $selected = ' selected'; } else { $selected = ''; }
                 $ret .= '<option value="' . $key . '"' . $selected . '>' . $value . '</option>';
