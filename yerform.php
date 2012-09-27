@@ -45,7 +45,7 @@
         public function __construct() {
 
             $this->config['honeypot'] = false;
-            if ( $_REQUEST ) {
+            if ( $_REQUEST && isset( $_REQUEST['yerform'] ) ) {
                 
                 foreach ( $_REQUEST as $key => $value ) {
                    $this->request[ $key ] = $this->sanitize( $value );
@@ -488,7 +488,7 @@
             $message = Swift_Message::newInstance( $mail_subject )
                 ->setFrom( array( $sender_mail => $sender_name ) )
                 ->setTo( array( $this->config['recipient_mail'] => $this->config['recipient_name'] ) )
-                ->setBody( $mail_text );
+                ->setBody( trim( stripslashes( $mail_text ) ) );
             
             // Attache files
             if ( isset($_FILES) ) {
@@ -523,6 +523,7 @@
 
             $ret = '';
             $ret .= '<form id="' . $this->form_id . '" class="form ' . $this->config['form_class'] . '" action="' . $this->config['action'] . '" method="post" enctype="multipart/form-data" name="form" target="_self">';
+            $ret .= '<input name="yerform" type="hidden" value="yerform"/>';
             $ret .= $this->code;
             $ret .= '</form>';
             
