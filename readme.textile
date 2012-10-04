@@ -91,6 +91,7 @@ h3. Text
     'array' => false,
     'label' => 'no name',
     'sufix' => '',
+    'value' => '',
     'size' => '40',
     'maxlength' => '200',
     'layout' => false,
@@ -111,30 +112,34 @@ h3. Text
 *sufix*
 <em>(string)</em> Displaying after the Field.
 
+*value*
+<em>(string)</em> Definess a value prefilled.
+
 *size*
-<em>(integer)</em> Define the size of the textfield. 
+<em>(integer)</em> Defines the size of the textfield. 
 The <em>default</em> is $form->field_text_size = 40.
 
 *maxlength*
-<em>(integer)</em> Define the maximal lenght of the textfields content. 
+<em>(integer)</em> Defines the maximal lenght of the textfields content. 
 The <em>default</em> is $form->field_text_maxlength = 200.
 
 *layout*
-<em>(false | string)</em> Define the orientation in the layout. Can be false or 'horizontal'.
+<em>(false | string)</em> Defines the orientation in the layout. Can be false or 'horizontal'.
 
 *padding*
-<em>(array( integer-left, integer-right ))</em> Define the left and right padding of the field list-item. 
+<em>(array( integer-left, integer-right ))</em> Defines the left and right padding of the field list-item. 
 This is usefull for giving horizontal orientated fields some spacing.
 
 *class*
-<em>(string)</em> Define a class on the field list-item.
+<em>(string)</em> Defines a class on the field list-item.
 
 h3. Textarea
 
 <pre><code>$form->set( 'field_textarea', array(
     'name' => 'noname',
     'array' => false,
-    'label' => 'no name', 
+    'label' => 'no name',
+    'value' => '',
     'cols' => $this->field_textarea_cols,
     'rows' => $this->field_textarea_rows,
     'padding' => array(0,0),
@@ -147,6 +152,7 @@ h3. Checkbox
 
 <pre><code>$form->set( 'field_checkbox', array(
     'name' => 'noname',
+    'array' => false,
     'label' => 'no name',
     'data' => 'checked'
     )
@@ -157,10 +163,31 @@ h3. Radio
 
 <pre><code>$form->set( 'field_radio', array(
     'name' => 'noname',
+    'array' => false,
     'label' => 'no name',
     'data' => 'checked'
     )
 );
+</code></pre>
+
+h3. Select
+
+<pre><code>$form->set( 'field_select', array(
+    'name' => 'noname',
+	'array' => false,
+	'label' => 'no name',
+	'data' => array(
+		'' => 'wähle…'
+	)
+));
+</code></pre>
+
+h3. Hidden
+
+<pre><code>$form->set( 'field_hidden', array(
+    'name' => 'noname',
+	'value' => ''
+));
 </code></pre>
 
 h2. Validation
@@ -220,7 +247,7 @@ h3. Date
 </code></pre>
 
 *min max*
-<em>(You can use the same date definitions as for strtotime())</em> Define the minimum and maximum of the date.
+<em>(You can use the same date definitions as for strtotime())</em> Defines the minimum and maximum of the date.
 For example:
 'now'
 '05-07-2012'
