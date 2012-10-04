@@ -127,6 +127,7 @@
                 $f === 'field_textarea' OR
                 $f === 'field_select' OR
                 $f === 'field_checkbox' OR
+                $f === 'field_radio' OR
                 $f === 'field_file' OR
                 $f === 'field_date'
             ) {
@@ -233,6 +234,7 @@
                         if ( $item['f'] === 'field_textarea' )  $this->field_textarea( $item['p'] );
                         if ( $item['f'] === 'field_select' )    $this->field_select( $item['p'] );
                         if ( $item['f'] === 'field_checkbox' )  $this->field_checkbox( $item['p'] );
+                        if ( $item['f'] === 'field_radio' )     $this->field_radio( $item['p'] );
                         if ( $item['f'] === 'field_date' )      $this->field_date( $item['p'] );
                         if ( $item['f'] === 'field_file' )      $this->field_file( $item['p'] );
                         if ( $item['f'] === 'field_html' )      $this->field_html( $item['p'] );
@@ -810,6 +812,50 @@
             $ret .= $this->fields_before;
             $ret .= $this->field_before;
             $ret .= '<input class="form-field field-margin-right" type="checkbox" id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" value="' . $p['data'] . '"' . $checked . '/>';
+            $ret .= $this->field_after;
+            $ret .= $this->get_field_messages( $p );
+            $ret .= $this->fields_after;
+            $ret .= $this->get_label( $p );
+            $ret .= $this->get_field_sufix( $p );
+            $ret .= $this->list_item_after();
+            
+            $this->code .= $ret;
+        }
+        
+        
+        
+        /** 
+        * Radio
+        * gibt den HTML-Code für eine Radiobox aus.
+        *
+        * @child    get_label()
+        * @vari     list_item_before
+        * @vari     fields_before
+        * @vari     fields_after
+        * @vari     code
+        */
+
+        protected function field_radio( $p = array() ) {
+
+            $p += array(
+                'label' => 'no name', 
+                'name' => 'noname',
+                'array' => false,
+                'data' => 'checked',
+                'checked' => false,
+                'padding' => array(0,0),
+                'layout' => false
+            );
+
+            $p['fieldtype'] = 'radio';
+
+            if ( $this->get_field_value( $p ) !== '' OR $p['checked'] === true ) { $checked = ' checked'; } else { $checked = ''; }
+
+            $ret = '';
+            $ret .= $this->list_item_before( $p );
+            $ret .= $this->fields_before;
+            $ret .= $this->field_before;
+            $ret .= '<input class="form-field field-margin-right" type="radio" id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" value="' . $p['data'] . '"' . $checked . '/>';
             $ret .= $this->field_after;
             $ret .= $this->get_field_messages( $p );
             $ret .= $this->fields_after;

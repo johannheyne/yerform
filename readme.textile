@@ -14,6 +14,7 @@ h2. Roadmap
 * complete documentation
 * captcha
 
+* [done] field radio
 * [done] validation for email
 * [done] initial release
 
@@ -145,9 +146,19 @@ h3. Textarea
 h3. Checkbox
 
 <pre><code>$form->set( 'field_checkbox', array(
-    'name' => 'flugangebot',
-    'label' => 'yes',
-    'data' => 'yes'
+    'name' => 'noname',
+    'label' => 'no name',
+    'data' => 'checked'
+    )
+);
+</code></pre>
+
+h3. Radio
+
+<pre><code>$form->set( 'field_radio', array(
+    'name' => 'noname',
+    'label' => 'no name',
+    'data' => 'checked'
     )
 );
 </code></pre>
