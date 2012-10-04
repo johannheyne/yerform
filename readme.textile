@@ -174,11 +174,11 @@ h3. Select
 
 <pre><code>$form->set( 'field_select', array(
     'name' => 'noname',
-	'array' => false,
-	'label' => 'no name',
-	'data' => array(
-		'' => 'wähle…'
-	)
+    'array' => false,
+    'label' => 'no name',
+    'data' => array(
+        '' => 'wähle…'
+    )
 ));
 </code></pre>
 
@@ -186,7 +186,7 @@ h3. Hidden
 
 <pre><code>$form->set( 'field_hidden', array(
     'name' => 'noname',
-	'value' => ''
+    'value' => ''
 ));
 </code></pre>
 
@@ -239,7 +239,7 @@ h3. Date
         'value' => '+1 day',
         'operator' => '>=',
         'message' => $messages['date-dependency']
-	),
+    ),
     'message-checkdate' => $messages['checkdate'],
     'message-dateformat' => $messages['dateformat'],
     'message-min-max' => $messages['date-min-max']
