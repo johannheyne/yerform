@@ -77,7 +77,7 @@
         public function config( $p = array() ) {
 
             $p += array(
-                'form_class' => false,
+                'form_class' => '',
                 'action' => '',
                 'sent_page' => false,
                 'honeypot' => false,
