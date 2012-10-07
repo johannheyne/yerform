@@ -78,7 +78,7 @@
 
             $p += array(
                 'form_class' => false,
-                'action' => false,
+                'action' => '',
                 'sent_page' => false,
                 'honeypot' => false,
                 'mail_subject' => false,
