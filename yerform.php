@@ -1189,7 +1189,8 @@
             $p += array(
                 'legend' => 'no titel',
                 'class' => false,
-                'require_info' => false
+                'require_info' => false,
+                'class_legend' => false
             );
 
             $class = '';
