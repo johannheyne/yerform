@@ -1260,7 +1260,8 @@
         protected function get_field_name( $p = array() ) {
 
             $p += array(
-                'array' => false
+                'array' => false,
+                'name' => 'noname'
             );
 
             $name = $p['name'];
