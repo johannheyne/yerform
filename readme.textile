@@ -14,6 +14,7 @@ h2. Roadmap
 * complete documentation
 * captcha
 
+* [done] output type return and echo
 * [done] field radio
 * [done] validation for email
 * [done] initial release
@@ -57,6 +58,13 @@ h3. Configuration
 *sent_page*
 <em>(string)</em> URL to redirect, after a form was sent.
 The <em>default</em> is false.
+
+h2. Global messages
+
+This is for all global messages like validation and send status.
+
+<pre><code>$form->set( 'messages' );
+</code></pre>
 
 h2. Building the form structure
 
@@ -271,4 +279,18 @@ The date format will be changeable in futur.
 
 *message-min-max*
 If the date does not fit the given range of min and/or max.
+
+h2. Output the form
+
+<pre><code>$form->run( array(
+    'output' => 'return'
+    )
+);
+</code></pre>
+
+*output*
+<em>('echo' | 'return')</em> Defines the type of output.
+
+
+
 

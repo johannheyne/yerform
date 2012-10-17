@@ -141,8 +141,13 @@
         * runs the workflow ( validation, sending, formbuilding )
         */
 
-        public function run() {
+        public function run( $p = array() ) {
             
+            $p += array(
+                'output' => 'echo'
+            );
+            
+            $ret = '';
             
             // if request
             if ( $this->request ) {
@@ -246,7 +251,10 @@
                     }
                 }
 
-                echo $this->get_form();
+                $ret .= $this->get_form();
+                
+                if ( $p['output'] == 'echo' ) echo $ret;
+                if ( $p['output'] == 'return' ) return $ret;
             }
         }
         
