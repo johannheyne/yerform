@@ -14,6 +14,7 @@ h2. Roadmap
 * complete documentation
 * captcha
 
+* [done] prepared for using with ajax
 * [done] output type return and echo
 * [done] field radio
 * [done] validation for email
@@ -291,6 +292,21 @@ h2. Output the form
 *output*
 <em>('echo' | 'return')</em> Defines the type of output.
 
+h2. Ajax
 
+yerform is using a html redirect after sending the form to prevent resending the form by pagereload. This wont work, if the form is part of an ajax request. You can prevent this by adding the parameter ajax=y to the action url.
 
+<pre><code>jQuery('body').find('.formwrap form').submit( function(event) {
+    event.preventDefault();
 
+    var form = jQuery(this),
+    url = form.attr('action');
+
+    jQuery.post( url + '?ajax=y', form.serialize(), function( data ) {
+
+        jQuery('.formwrap').html( data );
+
+    });
+});
+</code></pre>
+ 

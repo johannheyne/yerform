@@ -89,8 +89,6 @@
                 'recipient_mail' => false,
                 'recipient_name' => false,
                 'mail_text' => false,
-                'sender_mail' => false,
-                'sender_name' => false,
                 'message_error_main' => array( 'typ'=>'error', 'text'=>'The formular could not be send!' ),
                 'message_mail_sending' => array( 'typ'=>'info', 'text'=>'The e-mail is sending!' ),
                 'message_mail_sent' => array( 'typ'=>'info', 'text'=>'The e-mail was sent!' ),
@@ -101,7 +99,7 @@
                 
                 if ( $value !== false ) $this->config[$key] = $value;
             }
-
+            
         }
         
         
@@ -143,6 +141,11 @@
 
         public function run( $p = array() ) {
             
+            /*
+                Parameter
+                output: echo, return
+            */
+            
             $p += array(
                 'output' => 'echo'
             );
@@ -170,24 +173,20 @@
 
 
             // mail sending
-            if ( $this->sent === true ) {
             
-                $_GET['ajax'] = 'y';
+            if ( $this->sent === true ) {
                 
-                if ( !$_GET['ajax'] ) {
-                    echo '<meta http-equiv="refresh" content="0; URL=' . $this->config['sent_page'] . '?sent=true">';
-                    $this->messages['message_mail_sending'] = true;
-                    $this->messages();
                 
-                    echo $this->get_form();
+                $this->messages['message_mail_sending'] = true;
+                $this->messages();
+                
+                if ( $_GET AND isset( $_GET['ajax'] ) ) {
                 }
                 else {
-                    
-                    $this->messages['message_mail_sent'] = true;
-                    $this->messages();
-
-                    echo $this->get_form();
+                    $ret .= '<meta http-equiv="refresh" content="0; URL=' . $this->config['sent_page'] . '?sent=true">';
                 }
+                
+                $ret .= $this->get_form();
                 
             }
 
@@ -198,7 +197,7 @@
                 $this->messages['message_mail_sent'] = true;
                 $this->messages();
                 
-                echo $this->get_form();
+                $ret .= $this->get_form();
             }
             // if not send show form
             else {
@@ -253,9 +252,11 @@
 
                 $ret .= $this->get_form();
                 
-                if ( $p['output'] == 'echo' ) echo $ret;
-                if ( $p['output'] == 'return' ) return $ret;
             }
+            
+            
+            if ( $p['output'] == 'echo' ) echo $ret;
+            if ( $p['output'] == 'return' ) return $ret;
         }
         
         
