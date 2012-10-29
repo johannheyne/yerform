@@ -619,17 +619,22 @@
                 'size' => $this->field_text_size,
                 'maxlength' => $this->field_text_maxlength,
                 'padding' => array(0,0),
-                'layout' => false
+                'layout' => false,
+                'placeholder' => false
             );
             
             $p['fieldtype'] = 'text';
+            
+            $attr = '';
+            
+            if ( $p['placeholder'] ) $attr .= ' placeholder="' . $p['placeholder'] . '"';
             
             $ret = '';
             $ret .= $this->list_item_before( $p );
             $ret .= $this->get_label( $p );
             $ret .= $this->fields_before;
             $ret .= $this->field_before;
-            $ret .= '<input class="form-field field-margin-right" type="text" id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" value="' . $this->get_field_value( $p ) . '" size="' . $p['size'] . '" maxlength="' . $p['maxlength'] . '"/>';
+            $ret .= '<input class="form-field field-margin-right" type="text" id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" value="' . $this->get_field_value( $p ) . '" size="' . $p['size'] . '" maxlength="' . $p['maxlength'] . '"' . $attr . '/>';
             $ret .= $this->field_after;
             $ret .= $this->get_field_sufix( $p );
             $ret .= $this->get_field_messages( $p );

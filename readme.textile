@@ -99,6 +99,7 @@ h3. Text
     'name' => 'no name',
     'array' => false,
     'label' => 'no name',
+    'placeholder' => false,
     'sufix' => '',
     'value' => '',
     'size' => '40',
@@ -119,11 +120,14 @@ h3. Text
 *label*
 <em>(string)</em> The label of the field.
 
+*placeholder*
+<em>(string)</em> Defines a placeholder text for the field.
+
 *sufix*
 <em>(string)</em> Displaying after the Field.
 
 *value*
-<em>(string)</em> Definess a value prefilled.
+<em>(string)</em> Defines a value prefilled.
 
 *size*
 <em>(integer)</em> Defines the size of the textfield. 
