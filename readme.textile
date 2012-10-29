@@ -49,9 +49,18 @@ h3. Configuration
         Message:
         {message}
     ",
-    'message_error_main' => 'Could not send form! Check the following fields: {fields}',
-    'message_mail_sending' => 'Is sending!',
-    'message_mail_sent' => 'Sent!'
+    'message_error_main' => array(
+        'typ'=>'error',
+        'text'=>'Could not send form! Check the following fields: {fields}'
+    ),
+    'message_mail_sending' => array(
+        'typ'=>'info',
+        'text'=>'Is sending!'
+    ),
+    'message_mail_sent' => array(
+        'typ'=>'info',
+        'text'=>'Sent!'
+    )
 ));
 </code></pre>
 
