@@ -107,8 +107,7 @@ h3. Text
     'layout' => false,
     'padding' => array( 0, 0 ),
     'class' => false
-    )
-);
+));
 </code></pre>
 
 *name*
@@ -158,8 +157,7 @@ h3. Textarea
     'rows' => $this->field_textarea_rows,
     'padding' => array(0,0),
     'layout' => false
-    )
-);
+));
 </code></pre>
 
 h3. Checkbox
@@ -169,8 +167,7 @@ h3. Checkbox
     'array' => false,
     'label' => 'no name',
     'data' => 'checked'
-    )
-);
+));
 </code></pre>
 
 h3. Radio
@@ -180,8 +177,7 @@ h3. Radio
     'array' => false,
     'label' => 'no name',
     'data' => 'checked'
-    )
-);
+));
 </code></pre>
 
 h3. Select
@@ -217,10 +213,9 @@ Just a sample, where to place the validation array:
             'type' => 'required',
             'cond' => true,
             'message' => $messages['required']
-            )
         )
     )
-);</code></pre>
+));</code></pre>
 
 Just put the messages for each validation error type in a variable as an array like this:
 $messages['required'];
@@ -290,8 +285,7 @@ h2. Output the form
 
 <pre><code>$form->run( array(
     'output' => 'return'
-    )
-);
+));
 </code></pre>
 
 *output*
@@ -314,4 +308,3 @@ yerform is using a html redirect after sending the form to prevent resending the
     });
 });
 </code></pre>
- 
