@@ -288,6 +288,44 @@ h2. Output the form
 *output*
 <em>('echo' | 'return')</em> Defines the type of output.
 
+h2.Submit and Reset Button
+
+<pre><code>$form->set( 'form_buttons', array(
+    'submit' => true,
+    'submit_label' => 'Submit',
+    'submit_class' => false,
+    'submit_btn_class' => false,
+    'reset' => true,
+    'reset_label' => 'Reset',
+    'reset_class' => false,
+    'reset_btn_class' => false
+));
+</code></pre>
+
+*submit*
+<em>(false | true)</em> Enables the submit-button.
+
+*submit_label*
+<em>(string)</em> Defines the buttontext.
+
+*submit_class*
+<em>(false | string)</em> Defines the class of the submit-button container.
+
+*submit_btn_class*
+<em>(false | string)</em> Defines the class of the submit-button itself.
+
+*reset*
+<em>(false | true)</em> Enables the reset-button.
+
+*reset_label*
+<em>(string)</em> Defines the buttontext.
+
+*reset_class*
+<em>(false | string)</em> Defines the class of the reset-button container.
+
+*reset_btn_class*
+<em>(false | string)</em> Defines the class of the reset-button itself.
+
 h2. Ajax
 
 yerform is using a html redirect after sending the form to prevent resending the form by pagereload. This wont work, if the form is part of an ajax request. You can prevent this by adding the parameter ajax=y to the action url.
