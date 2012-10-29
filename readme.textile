@@ -288,7 +288,7 @@ h2. Output the form
 *output*
 <em>('echo' | 'return')</em> Defines the type of output.
 
-h2.Submit and Reset Button
+h2. Submit and Reset Button
 
 <pre><code>$form->set( 'form_buttons', array(
     'submit' => true,
