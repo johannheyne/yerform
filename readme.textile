@@ -52,8 +52,7 @@ h3. Configuration
     'message_error_main' => 'Could not send form! Check the following fields: {fields}',
     'message_mail_sending' => 'Is sending!',
     'message_mail_sent' => 'Sent!'
-    )
-);
+));
 </code></pre>
 
 *sent_page*
@@ -75,16 +74,14 @@ The basic structure are fieldsets. Inside a fieldset belongs a list. Inside a li
     'legend'=>'Contactdata',
     'class'=>false,
     'require_info'=>'*required'
-    )
-);
+));
     $form->set( 'list_begin' );
         /* a field */
         /* or a field group */
         $form->set( 'group_begin', array(
             'label' => 'Groupname',
             'layout' => 'table'
-            )
-        );
+        ));
         /* some fields */
         $form->set( 'group_end');
     $form->set( 'list_end' );
