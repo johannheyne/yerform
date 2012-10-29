@@ -106,6 +106,7 @@ h3. Text
     'layout' => false,
     'padding' => array( 0, 0 ),
     'class' => false
+    )
 );
 </code></pre>
 
