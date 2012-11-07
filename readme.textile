@@ -76,6 +76,10 @@ h3. Configuration
     'message_mail_sent' => array(
         'typ'=>'info',
         'text'=>'Sent!'
+    ),
+    'messages_validation' => array(
+        'required' => array( 'text'=>'required' ),
+        'email' => array( 'text'=>'invalid' )
     )
 ));
 </code></pre>

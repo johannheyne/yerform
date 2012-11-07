@@ -92,7 +92,11 @@
                 'message_error_main' => array( 'typ'=>'error', 'text'=>'The formular could not be send!' ),
                 'message_mail_sending' => array( 'typ'=>'info', 'text'=>'The e-mail is sending!' ),
                 'message_mail_sent' => array( 'typ'=>'info', 'text'=>'The e-mail was sent!' ),
-                'message_honeypot' => array( 'typ'=>'info', 'text'=>'Yer cheating!' )
+                'message_honeypot' => array( 'typ'=>'info', 'text'=>'Yer cheating!' ),
+                'messages_validation' => array(
+                    'required' => array( 'text'=>'required' ),
+                    'email' => array( 'text'=>'invalid' )
+                )
             );
 
             foreach ( $p as $key => $value ) {
@@ -113,7 +117,43 @@
             $p += array(
                 'display' => true
             );
-
+            
+            /* if there is a field for the email of the form sender,
+               than make sure, to have the validationoptions for required and email.
+            */
+            
+            if ( $this->config['field_sender_mail'] && isset( $p['name'] ) && $p['name'] === $this->config['field_sender_mail'] ) {
+                
+                if ( isset( $p['validation'] ) ) {
+                    $p['validation'] += array(
+                        998 => array(
+                            'type' => 'required',
+                            'cond' => true,
+                            'message' => $this->config['messages_validation']['required']['text']
+                        ),
+                        999 => array(
+                            'type' => 'email',
+                            'message' => $this->config['messages_validation']['email']['text']
+                        )
+                    );
+                }
+                else {
+                    $p += array(
+                        'validation' => array(
+                            0 => array(
+                                'type' => 'required',
+                                'cond' => true,
+                                'message' => $this->config['messages_validation']['required']['text']
+                            ),
+                            1 => array(
+                                'type' => 'email',
+                                'message' => $this->config['messages_validation']['email']['text']
+                            )
+                        )
+                    );
+                }
+            }
+            
             $this->set[] = array(
                 'f' => $f,
                 'p' => $p
