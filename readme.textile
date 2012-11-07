@@ -24,19 +24,21 @@ Just ask me for your needs at mail@johannheyne.de or create a new issue.
 
 h2. Setup
 
+h3. The yerForm Class
 Autoload the "core/yerform.php". The class will only be loaded if it is needed.
 <pre><code>function __autoload( $class_name ) {
     if ( $class_name == 'yerForm' ) require_once( 'yerform/core/yerform.php');
 }
 </code></pre>
 
+h3. The yerForm Styles
 Include the styles from a theme if the yerForm class exists.
 <pre><code>if ( class_exists('yerForm') ) {
     echo '<link rel="stylesheet" type="text/css" href="yerform/themes/default/yerform-styles.css" />';
 }
 </code></pre>
 
-Create a new form.
+h3. Create a New Form
 <pre><code>$form = new yerForm();
 $form->form_id = 'my_contact_form';
 </code></pre>
