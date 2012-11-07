@@ -26,9 +26,7 @@ h2. Setup
 
 Include the core/yerform.php or you can load the yerfom class only if it is needed:
 <pre><code>function __autoload( $class_name ) {
-    
     if ( $class_name == 'yerForm' ) require_once( 'yerform/core/yerform.php');
-    
 }
 </code></pre>
 
