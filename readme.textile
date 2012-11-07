@@ -24,7 +24,13 @@ Just ask me for your needs at mail@johannheyne.de or create a new issue.
 
 h2. Setup
 
-include the yerform.php
+Include the core/yerform.php or you can load the yerfom class only if it is needed:
+<pre><code>function __autoload( $class_name ) {
+    
+    if ( $class_name == 'yerForm' ) require_once( 'yerform/core/yerform.php');
+    
+}
+</code></pre>
 
 <pre><code>$form = new yerForm();
 $form->form_id = 'my_contact_form';
