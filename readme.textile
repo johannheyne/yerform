@@ -24,7 +24,7 @@ Just ask me for your needs at mail@johannheyne.de or create a new issue.
 
 h2. Setup
 
-Autoload the "core/yerform.php" if the yerForm class is needed.
+Autoload the "core/yerform.php". The class will only be loaded if it is needed.
 <pre><code>function __autoload( $class_name ) {
     if ( $class_name == 'yerForm' ) require_once( 'yerform/core/yerform.php');
 }
