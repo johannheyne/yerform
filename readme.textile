@@ -24,7 +24,7 @@ Just ask me for your needs at mail@johannheyne.de or create a new issue.
 
 h2. Setup
 
-Include the core/yerform.php or you can load the yerfom class only if it is needed:
+Include the core/yerform.php or you can autoload it if the yerForm class is needed.
 <pre><code>function __autoload( $class_name ) {
     if ( $class_name == 'yerForm' ) require_once( 'yerform/core/yerform.php');
 }
