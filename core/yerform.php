@@ -97,7 +97,7 @@
 
             foreach ( $p as $key => $value ) {
                 
-                if ( $value !== false ) $this->config[$key] = $value;
+                $this->config[$key] = $value;
             }
             
         }
