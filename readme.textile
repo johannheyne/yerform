@@ -30,12 +30,13 @@ Autoload the "core/yerform.php". The class will only be loaded if it is needed.
 }
 </code></pre>
 
-Include the styles from a theme if the yerForm class exists:
+Include the styles from a theme if the yerForm class exists.
 <pre><code>if ( class_exists('yerForm') ) {
     echo '<link rel="stylesheet" type="text/css" href="yerform/themes/default/yerform-styles.css" />';
 }
 </code></pre>
 
+Create a new form.
 <pre><code>$form = new yerForm();
 $form->form_id = 'my_contact_form';
 </code></pre>
