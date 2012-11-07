@@ -470,7 +470,7 @@
 
             // mail it with Swiftmailer
 
-            require_once '../assets/swift/lib/swift_required.php';
+            require_once( dirname(__FILE__) . '/../assets/swift/lib/swift_required.php');
 
             // Create the Transport
                 
