@@ -139,22 +139,24 @@
 		
 		.yerform-group-inline {
 			
-			.yerform-list-item-group-inner {
+			> .yerform-list-item-group-inner {
 				display: table;
 				width: 100%;
-			}
-			
-			.yerform-group-label {
-				display: table-cell;
-				width: @yerform-label-width;
-				padding-right: @yerform-label-padding;
-				font-weight: normal;
-			}
-			
-			.yerform-fields-wrap {
-				display: table-cell;
+				
+				> .yerform-group-label {
+					display: table-cell;
+					width: @yerform-label-width;
+					padding-right: @yerform-label-padding;
+					font-weight: normal;
+				}
+
+				> .yerform-fields-wrap {
+					display: table-cell;
+				}
 			}
 		}
+			
+			
 		
 		/* list-items inline */
 		
@@ -163,19 +165,24 @@
 			display: table;
 			width: 100%;
 			
-			.yerform-label-wrap {
-				width: 1px;
-			}
+			> .yerform-list-item {
 			
-			.yerform-list-item {
 				display: table-cell;
 				padding-right: 10px;
-			}
-			.yerform-list-item-sized {
-				width: 1px;
-			}
-			.yerform-list-item:last-child {
-				padding-right: 0;
+				
+				&:last-child {
+					padding-right: 0;
+				}
+				
+				&.yerform-list-item-sized {
+					width: 1px;
+				}
+				
+				> .yerform-list-item-inner {
+					> .yerform-label-wrap {
+						width: 1px;
+					}
+				}
 			}
 		}
 	}

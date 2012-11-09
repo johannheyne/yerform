@@ -91,17 +91,17 @@
 }
 @media only screen and (min-width: 481px) {
   /* grouplabel inline */
-  .yerform-group-inline .yerform-list-item-group-inner {
+  .yerform-group-inline > .yerform-list-item-group-inner {
     display: table;
     width: 100%;
   }
-  .yerform-group-inline .yerform-group-label {
+  .yerform-group-inline > .yerform-list-item-group-inner > .yerform-group-label {
     display: table-cell;
     width: 150px;
     padding-right: 10px;
     font-weight: normal;
   }
-  .yerform-group-inline .yerform-fields-wrap {
+  .yerform-group-inline > .yerform-list-item-group-inner > .yerform-fields-wrap {
     display: table-cell;
   }
   /* list-items inline */
@@ -109,18 +109,18 @@
     display: table;
     width: 100%;
   }
-  .yerform-list-inline .yerform-label-wrap {
-    width: 1px;
-  }
-  .yerform-list-inline .yerform-list-item {
+  .yerform-list-inline > .yerform-list-item {
     display: table-cell;
     padding-right: 10px;
   }
-  .yerform-list-inline .yerform-list-item-sized {
+  .yerform-list-inline > .yerform-list-item:last-child {
+    padding-right: 0;
+  }
+  .yerform-list-inline > .yerform-list-item.yerform-list-item-sized {
     width: 1px;
   }
-  .yerform-list-inline .yerform-list-item:last-child {
-    padding-right: 0;
+  .yerform-list-inline > .yerform-list-item > .yerform-list-item-inner > .yerform-label-wrap {
+    width: 1px;
   }
 }
 /* LIST end */
