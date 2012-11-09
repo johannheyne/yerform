@@ -19,9 +19,9 @@
         protected $list_item_after = '</li>';
         protected $label_before = '<div>';
         protected $label_after = '</div>';
-        protected $fields_before = '<div>';
+        protected $fields_before = '<div class="yerform-fields-wrap">';
         protected $fields_after = '</div>';
-        protected $field_before = '<div>';
+        protected $field_before = '<div class="yerform-field-wrap">';
         protected $field_after = '</div>';
         protected $depht = 1;
         protected $code = '';
@@ -1036,12 +1036,14 @@
         protected function list_begin( $p = array() ) {
             
             $p += array(
-                'class' => false
+                'class' => false,
+                'list-layout' => false
             );
     
             $class = false;
             if ( $p['class'] ) $class .= ' ' . $p['class'];
             $class .= ' yerform-depht-' . $this->depht;
+            if ( $p['list-layout'] && $p['list-layout'] === 'inline' ) $class .= ' yerform-list-inline';
 
             $this->code .= str_replace('>', ' class="yerform-list ' . $class . '">', $this->list_before);
         }
@@ -1070,15 +1072,19 @@
             $p += array(
                 'label' => false,
                 'layout' => false,
-                'class' => false
+                'class' => false,
+                'group-layout' => false,
+                'list-layout' => false
             );
             
             $this->depht = $this->depht + 1;
             
             $class = '';
             if ( $p['class'] ) $class = ' ' . $p['class'];
+            if ( $p['group-layout'] && $p['group-layout'] === 'inline' ) $class .= ' yerform-group-inline';
 
-            $this->code .= str_replace('>', ' class="yerform-list-item yerform-list-item-group' . $class . '">', $this->list_item_before);
+            $this->code .= str_replace('>', ' class="yerform-list-item-group' . $class . '">', $this->list_item_before);
+            $this->code .= '<div class="yerform-list-item-group-inner">';
             
             if ( $p['label'] ) {
                 $this->code .= str_replace('>', ' class="yerform-group-label">', $this->label_before);
@@ -1089,19 +1095,19 @@
             $this->code .= str_replace('>', ' class="yerform-group">', $this->fields_before);
 
             $class = '';
-            if ( $p['layout'] ) {
-                if ( $p['layout'] === 'inline' ) $class .= 'yerform-group-table';
-            }
+            if ( $p['list-layout'] && $p['list-layout'] === 'inline' ) $class .= 'yerform-list-inline';
             $class .= ' yerform-depht-' . $this->depht;
             
-            $this->code .= str_replace('>', ' class="yerform-list ' . $class . '">', $this->list_before);
-
+            $ret = str_replace('>', ' class="yerform-list ' . $class . '">', $this->list_before);
+            $this->code .= $ret;
+            
         }
         
         protected function group_end() {
 
             $this->code .= $this->list_after;
             $this->code .= $this->fields_after;
+            $this->code .= '</div>';
             $this->code .= $this->list_item_after;
 
             $this->depht = $this->depht - 1;
@@ -1151,7 +1157,7 @@
             );
 
             $ret = '';
-            $ret .= str_replace('>', '>', $this->label_before);
+            $ret .= str_replace('>', ' class="yerform-label-wrap">', $this->label_before);
             $ret .= '<label for="' . $p['name'] . '">' . $p['label'] . $this->get_require_label_sufix( $p ) . '</label>' . $p['label_sufix'];
             $ret .= $this->label_after;
             
@@ -1225,6 +1231,7 @@
             if ( $p['padding'][1] > 0 ) $style .= 'padding-right: ' . $p['padding'][1] . 'px;';
             
             $ret = str_replace('>', ' style="' . $style . '" class="' . $class . '">', $tag);
+            $ret .= '<div class="yerform-list-item-inner">';
             //if ( $this->depht > 1 ) $ret .= '<div class="' . $class2 . '">';
             
             return $ret;
@@ -1236,6 +1243,7 @@
             
             //if ( $this->depht > 1 ) $ret .= '</div>';
             
+            $ret .= '</div>';
             $ret .= $this->list_item_after;
             
             return $ret;

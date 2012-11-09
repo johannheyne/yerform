@@ -12,6 +12,9 @@
 }
 /* RESET & FIXES end */
 /* MISC begin */
+.yerform {
+  max-width: 500px;
+}
 .yerform-invisible {
   position: absolute;
   width: 0;
@@ -34,7 +37,8 @@
 .yerform-field-message {
   font-family: Arial;
   font-size: 14px;
-  line-height: 26px;
+  line-height: 17px;
+  padding-top: 3px;
 }
 .yerform-field-message-error {
   color: #ff0000;
@@ -63,28 +67,67 @@
   padding: 0;
 }
 .yerform-list-item {
-  margin-bottom: 6px;
+  margin-bottom: 10px;
 }
-/* LIST end */
-/* GROUP begin */
 @media only screen and (min-width: 481px) {
-  .yerform-group-table {
+  .yerform-list-item-inner {
     display: table;
     width: 100%;
   }
-  .yerform-group-table .yerform-list-item {
+  .yerform-list-item-inner .yerform-label-wrap {
+    display: table-cell;
+    width: 150px;
+    padding-right: 10px;
+  }
+  .yerform-list-item-inner .yerform-fields-wrap {
+    display: table-cell;
+  }
+}
+/* LIST end */
+/* GROUP begin */
+.yerform-group-label {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+@media only screen and (min-width: 481px) {
+  /* grouplabel inline */
+  .yerform-group-inline .yerform-list-item-group-inner {
+    display: table;
+    width: 100%;
+  }
+  .yerform-group-inline .yerform-group-label {
+    display: table-cell;
+    width: 150px;
+    padding-right: 10px;
+    font-weight: normal;
+  }
+  .yerform-group-inline .yerform-fields-wrap {
+    display: table-cell;
+  }
+  /* list-items inline */
+  .yerform-list-inline {
+    display: table;
+    width: 100%;
+  }
+  .yerform-list-inline .yerform-label-wrap {
+    width: 1px;
+  }
+  .yerform-list-inline .yerform-list-item {
     display: table-cell;
     padding-right: 10px;
   }
-  .yerform-group-table .yerform-list-item-sized {
+  .yerform-list-inline .yerform-list-item-sized {
     width: 1px;
   }
-  .yerform-group-table .yerform-list-item:last-child {
+  .yerform-list-inline .yerform-list-item:last-child {
     padding-right: 0;
   }
 }
 /* LIST end */
 /* LABELS begin */
+@media only screen and (min-width: 481px) {
+  
+}
 .yerform label {
   font-family: Arial;
   font-size: 14px;
@@ -93,6 +136,9 @@
 }
 /* LABELS end */
 /* FIELDS begin */
+@media only screen and (min-width: 481px) {
+  
+}
 /* Text begin */
 .yerform input[type="text"] {
   font-family: Arial;

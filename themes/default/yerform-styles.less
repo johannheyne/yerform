@@ -5,6 +5,8 @@
 @yerform-font-color: black;
 @yerform-color-error: red;
 @yerform-border-color: black;
+@yerform-label-width: 150px;
+@yerform-label-padding: 10px;
 
 @yerform-breakpoint: ~"only screen and (min-width: 481px)";
 
@@ -26,7 +28,11 @@
 /* RESET & FIXES end */
 
 /* MISC begin */
-
+	
+	.yerform {
+		max-width: 500px;
+	}
+	
 	.yerform-invisible {
 		position: absolute;
 		width: 0;
@@ -57,7 +63,8 @@
 		.yerform-field-message {
 			font-family: @yerform-font-family;
 			font-size: @yerform-font-size;
-			line-height: 26px;
+			line-height: round( @yerform-font-size * 1.2 );
+			padding-top: 3px;
 		}
 		
 		.yerform-field-message-error {
@@ -96,24 +103,70 @@
 	}
 	
 	.yerform-list-item {
-		margin-bottom: 6px;
+		margin-bottom: 10px;
+	}
+	
+	@media @yerform-breakpoint {
+	
+		.yerform-list-item-inner {
+	
+			display: table;
+			width: 100%;
+			
+			.yerform-label-wrap {
+				display: table-cell;
+				width: @yerform-label-width;
+				padding-right: @yerform-label-padding;
+			}
+			.yerform-fields-wrap {
+				display: table-cell;
+			}
+		}
 	}
 	
 /* LIST end */
 
 /* GROUP begin */
-
-	.yerform-list-item-group {
 	
+	.yerform-group-label {
+		margin-bottom: 10px;
+		font-weight: bold;
 	}
 	
 	@media @yerform-breakpoint {
 		
-		.yerform-group-table {
+		/* grouplabel inline */
+		
+		.yerform-group-inline {
+			
+			.yerform-list-item-group-inner {
+				display: table;
+				width: 100%;
+			}
+			
+			.yerform-group-label {
+				display: table-cell;
+				width: @yerform-label-width;
+				padding-right: @yerform-label-padding;
+				font-weight: normal;
+			}
+			
+			.yerform-fields-wrap {
+				display: table-cell;
+			}
+		}
+		
+		/* list-items inline */
+		
+		.yerform-list-inline {
 		
 			display: table;
 			width: 100%;
-		
+			
+			.yerform-label-wrap {
+				width: 1px;
+			}
+			
 			.yerform-list-item {
 				display: table-cell;
 				padding-right: 10px;
@@ -130,7 +183,14 @@
 /* LIST end */
 
 /* LABELS begin */
-
+	
+	@media @yerform-breakpoint {
+		
+		.yerform-label-wrap {
+			
+		}
+	}
+	
 	.yerform label {
 		font-family: @yerform-font-family;
 		font-size: @yerform-font-size;
@@ -141,6 +201,17 @@
 /* LABELS end */
 
 /* FIELDS begin */
+	
+	@media @yerform-breakpoint {
+		
+		.yerform-fields-wrap {
+			
+		}
+	}
+	
+	.yerform-field-wrap {
+	
+	}
 	
 	/* Text begin */
 		
