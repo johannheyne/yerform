@@ -32,7 +32,7 @@ Autoload the "core/yerform.php". The class will only be loaded if it is needed.
 }
 </code></pre>
 
-h3. The yerForm Styles
+h3. The yerForm Theme
 
 Include the styles from a theme if the yerForm class exists.
 <pre><code>if ( class_exists('yerForm') ) {
@@ -105,14 +105,19 @@ The basic structure are fieldsets. Inside a fieldset belongs a list. Inside a li
     'require_info'=>'*required'
 ));
     $form->set( 'list_begin' );
+        
         /* a field */
+        
         /* or a field group */
         $form->set( 'group_begin', array(
             'label' => 'Groupname',
-            'layout' => 'table'
+            'layout' => 'inline'
         ));
-        /* some fields */
+        
+            /* some fields */
+            
         $form->set( 'group_end');
+        
     $form->set( 'list_end' );
 $form->set( 'fieldset_end' );
 </code></pre>
@@ -372,3 +377,93 @@ yerform is using a html redirect after sending the form to prevent resending the
     });
 });
 </code></pre>
+
+h2. HTML
+<pre><code><form id="my_contact_form" class="yerform" action="" method="post" enctype="multipart/form-data" name="yerform" target="_self">
+    
+    <input name="yerform" type="hidden" value="yerform">
+    
+    <div class="yerform-messages">
+        <div class="yerform-messages-error">Formular konnte nicht gesendet werden! Bitte prüfe folgende Felder: E-Mail</div>
+    </div>
+    
+    <div>
+        <fieldset class="yerform-fieldset">
+            <legend class="yerform-fieldset-legend ">Kontaktdaten</legend>
+            
+            <ul class="yerform-list  yerform-depht-1">
+                
+                <li style="" class="yerform-list-item yerform-item-type-text">
+                    <div>
+                        <label for="text">Text</label>
+                    </div>
+                    <div>
+                        <div>
+                            <input type="text" id="text" name="text" value="" maxlength="200" placeholder="Text">
+                        </div>
+                    </div>
+                </li>
+                
+                <li class="yerform-list-item yerform-list-item-error yerform-item-type-text">
+                    <div>
+                        <label for="email">E-Mail<span class="required">*</span></label>
+                    </div>
+                    <div>
+                        <div>
+                            <input type="text" id="email" name="email" value="" maxlength="200" placeholder="E-Mail">
+                        </div>
+                        
+                        <!-- this is an validation message for the field -->
+                        <div class="yerform-field-message">
+                            <span class="yerform-field-message-error">benötigt</span>
+                        </div>
+                        
+                    </div>
+                </li>
+                
+                <li class="yerform-list-item yerform-list-item-group">
+                    
+                    <!-- this is a group for may displaying the fields inline -->
+                    
+                    <div class="yerform-group-label">
+                        <label>Inline Felder</label>
+                    </div>
+                    
+                    <div class="yerform-group">
+                        
+                        <ul class="yerform-list yerform-group-table yerform-depht-2">
+                            
+                            <li class="yerform-list-item yerform-item-type-text yerform-list-item-sized">
+                                <div>
+                                    <label for="plz">PLZ</label>
+                                </div>
+                                <div>
+                                    <div>
+                                        <input type="text" id="plz" name="plz" value="" size="5" maxlength="5" placeholder="PLZ">
+                                    </div>
+                                </div>
+                            </li>
+                            
+                            <li class="yerform-list-item yerform-item-type-text">
+                                <div>
+                                    <label for="ort">Ort</label>
+                                </div>
+                                <div>
+                                    <div>
+                                        <input class="form-field field-margin-right" type="text" id="ort" name="ort" value="" maxlength="200" placeholder="Ort">
+                                    </div>
+                                </div>
+                            </li>
+                            
+                        </ul>
+                        
+                    </div>
+                    
+                </li>
+                
+            </ul>
+            
+        </fieldset>
+    </div>
+</code></pre>
+

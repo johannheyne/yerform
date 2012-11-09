@@ -1,0 +1,193 @@
+/* yerform styles */
+
+@yerform-font-size: 14px;
+@yerform-font-family: Arial;
+@yerform-font-color: black;
+@yerform-color-error: red;
+@yerform-border-color: black;
+
+@yerform-breakpoint: ~"only screen and (min-width: 481px)";
+
+
+/* PRESETS & FIXES begin */
+
+	.yerform * {
+		-moz-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		-ms-box-sizing: border-box;
+		box-sizing: border-box;
+	}
+	
+	.yerform input[type="submit"]::-moz-focus-inner {
+		border: 0;
+		margin-right: -3px;
+	}
+
+/* RESET & FIXES end */
+
+/* MISC begin */
+
+	.yerform-invisible {
+		position: absolute;
+		width: 0;
+		height: 0;
+		overflow: hidden;
+	}
+
+/* MISC end */
+
+/* MESSAGES begin */
+	
+	/* MESSAGES begin */
+
+		.yerform-messages {
+			font-family: @yerform-font-family;
+			font-size: @yerform-font-size;
+			line-height: ceil( @yerform-font-size * 1.2 );
+		}
+		
+		.yerform-messages-error {
+			color: @yerform-color-error;
+		}
+
+	/* MESSAGES end */
+	
+	/* FIELDMESSAGE begin */
+
+		.yerform-field-message {
+			font-family: @yerform-font-family;
+			font-size: @yerform-font-size;
+			line-height: 26px;
+		}
+		
+		.yerform-field-message-error {
+			color: @yerform-color-error;
+		}
+
+	/* FIELDMESSAGE end */
+
+/* MESSAGES end */
+
+/* FIELDSET begin */
+
+	.yerform-fieldset {
+		border: none;
+		margin: 16px 0;
+		padding: 0;
+	}
+	
+	.yerform-fieldset-legend {
+		font-family: @yerform-font-family;
+		font-size: @yerform-font-size + 2px;
+		color: @yerform-font-color;
+		line-height: ceil( @yerform-font-size * 1.2 );
+		font-weight: bold;
+		padding-bottom: 10px;
+	}
+
+/* FIELDSET end */
+
+/* LIST begin */
+
+	.yerform-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	
+	.yerform-list-item {
+		margin-bottom: 6px;
+	}
+	
+/* LIST end */
+
+/* GROUP begin */
+
+	.yerform-list-item-group {
+	
+	}
+	
+	@media @yerform-breakpoint {
+		
+		.yerform-group-table {
+		
+			display: table;
+			width: 100%;
+		
+			.yerform-list-item {
+				display: table-cell;
+				padding-right: 10px;
+			}
+			.yerform-list-item-sized {
+				width: 1px;
+			}
+			.yerform-list-item:last-child {
+				padding-right: 0;
+			}
+		}
+	}
+
+/* LIST end */
+
+/* LABELS begin */
+
+	.yerform label {
+		font-family: @yerform-font-family;
+		font-size: @yerform-font-size;
+		color: @yerform-font-color;
+		line-height: ceil( @yerform-font-size * 1.4 );
+	}
+
+/* LABELS end */
+
+/* FIELDS begin */
+	
+	/* Text begin */
+		
+		.yerform input[type="text"] {
+			font-family: @yerform-font-family;
+			color: @yerform-font-color;
+			width: 100%;
+			border: 1px solid @yerform-border-color;
+			height: ceil( @yerform-font-size * 2 );
+			line-height: ceil(  @yerform-font-size * 2 );
+			font-size: @yerform-font-size;
+			padding: 0 6px;
+		}
+		
+		@media @yerform-breakpoint {
+		
+			.yerform input[size] {
+				width: auto;
+			}
+		}
+		
+		.yerform-list-item-error input[type="text"] {
+			border: 1px solid @yerform-color-error;
+ 		}
+		
+		.yerform-item-type-text {
+
+		}
+		
+	/* Text end */
+	
+	/* TEXTAREA begin */
+
+		.yerform textarea {
+			font-family: @yerform-font-family;
+			color: @yerform-font-color;
+			width: 100%;
+			border: 1px solid @yerform-border-color;
+			line-height: 20px;
+			font-size: 14px;
+			padding: 4px 6px;
+		}
+		
+		.yerform-list-item-error textarea {
+			border: 1px solid @yerform-color-error;
+ 		}
+
+	/* TEXTAREA end */
+	
+/* FIELDS end */
