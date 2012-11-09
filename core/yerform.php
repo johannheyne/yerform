@@ -31,6 +31,7 @@
         protected $set = false;
         protected $fields = false;
         protected $config = false;
+        protected $expiretime = 3600;
         
         public $form_id = 'yerform';
         public $field_text_size = 40;
@@ -45,7 +46,8 @@
         public function __construct() {
 
             $this->config['honeypot'] = false;
-            if ( $_REQUEST && isset( $_REQUEST['yerform'] ) ) {
+            
+            if ( $_REQUEST && isset( $_REQUEST['yerform-check'] ) && $_REQUEST['yerform-check'] + $this->expiretime > time() ) {
                 
                 foreach ( $_REQUEST as $key => $value ) {
                    $this->request[ $key ] = $this->sanitize( $value );
@@ -53,7 +55,6 @@
                 
                  $this->files = $_FILES;
             }
-            
         }
         
         
