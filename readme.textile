@@ -379,6 +379,7 @@ yerform is using a html redirect after sending the form to prevent resending the
 </code></pre>
 
 h2. HTML
+
 <pre><code><form id="my_contact_form" class="yerform" action="" method="post" enctype="multipart/form-data" name="yerform" target="_self">
     
     <input name="yerform" type="hidden" value="yerform">
