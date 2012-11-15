@@ -46,14 +46,14 @@
         public function __construct() {
 
             $this->config['honeypot'] = false;
-            
+
             if ( $_REQUEST && isset( $_REQUEST['yerform-check'] ) && $_REQUEST['yerform-check'] + $this->expiretime > time() ) {
-                
+
                 foreach ( $_REQUEST as $key => $value ) {
-                   $this->request[ $key ] = $this->sanitize( $value );
+                    $this->request[ $key ] = $this->sanitize( $value );
                 }
-                
-                 $this->files = $_FILES;
+
+                $this->files = $_FILES;
             }
         }
         
@@ -858,7 +858,8 @@
                 'data' => 'checked',
                 'checked' => false,
                 'padding' => array(0,0),
-                'layout' => false
+                'layout' => false,
+                'labeltype' => 'field-after'
             );
 
             $p['fieldtype'] = 'checkbox';
@@ -867,13 +868,14 @@
 
             $ret = '';
             $ret .= $this->list_item_before( $p );
+            $ret .= $this->get_label( $p );
             $ret .= $this->fields_before;
             $ret .= $this->field_before;
-            $ret .= '<input class="form-field field-margin-right" type="checkbox" id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" value="' . $p['data'] . '"' . $checked . '/>';
+            $ret .= '<input type="checkbox" id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" value="' . $p['data'] . '"' . $checked . '/>';
+            if ( $p['labeltype'] === 'field-after' ) $ret .= '<span class="yerform-field-after">' . $p['label'] . '</span>';
             $ret .= $this->field_after;
             $ret .= $this->get_field_messages( $p );
             $ret .= $this->fields_after;
-            $ret .= $this->get_label( $p );
             $ret .= $this->get_field_sufix( $p );
             $ret .= $this->list_item_after();
             
@@ -902,7 +904,8 @@
                 'data' => 'checked',
                 'checked' => false,
                 'padding' => array(0,0),
-                'layout' => false
+                'layout' => false,
+                'labeltype' => 'field-after'
             );
 
             $p['fieldtype'] = 'radio';
@@ -914,6 +917,7 @@
             $ret .= $this->fields_before;
             $ret .= $this->field_before;
             $ret .= '<input type="radio" id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" value="' . $p['data'] . '"' . $checked . '/>';
+            if ( $p['labeltype'] === 'field-after' ) $ret .= '<span class="yerform-field-after">' . $p['label'] . '</span>';
             $ret .= $this->field_after;
             $ret .= $this->get_field_messages( $p );
             $ret .= $this->fields_after;
@@ -1037,13 +1041,15 @@
             
             $p += array(
                 'class' => false,
-                'list-layout' => false
+                'list-layout' => 'block'
             );
     
             $class = false;
             if ( $p['class'] ) $class .= ' ' . $p['class'];
             $class .= ' yerform-depht-' . $this->depht;
-            if ( $p['list-layout'] && $p['list-layout'] === 'inline' ) $class .= ' yerform-list-inline';
+            if ( $p['list-layout'] === 'block' ) $class .= ' yerform-list-block';
+            if ( $p['list-layout'] === 'table' ) $class .= ' yerform-list-table';
+            if ( $p['list-layout'] === 'inline' ) $class .= ' yerform-list-inline';
 
             $this->code .= str_replace('>', ' class="yerform-list ' . $class . '">', $this->list_before);
         }
@@ -1071,17 +1077,17 @@
 
             $p += array(
                 'label' => false,
-                'layout' => false,
                 'class' => false,
-                'group-layout' => false,
-                'list-layout' => false
+                'group-layout' => 'block',
+                'list-layout' => 'block'
             );
             
             $this->depht = $this->depht + 1;
             
             $class = '';
             if ( $p['class'] ) $class = ' ' . $p['class'];
-            if ( $p['group-layout'] && $p['group-layout'] === 'inline' ) $class .= ' yerform-group-inline';
+            if ( $p['group-layout'] === 'block' ) $class .= ' yerform-group-block';
+            if ( $p['group-layout'] === 'inline' ) $class .= ' yerform-group-inline';
 
             $this->code .= str_replace('>', ' class="yerform-list-item-group' . $class . '">', $this->list_item_before);
             $this->code .= '<div class="yerform-list-item-group-inner">';
@@ -1092,10 +1098,13 @@
                 $this->code .= $this->label_after;
             }
             
-            $this->code .= str_replace('>', ' class="yerform-group">', $this->fields_before);
+            $this->code .= str_replace('">', ' yerform-group">', $this->fields_before);
 
             $class = '';
-            if ( $p['list-layout'] && $p['list-layout'] === 'inline' ) $class .= 'yerform-list-inline';
+            if ( $p['list-layout'] === 'block' ) $class .= 'yerform-list-block';
+            if ( $p['list-layout'] === 'table' ) $class .= 'yerform-list-table';
+            if ( $p['list-layout'] === 'inline' ) $class .= 'yerform-list-inline';
+            
             $class .= ' yerform-depht-' . $this->depht;
             
             $ret = str_replace('>', ' class="yerform-list ' . $class . '">', $this->list_before);
@@ -1152,13 +1161,28 @@
             
             $p += array(
                 'label' => 'no name', 
+                'labeltype' => false, 
                 'name' => 'noname',
                 'label_sufix' => false
             );
-
+            
+            $class = 'yerform-label-wrap';
+            if ( $p['labeltype'] === 'field-after') {
+                $class .= ' yerform-displaynone';
+            }
+            
             $ret = '';
-            $ret .= str_replace('>', ' class="yerform-label-wrap">', $this->label_before);
-            $ret .= '<label for="' . $p['name'] . '">' . $p['label'] . $this->get_require_label_sufix( $p ) . '</label>' . $p['label_sufix'];
+            $ret .= str_replace('>', ' class="' . $class . '">', $this->label_before);
+            
+            $class_input = '';
+            $class_inputsufix = '';
+            if ( $p['labeltype'] === 'field-after') {
+                $class_inputsufix .= ' class="yerform-displaynone"';
+            }
+            
+            $ret .= '<label for="' . $p['name'] . '"' . $class_input . '>' . $p['label'] . $this->get_require_label_sufix( $p ) . '</label>';
+            if ( $p['label_sufix'] ) $ret .= '<span' . $class_inputsufix . '>' . $p['label_sufix'] . '</span>';
+            
             $ret .= $this->label_after;
             
             return $ret;
@@ -1208,24 +1232,22 @@
         protected function list_item_before( $p = array() ) {
 
             $p += array(
-                'layout' => false,
+                'item-layout' => 'inline',
                 'class' => false,
-                'padding' => array( 0, 0 )
+                'padding' => array( 0, 0 ),
+                'size' => false
             );
 
             $tag = $this->list_item_before;
 
             $class = 'yerform-list-item';
-            
             if ( isset( $this->validation[ $this->get_field_name( $p ) ] ) ) $class .= ' yerform-list-item-error';
-            
             if ( isset($p['fieldtype']) ) $class .= ' yerform-item-type-' . $p['fieldtype'];
             if ( $p['class'] ) $class .= ' ' . $p['class'];
             if ( $p['size'] ) $class .= ' yerform-list-item-sized';
+            if ( $p['item-layout'] === 'block' ) $class .= ' yerform-list-item-block';
+            if ( $p['item-layout'] === 'inline' ) $class .= ' yerform-list-item-inline';
             
-            //$class2 = '';
-            //if ( $p['layout'] ) $class2 = ' ' . $p['layout'];
-
             $style = '';
             if ( $p['padding'][0] > 0 ) $style .= 'padding-left: ' . $p['padding'][0] . 'px;';
             if ( $p['padding'][1] > 0 ) $style .= 'padding-right: ' . $p['padding'][1] . 'px;';

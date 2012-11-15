@@ -7,6 +7,7 @@
 @yerform-border-color: black;
 @yerform-label-width: 150px;
 @yerform-label-padding: 10px;
+@yerform-list-gap: 10px;
 
 @yerform-breakpoint: ~"only screen and (min-width: 481px)";
 
@@ -30,14 +31,17 @@
 /* MISC begin */
 	
 	.yerform {
-		max-width: 500px;
+		max-width: 600px;
 	}
 	
 	.yerform-invisible {
-		position: absolute;
-		width: 0;
+		position: absolute !important;
+		width: 0 !important;
 		height: 0;
 		overflow: hidden;
+	}
+	.yerform-displaynone {
+		display: none !important;
 	}
 
 /* MISC end */
@@ -89,10 +93,30 @@
 		color: @yerform-font-color;
 		line-height: ceil( @yerform-font-size * 1.2 );
 		font-weight: bold;
-		padding-bottom: 10px;
+		padding-bottom: @yerform-list-gap;
 	}
 
 /* FIELDSET end */
+
+/* ITEM begin */
+	
+	@media @yerform-breakpoint {
+	
+		.yerform-list-item-inline {
+			.yerform-list-item-inner {
+				display: table;
+				width: 100%;
+			}
+			.yerform-label-wrap {
+				display: table-cell;
+			}
+			.yerform-fields-wrap {
+				display: table-cell;
+			}
+		}
+	}
+
+/* ITEM end */
 
 /* LIST begin */
 
@@ -100,23 +124,28 @@
 		list-style: none;
 		margin: 0;
 		padding: 0;
+		font-size: 0;
+		line-height: 0;
 	}
 	
 	.yerform-list-item {
-		margin-bottom: 10px;
+		margin-bottom: @yerform-list-gap;
+	}
+	
+	.yerform-list-item-inner {
+		
 	}
 	
 	@media @yerform-breakpoint {
 	
-		.yerform-list-item-inner {
-	
+		.yerform-depht-1 > .yerform-list-item-inline > .yerform-list-item-inner {
+		
 			display: table;
 			width: 100%;
 			
 			.yerform-label-wrap {
 				display: table-cell;
 				width: @yerform-label-width;
-				padding-right: @yerform-label-padding;
 			}
 			.yerform-fields-wrap {
 				display: table-cell;
@@ -128,66 +157,110 @@
 
 /* GROUP begin */
 	
+	.yerform-list-item-group {
+		margin-bottom: @yerform-list-gap;
+	}
+	
 	.yerform-group-label {
-		margin-bottom: 10px;
+		margin-top: 20px;
+		margin-bottom: 0;
 		font-weight: bold;
 	}
 	
 	@media @yerform-breakpoint {
 		
-		/* grouplabel inline */
-		
-		.yerform-group-inline {
-			
-			> .yerform-list-item-group-inner {
-				display: table;
-				width: 100%;
-				
-				> .yerform-group-label {
-					display: table-cell;
-					width: @yerform-label-width;
-					padding-right: @yerform-label-padding;
-					font-weight: normal;
-				}
-
-				> .yerform-fields-wrap {
-					display: table-cell;
-				}
-			}
+		.yerform-list > .yerform-list-item:last-child {
+			padding-bottom: @yerform-list-gap;
 		}
-			
-			
+
+		.yerform-list-table > .yerform-list-item:last-child {
+			padding-bottom: 0;
+		}
 		
-		/* list-items inline */
-		
-		.yerform-list-inline {
-		
-			display: table;
-			width: 100%;
-			
-			> .yerform-list-item {
-			
-				display: table-cell;
-				padding-right: 10px;
-				
-				&:last-child {
-					padding-right: 0;
-				}
-				
-				&.yerform-list-item-sized {
-					width: 1px;
-				}
-				
-				> .yerform-list-item-inner {
-					> .yerform-label-wrap {
-						width: 1px;
+		/* GROUP INLINE begin */
+
+			.yerform-group-inline {
+
+				margin-bottom: 0;
+
+				> .yerform-list-item-group-inner {
+					display: table;
+					width: 100%;
+
+					> .yerform-group-label {
+						display: table-cell;
+						width: @yerform-label-width;
+						padding-right: @yerform-label-padding;
+						font-weight: normal;
+						vertical-align: top;
+					}
+
+					> .yerform-fields-wrap {
+						display: table-cell;
+						vertical-align: top;
 					}
 				}
 			}
-		}
+
+		/* GROUP INLINE end */
+		
+		/* LISTITEMS TABLE begin */
+
+			.yerform-list-table {
+
+				display: table;
+				width: 100%;
+				margin-bottom: @yerform-list-gap;
+
+				> .yerform-list-item {
+
+					display: table-cell;
+					padding-right: 10px;
+
+					&:last-child {
+						padding-right: 0;
+					}
+
+					&.yerform-list-item-sized {
+						width: 1px;
+					}
+
+					> .yerform-list-item-inner {
+						> .yerform-label-wrap {
+							width: 1px;
+						}
+					}
+				}
+			}
+
+		/* LISTITEMS TABLE end */
+		
+		/* LISTITEMS INLINE begin */
+
+			.yerform-list-inline {
+
+				> .yerform-list-item {
+
+					display: inline-block;
+					padding-right: 10px;
+
+					&:last-child {
+						padding-right: 0;
+					}
+
+					> .yerform-list-item-inner {
+						> .yerform-label-wrap {
+							width: 0;
+						}
+					}
+				}
+			}
+
+		/* LISTITEMS INLINE end */
+		
 	}
 
-/* LIST end */
+/* GROUP end */
 
 /* LABELS begin */
 	
@@ -202,7 +275,17 @@
 		font-family: @yerform-font-family;
 		font-size: @yerform-font-size;
 		color: @yerform-font-color;
-		line-height: ceil( @yerform-font-size * 1.4 );
+		line-height: ceil( @yerform-font-size * 2);
+		padding-right: @yerform-label-padding;
+	}
+	
+	.yerform-field-after {
+		font-family: @yerform-font-family;
+		font-size: @yerform-font-size;
+		color: @yerform-font-color;
+		line-height: ceil( @yerform-font-size * 2 );
+		padding-left: @yerform-label-padding;
+		padding-right: @yerform-label-padding;
 	}
 
 /* LABELS end */
@@ -217,7 +300,8 @@
 	}
 	
 	.yerform-field-wrap {
-	
+		font-size: 0;
+		line-height: 0;
 	}
 	
 	/* Text begin */
@@ -251,7 +335,14 @@
 	/* Text end */
 	
 	/* TEXTAREA begin */
-
+		
+		.yerform-item-type-textarea {
+			.yerform-label-wrap,
+			.yerform-group-label {
+				vertical-align: top;
+			}
+		}
+		
 		.yerform textarea {
 			font-family: @yerform-font-family;
 			color: @yerform-font-color;
@@ -259,6 +350,7 @@
 			border: 1px solid @yerform-border-color;
 			line-height: 20px;
 			font-size: 14px;
+			margin: 0;
 			padding: 4px 6px;
 		}
 		
@@ -267,5 +359,20 @@
  		}
 
 	/* TEXTAREA end */
+	
+	/* CHECKBOX begin */
+
+		.yerform-item-type-checkbox {
+			vertical-align: top;
+			margin-bottom: 0;
+		}
+		.yerform-item-type-checkbox {
+			margin-bottom: -6px;
+		}
+		.yerform-item-type-checkbox:last-child {
+			margin-bottom: 0;
+		}
+
+	/* CHECKBOX end */
 	
 /* FIELDS end */

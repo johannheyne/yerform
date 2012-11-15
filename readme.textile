@@ -97,7 +97,9 @@ This is for all global messages like validation and send status.
 
 h2. Building the form structure
 
-The basic structure are fieldsets. Inside a fieldset belongs a list. Inside a list belongs fields. A field represents a single list-item. But you can use groups for nesting the list.
+The basic structure are fieldsets. Inside a fieldset belongs a list. Inside a list belongs fields and fieldgroups. A field represents a single list-item. But you can use groups for nesting the list.
+
+h3. Fieldset AND List
 
 <pre><code>$form->set( 'fieldset_begin', array(
     'legend'=>'Contactdata',
@@ -108,24 +110,39 @@ The basic structure are fieldsets. Inside a fieldset belongs a list. Inside a li
         'list-layout' => 'block'
     ));
         
-        /* a field */
-        
-        /* or a field group */
-        $form->set( 'group_begin', array(
-            'label' => 'Groupname',
-            'group-layout' => 'inline',
-            'list-layout' => 'inline'
-        ));
-        
-            /* some fields */
-            
-        $form->set( 'group_end');
+        /* fields and field groups */
         
     $form->set( 'list_end' );
 $form->set( 'fieldset_end' );
 </code></pre>
 
-h2. The fields
+*list-layout*
+<em>(string) block, inline, table</em>
+
+h3. Fieldgroup
+
+<pre><code>$form->set( 'group_begin', array(
+    'label' => false,
+    'group-layout' => 'block',
+    'list-layout' => 'block'
+));
+
+    /* some fields */
+    
+$form->set( 'group_end');
+</code></pre>
+
+*label*
+<em>(string)</em> Labelname of the group.
+
+*group-layout*
+<em>(string) block, inline</em>
+
+*list-layout*
+<em>(string) block, inline, table</em>
+
+
+h2. Fields
 
 h3. Text
 
@@ -138,7 +155,7 @@ h3. Text
     'value' => '',
     'size' => '40',
     'maxlength' => '200',
-    'layout' => false,
+    'item-layout' => 'inline',
     'padding' => array( 0, 0 ),
     'class' => false
 ));
@@ -170,8 +187,8 @@ The <em>default</em> is $form->field_text_size = 40.
 <em>(integer)</em> Defines the maximal lenght of the textfields content. 
 The <em>default</em> is $form->field_text_maxlength = 200.
 
-*layout*
-<em>(false | string)</em> Defines the orientation in the layout. Can be false or 'horizontal'.
+*item-layout*
+<em>(string) inline, block</em> Defines the alignment of label and field.
 
 *padding*
 <em>(array( integer-left, integer-right ))</em> Defines the left and right padding of the field list-item. 
@@ -190,7 +207,7 @@ h3. Textarea
     'cols' => $this->field_textarea_cols,
     'rows' => $this->field_textarea_rows,
     'padding' => array(0,0),
-    'layout' => false
+    'item-layout' => 'inline'
 ));
 </code></pre>
 
@@ -200,7 +217,9 @@ h3. Checkbox
     'name' => 'noname',
     'array' => false,
     'label' => 'no name',
-    'data' => 'checked'
+    'labeltype' => 'field-after',
+    'data' => 'checked'.
+    'item-layout' => 'inline'
 ));
 </code></pre>
 
@@ -210,7 +229,9 @@ h3. Radio
     'name' => 'noname',
     'array' => false,
     'label' => 'no name',
-    'data' => 'checked'
+    'labeltype' => 'field-after',
+    'data' => 'checked',
+    'item-layout' => 'inline'
 ));
 </code></pre>
 
@@ -222,7 +243,8 @@ h3. Select
     'label' => 'no name',
     'data' => array(
         '' => 'wähle…'
-    )
+    ),
+    'item-layout' => 'inline'
 ));
 </code></pre>
 
