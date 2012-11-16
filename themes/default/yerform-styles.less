@@ -162,9 +162,10 @@
 	}
 	
 	.yerform-group-label {
-		margin-top: 20px;
 		margin-bottom: 0;
 		font-weight: bold;
+		width: 1px;
+		white-space: nowrap;
 	}
 	
 	@media @yerform-breakpoint {
@@ -172,16 +173,17 @@
 		.yerform-list > .yerform-list-item:last-child {
 			padding-bottom: @yerform-list-gap;
 		}
-
+		
 		.yerform-list-table > .yerform-list-item:last-child {
 			padding-bottom: 0;
 		}
 		
 		/* GROUP INLINE begin */
-
+			
 			.yerform-group-inline {
 
 				margin-bottom: 0;
+				vertical-align: top;
 
 				> .yerform-list-item-group-inner {
 					display: table;
@@ -189,7 +191,6 @@
 
 					> .yerform-group-label {
 						display: table-cell;
-						width: @yerform-label-width;
 						padding-right: @yerform-label-padding;
 						font-weight: normal;
 						vertical-align: top;
@@ -199,6 +200,13 @@
 						display: table-cell;
 						vertical-align: top;
 					}
+				}
+			}
+			
+			.yerform-depht-1 {
+				> .yerform-list-item-inline > .yerform-list-item-group-inner > .yerform-group-label,
+				> .yerform-group-inline > .yerform-list-item-group-inner > .yerform-group-label {
+					width: @yerform-label-width;
 				}
 			}
 
@@ -212,7 +220,8 @@
 				width: 100%;
 				margin-bottom: @yerform-list-gap;
 
-				> .yerform-list-item {
+				> .yerform-list-item,
+				> .yerform-list-item-group {
 
 					display: table-cell;
 					padding-right: 10px;
@@ -239,7 +248,8 @@
 
 			.yerform-list-inline {
 
-				> .yerform-list-item {
+				> .yerform-list-item,
+				> .yerform-list-item-group {
 
 					display: inline-block;
 					padding-right: 10px;
