@@ -256,6 +256,17 @@ h3. Hidden
 ));
 </code></pre>
 
+h3. HTML
+
+<pre><code>$form->set( 'field_html', array(
+    'padding' => array(0,0),
+    'content' => ''
+));
+</code></pre>
+
+*html*
+<em>(string)</em> HTML-Code to display.
+
 h2. Validation
 
 Just a sample, where to place the validation array:

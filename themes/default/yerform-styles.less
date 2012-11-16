@@ -53,7 +53,7 @@
 		.yerform-messages {
 			font-family: @yerform-font-family;
 			font-size: @yerform-font-size;
-			line-height: ceil( @yerform-font-size * 1.2 );
+			line-height: round( @yerform-font-size * 1.2 );
 		}
 		
 		.yerform-messages-error {
@@ -91,7 +91,7 @@
 		font-family: @yerform-font-family;
 		font-size: @yerform-font-size + 2px;
 		color: @yerform-font-color;
-		line-height: ceil( @yerform-font-size * 1.2 );
+		line-height: round( @yerform-font-size * 1.2 );
 		font-weight: bold;
 		padding-bottom: @yerform-list-gap;
 	}
@@ -164,17 +164,23 @@
 	.yerform-group-label {
 		margin-bottom: 0;
 		font-weight: bold;
-		width: 1px;
 		white-space: nowrap;
 	}
 	
+	
+	
 	@media @yerform-breakpoint {
+		
+		.yerform-group-inline > .yerform-list-item-group-inner > .yerform-group-label {
+			width: 1px;
+		}
 		
 		.yerform-list > .yerform-list-item:last-child {
 			padding-bottom: @yerform-list-gap;
 		}
 		
-		.yerform-list-table > .yerform-list-item:last-child {
+		.yerform-list-table > .yerform-list-item:last-child,
+		.yerform-depht-2 .yerform-list-item:last-child {
 			padding-bottom: 0;
 		}
 		
@@ -282,20 +288,26 @@
 	}
 	
 	.yerform label {
+		display: inline-block;
 		font-family: @yerform-font-family;
 		font-size: @yerform-font-size;
 		color: @yerform-font-color;
-		line-height: ceil( @yerform-font-size * 2);
+		line-height: round( @yerform-font-size * 1.2 );
 		padding-right: @yerform-label-padding;
+		padding-top: round( @yerform-font-size * 0.4 );
+		padding-bottom: round( @yerform-font-size * 0.4 );
 	}
 	
 	.yerform-field-after {
+		display: inline-block;
 		font-family: @yerform-font-family;
 		font-size: @yerform-font-size;
 		color: @yerform-font-color;
-		line-height: ceil( @yerform-font-size * 2 );
+		line-height: round( @yerform-font-size * 1.2 );
 		padding-left: @yerform-label-padding;
 		padding-right: @yerform-label-padding;
+		padding-top: round( @yerform-font-size * 0.4 );
+		padding-bottom: round( @yerform-font-size * 0.4 );
 	}
 
 /* LABELS end */
@@ -321,8 +333,8 @@
 			color: @yerform-font-color;
 			width: 100%;
 			border: 1px solid @yerform-border-color;
-			height: ceil( @yerform-font-size * 2 );
-			line-height: ceil(  @yerform-font-size * 2 );
+			height: round( @yerform-font-size * 2 );
+			line-height: round(  @yerform-font-size * 2 );
 			font-size: @yerform-font-size;
 			padding: 0 6px;
 		}
@@ -384,5 +396,20 @@
 		}
 
 	/* CHECKBOX end */
+	
+	/* RADIOBOX begin */
+
+		.yerform-item-type-radio {
+			vertical-align: top;
+			margin-bottom: 0;
+		}
+		.yerform-item-type-radio {
+			margin-bottom: -6px;
+		}
+		.yerform-item-type-radio:last-child {
+			margin-bottom: 0;
+		}
+
+	/* RADIOBOX end */
 	
 /* FIELDS end */

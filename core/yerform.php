@@ -914,6 +914,7 @@
 
             $ret = '';
             $ret .= $this->list_item_before( $p );
+            $ret .= $this->get_label( $p );
             $ret .= $this->fields_before;
             $ret .= $this->field_before;
             $ret .= '<input type="radio" id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" value="' . $p['data'] . '"' . $checked . '/>';
@@ -921,7 +922,6 @@
             $ret .= $this->field_after;
             $ret .= $this->get_field_messages( $p );
             $ret .= $this->fields_after;
-            $ret .= $this->get_label( $p );
             $ret .= $this->get_field_sufix( $p );
             $ret .= $this->list_item_after();
             
@@ -985,8 +985,7 @@
             
             $p += array(
                 'padding' => array(0,0),
-                'layout' => false,
-                'content' => false
+                'content' => ''
             );
             
             $p['fieldtype'] = 'html';
