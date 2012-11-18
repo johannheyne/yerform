@@ -1078,7 +1078,8 @@
                 'label' => false,
                 'class' => false,
                 'group-layout' => 'block',
-                'list-layout' => 'block'
+                'list-layout' => 'block',
+                'list-gap' => false
             );
             
             $this->depht = $this->depht + 1;
@@ -1089,7 +1090,8 @@
             if ( $p['group-layout'] === 'inline' ) $class .= ' yerform-group-inline';
 
             $this->code .= str_replace('>', ' class="yerform-list-item-group' . $class . '">', $this->list_item_before);
-            $this->code .= '<div class="yerform-list-item-group-inner">';
+            $class = 'yerform-list-item-group-inner';
+            $this->code .= '<div class="' . $class . '">';
             
             if ( $p['label'] ) {
                 $this->code .= str_replace('>', ' class="yerform-group-label">', $this->label_before);
@@ -1105,7 +1107,7 @@
             if ( $p['list-layout'] === 'inline' ) $class .= 'yerform-list-inline';
             
             $class .= ' yerform-depht-' . $this->depht;
-            
+            if ( $p['list-gap'] ) $class .= ' yerform-list-gap';
             $ret = str_replace('>', ' class="yerform-list ' . $class . '">', $this->list_before);
             $this->code .= $ret;
             

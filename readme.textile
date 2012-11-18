@@ -124,7 +124,8 @@ h3. Fieldgroup
 <pre><code>$form->set( 'group_begin', array(
     'label' => false,
     'group-layout' => 'block',
-    'list-layout' => 'block'
+    'list-layout' => 'block',
+    'list-gap' => false
 ));
 
     /* some fields */
@@ -140,6 +141,9 @@ $form->set( 'group_end');
 
 *list-layout*
 <em>(string) block, inline, table</em>
+
+*list-gap*
+<em>(bolean)</em> Enables gap between fields or groups if list-layout is block or inline.
 
 
 h2. Fields
