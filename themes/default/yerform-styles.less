@@ -8,9 +8,16 @@
 @yerform-label-width: 150px;
 @yerform-label-padding: 10px;
 @yerform-list-gap: 10px;
+@yerform-checkbox-gap: -6px;
 
 @yerform-breakpoint: ~"only screen and (min-width: 481px)";
 
+.yerform * {
+	//background: rgba(0,0,0,0.05);
+}
+li {
+	//border: 1px solid #999;
+}
 
 /* PRESETS & FIXES begin */
 
@@ -167,7 +174,11 @@
 		white-space: nowrap;
 	}
 	
-	
+	.yerform-list-inline,
+	.yerform-list-table,
+	.yerform-list-block {
+		
+	}
 	
 	@media @yerform-breakpoint {
 		
@@ -188,7 +199,7 @@
 			
 			.yerform-group-inline {
 
-				margin-bottom: 0;
+				/*margin-bottom: 0;*/
 				vertical-align: top;
 
 				> .yerform-list-item-group-inner {
@@ -224,7 +235,7 @@
 
 				display: table;
 				width: 100%;
-				margin-bottom: @yerform-list-gap;
+				/*margin-bottom: @yerform-list-gap;*/
 
 				> .yerform-list-item,
 				> .yerform-list-item-group {
@@ -253,7 +264,7 @@
 		/* LISTITEMS INLINE begin */
 
 			.yerform-list-inline {
-
+				
 				> .yerform-list-item,
 				> .yerform-list-item-group {
 
@@ -319,6 +330,7 @@
 		.yerform-fields-wrap {
 			
 		}
+	
 	}
 	
 	.yerform-field-wrap {
@@ -386,28 +398,72 @@
 
 		.yerform-item-type-checkbox {
 			vertical-align: top;
+		}
+		
+		.yerform-list-item-group .yerform-item-type-checkbox {
 			margin-bottom: 0;
 		}
-		.yerform-item-type-checkbox {
-			margin-bottom: -6px;
+		
+		.yerform-item-type-checkbox + .yerform-item-type-checkbox {
+			margin-top: @yerform-checkbox-gap;
 		}
-		.yerform-item-type-checkbox:last-child {
-			margin-bottom: 0;
-		}
+		
+		@media @yerform-breakpoint {
 
+			.yerform-item-type-checkbox + .yerform-item-type-checkbox {
+				margin-top: 0;
+			}
+			
+			.yerform-list-item-group  .yerform-list-item-group  {
+				margin-bottom: 0;
+			}
+		}
+		
+		.yerform-list-block > .yerform-item-type-checkbox + .yerform-item-type-checkbox {
+			margin-top: @yerform-checkbox-gap;
+		}
+		
+		.yerform-depht-1 {
+			> .yerform-item-type-checkbox + .yerform-item-type-checkbox {
+				margin-top: @yerform-list-gap;
+			}
+		}
+		
 	/* CHECKBOX end */
 	
 	/* RADIOBOX begin */
 
 		.yerform-item-type-radio {
 			vertical-align: top;
+		}
+		
+		.yerform-list-item-group .yerform-item-type-radio {
 			margin-bottom: 0;
 		}
-		.yerform-item-type-radio {
-			margin-bottom: -6px;
+		
+		.yerform-item-type-radio + .yerform-item-type-radio {
+			margin-top: @yerform-checkbox-gap;
 		}
-		.yerform-item-type-radio:last-child {
-			margin-bottom: 0;
+		
+		@media @yerform-breakpoint {
+
+			.yerform-item-type-radio + .yerform-item-type-radio {
+				margin-top: 0;
+			}
+			
+			.yerform-list-item-group  .yerform-list-item-group  {
+				margin-bottom: 0;
+			}
+		}
+		
+		.yerform-list-block > .yerform-item-type-radio + .yerform-item-type-radio {
+			margin-top: @yerform-checkbox-gap;
+		}
+		
+		.yerform-depht-1 {
+			> .yerform-item-type-radio + .yerform-item-type-radio {
+				margin-top: -@yerform-list-gap + @yerform-checkbox-gap;
+			}
 		}
 
 	/* RADIOBOX end */

@@ -264,7 +264,7 @@ h3. HTML
 ));
 </code></pre>
 
-*html*
+*content*
 <em>(string)</em> HTML-Code to display.
 
 h2. Validation
