@@ -8,11 +8,11 @@ This documentation is incomplete and corrupting changes still may ahead!
 
 h2. Roadmap
 
-* basic css styling, focusing on layoutoptions
+* captcha
+* complete documentation
 * definable dateformat for date validation
 * config swift (PHP Mail, Sendmail, Smtp & SSL)
-* complete documentation
-* captcha
+* [progressive] basic css styling, focusing on layoutoptions
 
 * [done] prepared for using with ajax
 * [done] output type return and echo
