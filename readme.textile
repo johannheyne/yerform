@@ -352,7 +352,7 @@ The date format will be changeable in futur.
 *message-min-max*
 If the date does not fit the given range of min and/or max.
 
-h2. Output the form
+h2. Output The Form
 
 <pre><code>$form->run( array(
     'output' => 'return'
@@ -362,7 +362,7 @@ h2. Output the form
 *output*
 <em>('echo' | 'return')</em> Defines the type of output.
 
-h2. Submit and Reset Button
+h2. Submit And Reset Button
 
 <pre><code>$form->set( 'form_buttons', array(
     'submit' => true,
