@@ -46,6 +46,9 @@
 	/* LABELS begin */
 
 		@yerform-label-lineheight-factor: 1.4;
+		@yerform-label-width: 150px;
+		@yerform-label-padding: 20px;
+		@yerform-label-checkbox-padding: 10px;
 		
 		.yerform label:after {
 			content: ":";
@@ -55,11 +58,10 @@
 	
 	/* LAYOUT begin */
 
-		@yerform-label-width: 150px;
-		@yerform-label-padding: 10px;
 		@yerform-list-gap: 10px;
-		@yerform-checkbox-gap: -6px;
-
+		@yerform-checkbox-vertical-gap: -6px;
+		@yerform-inline-vertical-gap: 20px;
+		
 	/* LAYOUT end */
 	
 	/* RESPONSIVE begin */
@@ -342,7 +344,7 @@
 					> .yerform-list-item-group {
 
 						display: inline-block;
-						padding-right: 10px;
+						padding-right: @yerform-inline-vertical-gap;
 
 						&:last-child {
 							padding-right: 0;
@@ -367,12 +369,20 @@
 
 		@media @yerform-breakpoint {
 
+			.yerform-list-item-inline,
 			.yerform-group-inline {
 				> * {
 					> .yerform-label-wrap,
 					> .yerform-group-label {
 						text-align: right;
 					}
+				}
+			}
+			
+			.yerform-group-inline,
+			.yerform-list-item-inline {
+				> * > * > label {
+				    padding-right: @yerform-label-padding;
 				}
 			}
 		}
@@ -383,19 +393,17 @@
 			font-size: @yerform-font-size;
 			color: @yerform-font-color;
 			line-height: round( @yerform-font-size * @yerform-label-lineheight-factor );
-			padding-right: @yerform-label-padding;
 			padding-top: round( @yerform-font-size * ( ( @yerform-textfield-height-factor - @yerform-label-lineheight-factor ) / 2 ) );
 			padding-bottom: round( @yerform-font-size * ( ( @yerform-textfield-height-factor - @yerform-label-lineheight-factor ) / 2 ) );
 		}
-
+		
 		.yerform-field-after {
 			display: inline-block;
 			font-family: @yerform-font-family;
 			font-size: @yerform-font-size;
 			color: @yerform-font-color;
 			line-height: round( @yerform-font-size * @yerform-label-lineheight-factor );
-			padding-left: @yerform-label-padding;
-			padding-right: @yerform-label-padding;
+			padding-left: @yerform-label-checkbox-padding;
 			padding-top: round( @yerform-font-size * ( ( @yerform-textfield-height-factor - @yerform-label-lineheight-factor ) / 2 ) );
 			padding-bottom: round( @yerform-font-size * ( ( @yerform-textfield-height-factor - @yerform-label-lineheight-factor ) / 2 ) );
 		}
@@ -486,7 +494,7 @@
 			}
 
 			.yerform-item-type-checkbox + .yerform-item-type-checkbox {
-				margin-top: @yerform-checkbox-gap;
+				margin-top: @yerform-checkbox-vertical-gap;
 			}
 
 			@media @yerform-breakpoint {
@@ -497,7 +505,7 @@
 			}
 
 			.yerform-list-block > .yerform-item-type-checkbox + .yerform-item-type-checkbox {
-				margin-top: @yerform-checkbox-gap;
+				margin-top: @yerform-checkbox-vertical-gap;
 			}
 
 			.yerform-depht-1 {
@@ -519,7 +527,7 @@
 			}
 
 			.yerform-item-type-radio + .yerform-item-type-radio {
-				margin-top: @yerform-checkbox-gap;
+				margin-top: @yerform-checkbox-vertical-gap;
 			}
 
 			@media @yerform-breakpoint {
@@ -530,7 +538,7 @@
 			}
 
 			.yerform-list-block > .yerform-item-type-radio + .yerform-item-type-radio {
-				margin-top: @yerform-checkbox-gap;
+				margin-top: @yerform-checkbox-vertical-gap;
 			}
 
 			.yerform-depht-1 {
