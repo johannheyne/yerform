@@ -40,7 +40,7 @@ Include the styles from a theme if the yerForm class exists.
 }
 </code></pre>
 
-h3. Create a New Form
+h3. Create A New Form
 
 <pre><code>$form = new yerForm();
 $form->form_id = 'my_contact_form';
@@ -88,18 +88,18 @@ h3. Configuration
 <em>(string)</em> URL to redirect, after a form was sent.
 The <em>default</em> is false.
 
-h2. Global messages
+h2. Global Messages
 
 This is for all global messages like validation and send status.
 
 <pre><code>$form->set( 'messages' );
 </code></pre>
 
-h2. Building the form structure
+h2. Building The Form Structure
 
 The basic structure are fieldsets. Inside a fieldset belongs a list. Inside a list belongs fields and fieldgroups. A field represents a single list-item. But you can use groups for nesting the list.
 
-h3. Fieldset AND List
+h3. Fieldset And List
 
 <pre><code>$form->set( 'fieldset_begin', array(
     'legend'=>'Contactdata',
