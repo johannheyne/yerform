@@ -47,7 +47,8 @@
 
 		@yerform-label-lineheight-factor: 1.4;
 		@yerform-label-width: 150px;
-		@yerform-label-padding: 20px;
+		@yerform-label-root-padding: 30px;
+		@yerform-label-padding: 15px;
 		@yerform-label-checkbox-padding: 10px;
 		
 		.yerform label:after {
@@ -58,9 +59,9 @@
 	
 	/* LAYOUT begin */
 
-		@yerform-list-gap: 10px;
+		@yerform-list-gap: 16px;
+		@yerform-inline-horizontal-gap: 30px;
 		@yerform-checkbox-vertical-gap: -6px;
-		@yerform-inline-vertical-gap: 20px;
 		
 	/* LAYOUT end */
 	
@@ -159,10 +160,9 @@
 
 		.yerform-fieldset-legend {
 			font-family: @yerform-font-family;
-			font-size: @yerform-font-size + 2px;
+			font-size: round( @yerform-font-size * 1.2 );
 			color: @yerform-font-color;
-			line-height: round( @yerform-font-size * 1.2 );
-			font-weight: bold;
+			line-height: round( @yerform-font-size * 1.4 );
 			padding-bottom: @yerform-list-gap;
 		}
 
@@ -233,7 +233,6 @@
 
 		.yerform-group-label {
 			margin-bottom: 0;
-			font-weight: bold;
 			white-space: nowrap;
 		}
 
@@ -316,7 +315,7 @@
 					> .yerform-list-item-group {
 
 						display: table-cell;
-						padding-right: 10px;
+						padding-right: @yerform-inline-horizontal-gap;
 
 						&:last-child {
 							padding-right: 0;
@@ -344,7 +343,7 @@
 					> .yerform-list-item-group {
 
 						display: inline-block;
-						padding-right: @yerform-inline-vertical-gap;
+						padding-right: @yerform-inline-horizontal-gap;
 
 						&:last-child {
 							padding-right: 0;
@@ -384,6 +383,10 @@
 				> * > * > label {
 				    padding-right: @yerform-label-padding;
 				}
+			}
+			
+			.yerform-depht-1 > * > * > * > label {
+				padding-right: @yerform-label-root-padding;
 			}
 		}
 
