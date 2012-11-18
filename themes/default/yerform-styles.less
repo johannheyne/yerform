@@ -4,7 +4,7 @@
 	
 	/* FONT begin */
 
-		@yerform-font-size: 14px;
+		@yerform-font-size: 15px;
 		@yerform-font-family: Arial;
 		@yerform-font-color: black;
 		@yerform-color-error: red;
@@ -46,6 +46,10 @@
 	/* LABELS begin */
 
 		@yerform-label-lineheight-factor: 1.4;
+		
+		.yerform label:after {
+			content: ":";
+		}
 		
 	/* LABELS end */
 	
@@ -278,7 +282,6 @@
 
 						> .yerform-group-label {
 							display: table-cell;
-							padding-right: @yerform-label-padding;
 							font-weight: normal;
 							vertical-align: top;
 						}
@@ -364,8 +367,13 @@
 
 		@media @yerform-breakpoint {
 
-			.yerform-label-wrap {
-
+			.yerform-group-inline {
+				> * {
+					> .yerform-label-wrap,
+					> .yerform-group-label {
+						text-align: right;
+					}
+				}
 			}
 		}
 
