@@ -910,8 +910,10 @@
 
             $p['fieldtype'] = 'radio';
 
-            if ( $this->get_field_value( $p ) === $p['data'] ) { $checked = ' checked'; } else { $checked = ''; }
-
+            $checked = '';
+            if ( $this->get_field_value( $p ) === $p['data'] ) $checked = ' checked';
+            if ( $this->get_field_value( $p ) === '' && $p['checked'] === true ) $checked = ' checked';
+            
             $ret = '';
             $ret .= $this->list_item_before( $p );
             $ret .= $this->get_label( $p );
