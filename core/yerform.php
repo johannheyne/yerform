@@ -78,7 +78,7 @@
         public function config( $p = array() ) {
 
             $p += array(
-                'form_class' => 'yerform',
+                'form_class' => '',
                 'action' => '',
                 'sent_page' => false,
                 'honeypot' => false,
@@ -574,7 +574,7 @@
         protected function get_form() {
 
             $ret = '';
-            $ret .= '<form id="' . $this->form_id . '" class="' . $this->config['form_class'] . '" action="' . $this->config['action'] . '" method="post" enctype="multipart/form-data" name="yerform" target="_self">';
+            $ret .= '<form id="' . $this->form_id . '" class="yerform ' . $this->config['form_class'] . '" action="' . $this->config['action'] . '" method="post" enctype="multipart/form-data" name="yerform" target="_self">';
             $ret .= '<input name="yerform-check" type="hidden" value="' . time() . '"/>';
             $ret .= $this->code;
             $ret .= '</form>';
