@@ -11,9 +11,26 @@
 
 	/* FONT end */
 	
-	/* FIELDS begin */
+	/* LAYOUT begin */
 
+		@yerform-width-max: 800px;
+		@yerform-list-gap: 16px;
+		@yerform-inline-horizontal-gap: 30px;
+		@yerform-checkbox-vertical-gap: 0;
+		
+	/* LAYOUT end */
+	
+	/* FIELDSET begin */
+
+		@yerform-fieldset-margin: 20px;
+
+	/* FIELDSET end */
+	
+	/* FIELDS begin */
+		
 		@yerform-border-color: black;
+		@yerform-field-presufix-padding: 10px;
+		
 		
 		/* TEXTFIELD begin */
 
@@ -46,10 +63,14 @@
 	/* LABELS begin */
 
 		@yerform-label-lineheight-factor: 1.4;
-		@yerform-label-width: 150px;
-		@yerform-label-root-padding: 30px;
+		@yerform-label-width-min: 140px;
+		@yerform-label-witespace: normal;
 		@yerform-label-padding: 15px;
+		@yerform-label-root-padding: 30px;
+		@yerform-label-align: right;
+		@yerform-label-root-align: right;
 		@yerform-label-checkbox-padding: 10px;
+		@yerform-sufix-padding: 10px;
 		
 		.yerform label:after {
 			content: ":";
@@ -57,17 +78,24 @@
 		
 	/* LABELS end */
 	
-	/* LAYOUT begin */
-
-		@yerform-list-gap: 16px;
-		@yerform-inline-horizontal-gap: 30px;
-		@yerform-checkbox-vertical-gap: -6px;
+	/* INFOS begin */
 		
-	/* LAYOUT end */
+		@yerform-info-after-width: 200px;
+		@yerform-info-after-padding: 10px;
+
+	/* INFOS end */
+	
+	/* BUTTONS begin */
+
+		@yerform-submit-align: right;
+
+	/* BUTTONS end */
 	
 	/* RESPONSIVE begin */
 
-		@yerform-breakpoint: ~"only screen and (min-width: 481px)";
+		@yerform-breakpoint: ~"only screen and (min-width: 600px)";
+		@yerform-breakpoint-label: ~"only screen and (min-width: 600px)";
+		@yerform-breakpoint-info: ~"only screen and (min-width: 700px)";
 
 	/* RESPONSIVE end */
 	
@@ -75,15 +103,42 @@
 
 
 /* CORE begin */
+	
+	/* MIXINS begin */
 
-	/* PRESETS & FIXES begin */
+		.display-table() {
+			display: table;
+			width: 100%;
+			>  * {
+				display: table-cell;
+				vertical-align: top;
+			}
+		}
+		
+		.tag-font() {
+			font-family: @yerform-font-family;
+			font-size: @yerform-font-size;
+			line-height: round( @yerform-font-size * @yerform-label-lineheight-factor );
+			padding-top: round( @yerform-font-size * ( ( @yerform-textfield-height-factor - @yerform-label-lineheight-factor ) / 2 ) );
+			padding-bottom: round( @yerform-font-size * ( ( @yerform-textfield-height-factor - @yerform-label-lineheight-factor ) / 2 ) );
+		}
+		
+
+	/* MIXINS end */
+	
+	/* DEVELOPER begin */
 
 		.yerform * {
 			//background: rgba(0,0,0,0.05);
 		}
+		
 		li {
 			//border: 1px solid #999;
 		}
+
+	/* DEVELOPER end */
+	
+	/* PRESETS & FIXES begin */
 
 		.yerform * {
 			-moz-box-sizing: border-box;
@@ -102,7 +157,7 @@
 	/* MISC begin */
 
 		.yerform {
-			max-width: 600px;
+			max-width: @yerform-width-max;
 		}
 
 		.yerform-invisible {
@@ -117,44 +172,14 @@
 
 	/* MISC end */
 
-	/* MESSAGES begin */
-
-		/* MESSAGES begin */
-
-			.yerform-messages {
-				font-family: @yerform-font-family;
-				font-size: @yerform-font-size;
-				line-height: round( @yerform-font-size * 1.2 );
-			}
-
-			.yerform-messages-error {
-				color: @yerform-color-error;
-			}
-
-		/* MESSAGES end */
-
-		/* FIELDMESSAGE begin */
-
-			.yerform-field-message {
-				font-family: @yerform-font-family;
-				font-size: @yerform-font-size;
-				line-height: round( @yerform-font-size * 1.2 );
-				padding-top: 3px;
-			}
-
-			.yerform-field-message-error {
-				color: @yerform-color-error;
-			}
-
-		/* FIELDMESSAGE end */
-
-	/* MESSAGES end */
-
 	/* FIELDSET begin */
-
+		
+		.yerform-fieldset-wrap {
+			margin: @yerform-fieldset-margin 0;
+		}
+		
 		.yerform-fieldset {
 			border: none;
-			margin: 16px 0;
 			padding: 0;
 		}
 
@@ -173,12 +198,13 @@
 		@media @yerform-breakpoint {
 
 			.yerform-list-item-inline {
-				.yerform-list-item-inner {
+				.yerform-label-table {
 					display: table;
 					width: 100%;
 				}
 				.yerform-label-wrap {
 					display: table-cell;
+					vertical-align: top;
 				}
 				.yerform-fields-wrap {
 					display: table-cell;
@@ -196,29 +222,37 @@
 			padding: 0;
 			font-size: 0;
 			line-height: 0;
+			width: 100%;
 		}
 
 		.yerform-list-item {
 			margin-bottom: @yerform-list-gap;
 		}
 
-		.yerform-list-item-inner {
-
-		}
-
-		@media @yerform-breakpoint {
-
-			.yerform-depht-1 > .yerform-list-item-inline > .yerform-list-item-inner {
-
-				display: table;
-				width: 100%;
-
-				.yerform-label-wrap {
-					display: table-cell;
-					width: @yerform-label-width;
+		@media @yerform-breakpoint-label {
+			
+			.yerform-list-item {
+				margin-bottom: 0;
+			}
+			.yerform-list-label-table {
+				> .yerform-list-item {
+				 	> * {
+						padding-bottom: @yerform-list-gap;
+					}
 				}
-				.yerform-fields-wrap {
-					display: table-cell;
+			}
+			.yerform-list-label-table {
+				> .yerform-list-item{
+				 	> * {
+						padding-bottom: @yerform-list-gap;
+					}
+				}
+			}
+			
+			.yerform-depht-1.yerform-list-label-table {
+				> * > .yerform-label-wrap {
+					min-width: @yerform-label-width-min;
+					white-space: @yerform-label-witespace;
 				}
 			}
 		}
@@ -244,8 +278,9 @@
 
 		@media @yerform-breakpoint {
 
-			.yerform-group-inline > .yerform-list-item-group-inner > .yerform-group-label {
+			.yerform-group-inline  > .yerform-group-label {
 				width: 1px;
+				/*vertical-align: top;*/
 			}
 
 			.yerform-list > .yerform-list-item:last-child {
@@ -284,12 +319,10 @@
 						> .yerform-group-label {
 							display: table-cell;
 							font-weight: normal;
-							vertical-align: top;
 						}
 
 						> .yerform-fields-wrap {
 							display: table-cell;
-							vertical-align: top;
 						}
 					}
 				}
@@ -297,10 +330,14 @@
 				.yerform-depht-1 {
 					> .yerform-list-item-inline > .yerform-list-item-group-inner > .yerform-group-label,
 					> .yerform-group-inline > .yerform-list-item-group-inner > .yerform-group-label {
-						width: @yerform-label-width;
+						min-width: @yerform-label-width-min;
 					}
 				}
-
+				
+				.yerform-group-label {
+					vertical-align: top;
+				}
+				
 			/* GROUP INLINE end */
 
 			/* LISTITEMS TABLE begin */
@@ -325,7 +362,7 @@
 							width: 1px;
 						}
 
-						> .yerform-list-item-inner {
+						> .yerform-label-table {
 							> .yerform-label-wrap {
 								width: 1px;
 							}
@@ -349,7 +386,7 @@
 							padding-right: 0;
 						}
 
-						> .yerform-list-item-inner {
+						> .yerform-label-table {
 							> .yerform-label-wrap {
 								width: 0;
 							}
@@ -361,73 +398,110 @@
 
 
 		}
-
+		
+		@media @yerform-breakpoint-label {
+			.yerform-list-label-table {
+				display: table;
+				> * {
+					display: table-row;
+					> * {
+						display: table-cell;
+						vertical-align: top;
+					}
+				}
+			}
+		}
+		
 	/* GROUP end */
 
 	/* LABELS begin */
 
-		@media @yerform-breakpoint {
-
-			.yerform-list-item-inline,
-			.yerform-group-inline {
-				> * {
-					> .yerform-label-wrap,
-					> .yerform-group-label {
-						text-align: right;
-					}
-				}
-			}
-			
-			.yerform-group-inline,
-			.yerform-list-item-inline {
-				> * > * > label {
-				    padding-right: @yerform-label-padding;
-				}
-			}
-			
-			.yerform-depht-1 > * > * > * > label {
-				padding-right: @yerform-label-root-padding;
-			}
-		}
-
 		.yerform label {
 			display: inline-block;
-			font-family: @yerform-font-family;
-			font-size: @yerform-font-size;
+			.tag-font;
 			color: @yerform-font-color;
-			line-height: round( @yerform-font-size * @yerform-label-lineheight-factor );
-			padding-top: round( @yerform-font-size * ( ( @yerform-textfield-height-factor - @yerform-label-lineheight-factor ) / 2 ) );
-			padding-bottom: round( @yerform-font-size * ( ( @yerform-textfield-height-factor - @yerform-label-lineheight-factor ) / 2 ) );
 		}
+		
+		@media @yerform-breakpoint-label {
+			
+			.yerform-list-item.yerform-label-inline > * {
+				.display-table;
+			}
+			
+			.yerform-list-label-table.yerform-depht-1 > * > .yerform-label-wrap,
+			.yerform-label-inline > .yerform-label-wrap {
+				padding-right: @yerform-label-root-padding;
+			}
+			
+			
+			
+			.yerform-group-inline,
+			.yerform-list-item-inline,
+			.yerform-list-table > * > * {
+				> .yerform-label-wrap {
+				    padding-right: @yerform-label-padding;
+					width: 1px;
+				}
+			}
+			
+			.yerform-list-label-table > *,
+			.yerform-list-item-inline,
+			.yerform-group-inline  {
+					> .yerform-label-wrap,
+					> .yerform-group-label {
+						text-align: @yerform-label-align;
+					}
+			}
+			
+			.yerform-depht-1 > * {
+				> .yerform-label-wrap,
+				> .yerform-group-label {
+					text-align: @yerform-label-root-align;
+					padding-right: @yerform-label-root-padding;
+				}
+			 }
+			
+			.yerform-list-item-group > .yerform-group-label {
+				padding-bottom: @yerform-list-gap;
+			}
+		}
+
+		
+	/* LABELS end */
+	
+	/* FIELDTABLE begin */
+		
+		.yerform-field-table {
+			.display-table;
+		}
+
+	/* FIELDTABLE end */
+	
+	/* FIELDPRESUFIX begin */
+
+		.yerform-field-prefix,
+		.yerform-field-sufix {
+			.tag-font;
+			color: @yerform-font-color;
+			width: 1px;
+		}
+		.yerform-field-prefix {
+			padding-right: @yerform-field-presufix-padding;
+		}
+		.yerform-field-sufix {
+			padding-left: @yerform-field-presufix-padding;
+		}
+
+	/* FIELDPRESUFIX end */
+	
+	/* FIELDS begin */
 		
 		.yerform-field-after {
 			display: inline-block;
-			font-family: @yerform-font-family;
-			font-size: @yerform-font-size;
-			color: @yerform-font-color;
-			line-height: round( @yerform-font-size * @yerform-label-lineheight-factor );
+			.tag-font();
 			padding-left: @yerform-label-checkbox-padding;
-			padding-top: round( @yerform-font-size * ( ( @yerform-textfield-height-factor - @yerform-label-lineheight-factor ) / 2 ) );
-			padding-bottom: round( @yerform-font-size * ( ( @yerform-textfield-height-factor - @yerform-label-lineheight-factor ) / 2 ) );
 		}
-
-	/* LABELS end */
-
-	/* FIELDS begin */
-
-		@media @yerform-breakpoint {
-
-			.yerform-fields-wrap {
-
-			}
-
-		}
-
-		.yerform-field-wrap {
-			font-size: 0;
-			line-height: 0;
-		}
-
+		
 		/* Text begin */
 
 			.yerform input[type="text"] {
@@ -441,20 +515,26 @@
 				line-height: round( @yerform-font-size * @yerform-textfield-height-factor );
 				color: @yerform-font-color;
 			}
-
-			@media @yerform-breakpoint {
-
-				.yerform input[size] {
-					width: auto;
-				}
-			}
-
+			
 			.yerform-list-item-error input[type="text"] {
 				border: @yerform-textfield-border-error;
 	 			background: @yerform-textfield-background-error;
 				color: @yerform-textfield-font-color-error;
 			}
+			
+			@media @yerform-breakpoint {
+				.yerform-input-sized {
 
+					.yerform-field-cell {
+						/*width: 1px;*/
+				    	input[type="text"] {
+				      		width: auto;
+						}
+				    }
+			
+				}
+			}
+			
 		/* Text end */
 
 		/* TEXTAREA begin */
@@ -489,9 +569,11 @@
 		/* CHECKBOX begin */
 
 			.yerform-item-type-checkbox {
-				vertical-align: top;
+				.yerform-field {
+					.tag-font();
+				}
 			}
-
+			
 			.yerform-list-item-group .yerform-item-type-checkbox {
 				margin-bottom: 0;
 			}
@@ -499,14 +581,14 @@
 			.yerform-item-type-checkbox + .yerform-item-type-checkbox {
 				margin-top: @yerform-checkbox-vertical-gap;
 			}
-
+			/*
 			@media @yerform-breakpoint {
 
 				.yerform-item-type-checkbox + .yerform-item-type-checkbox {
 					margin-top: 0;
 				}
 			}
-
+			/*
 			.yerform-list-block > .yerform-item-type-checkbox + .yerform-item-type-checkbox {
 				margin-top: @yerform-checkbox-vertical-gap;
 			}
@@ -516,13 +598,21 @@
 					margin-top: @yerform-list-gap;
 				}
 			}
-
+			*/
 		/* CHECKBOX end */
 
 		/* RADIOBOX begin */
 
 			.yerform-item-type-radio {
 				vertical-align: top;
+				
+				> * > .yerform-fields-wrap {
+					vertical-align: middle;
+					
+					> * > .yerform-field {
+						vertical-align: middle;
+					}
+				}
 			}
 
 			.yerform-list-item-group .yerform-item-type-radio {
@@ -553,7 +643,82 @@
 		/* RADIOBOX end */
 
 	/* FIELDS end */
+	
+	/* INFO begin */
+		
+		.yerform-info-after {
+			.tag-font();
+		}
+		
+		@media @yerform-breakpoint-info {
+			
+			.yerform-info-inline  > * .yerform-infoafter-table,
+			.yerform-info-inline  > * > * .yerform-infoafter-table {
+				.display-table;
+				> .yerform-info-after {
+					padding-left: @yerform-info-after-padding;
+				}
+			}
+			
+			.yerform-info-sized > * .yerform-info-after,
+			.yerform-info-sized > *  > * .yerform-info-after {
+				max-width: @yerform-info-after-width;
+		  	}
+		}
+		
+	/* INFO end */
+	
+	/* MESSAGES begin */
 
+		/* MESSAGES begin */
+
+			.yerform-messages {
+				font-family: @yerform-font-family;
+				font-size: @yerform-font-size;
+				line-height: round( @yerform-font-size * 1.2 );
+			}
+
+			.yerform-messages-error {
+				color: @yerform-color-error;
+			}
+
+		/* MESSAGES end */
+
+		/* FIELDMESSAGE begin */
+
+			.yerform-field-message {
+				font-family: @yerform-font-family;
+				font-size: @yerform-font-size;
+				line-height: round( @yerform-font-size * 1.2 );
+				padding-top: 3px;
+			}
+
+			.yerform-field-message-error {
+				color: @yerform-color-error;
+			}
+
+		/* FIELDMESSAGE end */
+
+	/* MESSAGES end */
+	
+	/* BUTTONS begin */
+
+		.yerform-buttons {
+			display: table;
+			width: 100%;
+			margin-top: 0;
+		}
+		
+		.yerform-reset,
+		.yerform-submit {
+			display: table-cell;
+		}
+		.yerform-submit {
+			text-align: @yerform-submit-align;
+		}
+
+	/* BUTTONS end */
+	
 /* CORE end */
 
 
