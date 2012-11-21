@@ -678,9 +678,9 @@
             $ret .= $this->get_label( $p );
             $ret .= $this->fields_before;
             $ret .= $this->field_before;
-            $ret .= '<input class="form-field field-margin-right" type="text" id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" value="' . $this->get_field_value( $p ) . '"' . $size . ' maxlength="' . $p['maxlength'] . '"' . $attr . '/>';
-            $ret .= $this->field_after;
+            $ret .= '<div class="yerform-field"><input class="yerform-field-text" type="text" id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" value="' . $this->get_field_value( $p ) . '"' . $size . ' maxlength="' . $p['maxlength'] . '"' . $attr . '/></div>';
             $ret .= $this->get_field_sufix( $p );
+            $ret .= $this->field_after;
             $ret .= $this->get_field_messages( $p );
             $ret .= $this->fields_after;
             $ret .= $this->list_item_after();
@@ -712,9 +712,9 @@
             $ret .= $this->get_label( $p );
             $ret .= $this->fields_before;
             $ret .= $this->field_before;
-            $ret .= '<textarea id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" cols="' . $p['cols'] . '" rows="' . $p['rows'] . '">' . $this->get_field_value( $p ) . '</textarea>';
-            $ret .= $this->field_after;
+            $ret .= '<div class="yerform-field"><textarea id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" cols="' . $p['cols'] . '" rows="' . $p['rows'] . '">' . $this->get_field_value( $p ) . '</textarea></div>';
             $ret .= $this->get_field_sufix( $p );
+            $ret .= $this->field_after;
             $ret .= $this->get_field_messages( $p );
             $ret .= $this->fields_after;
             $ret .= $this->list_item_after();
@@ -753,14 +753,14 @@
             $ret .= $this->get_label( $p );
             $ret .= $this->fields_before;
             $ret .= $this->field_before;
-            $ret .= '<select id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '">';
+            $ret .= '<div class="yerform-field"><select id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '">';
             foreach($p['data'] as $key => $value) {
                 if ( $this->get_field_value( $p ) == $key ) { $selected = ' selected'; } else { $selected = ''; }
                 $ret .= '<option value="' . $key . '"' . $selected . '>' . $value . '</option>';
             }
-            $ret .= '</select>';
-            $ret .= $this->field_after;
+            $ret .= '</select></div>';
             $ret .= $this->get_field_sufix( $p );
+            $ret .= $this->field_after;
             $ret .= $this->get_field_messages( $p );
             $ret .= $this->fields_after;
             $ret .= $this->list_item_after();
@@ -827,7 +827,7 @@
             $ret .= $this->get_label( $p );
             $ret .= $this->fields_before;
             $ret .= $this->field_before;
-            $ret .= '<input class="form-field field-margin-right' . $class . '" type="text" id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" value="' . $this->get_field_value( $p ) . '" size="' . $p['size'] . '" maxlength="' . $p['maxlength'] . '"' .  $data . '/>';
+            $ret .= '<div class="yerform-field"><input class="form-field field-margin-right' . $class . '" type="text" id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" value="' . $this->get_field_value( $p ) . '" size="' . $p['size'] . '" maxlength="' . $p['maxlength'] . '"' .  $data . '/></div>';
             $ret .= $this->field_after;
             $ret .= $this->get_field_messages( $p );
             $ret .= $this->fields_after;
@@ -871,12 +871,13 @@
             $ret .= $this->get_label( $p );
             $ret .= $this->fields_before;
             $ret .= $this->field_before;
-            $ret .= '<input type="checkbox" id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" value="' . $p['data'] . '"' . $checked . '/>';
+            $ret .= '<div class="yerform-field"><input type="checkbox" id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" value="' . $p['data'] . '"' . $checked . '/>';
             if ( $p['labeltype'] === 'field-after' ) $ret .= '<span class="yerform-field-after">' . $p['label'] . '</span>';
+            $ret .= '</div>';
+            $ret .= $this->get_field_sufix( $p );
             $ret .= $this->field_after;
             $ret .= $this->get_field_messages( $p );
             $ret .= $this->fields_after;
-            $ret .= $this->get_field_sufix( $p );
             $ret .= $this->list_item_after();
             
             $this->code .= $ret;
@@ -919,12 +920,13 @@
             $ret .= $this->get_label( $p );
             $ret .= $this->fields_before;
             $ret .= $this->field_before;
-            $ret .= '<input type="radio" id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" value="' . $p['data'] . '"' . $checked . '/>';
+            $ret .= '<div class="yerform-field"><input type="radio" id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" value="' . $p['data'] . '"' . $checked . '/>';
             if ( $p['labeltype'] === 'field-after' ) $ret .= '<span class="yerform-field-after">' . $p['label'] . '</span>';
+            $ret .= '</div>';
+            $ret .= $this->get_field_sufix( $p );
             $ret .= $this->field_after;
             $ret .= $this->get_field_messages( $p );
             $ret .= $this->fields_after;
-            $ret .= $this->get_field_sufix( $p );
             $ret .= $this->list_item_after();
             
             $this->code .= $ret;
@@ -961,9 +963,9 @@
             $ret .= $this->get_label( $p );
             $ret .= $this->fields_before;
             $ret .= $this->field_before;
-            $ret .= '<input name="' . $this->get_field_name( $p ) . '" type="file" size="' . $p['size'] . '">';
-            $ret .= $this->field_after;
+            $ret .= '<div class="yerform-field"><input name="' . $this->get_field_name( $p ) . '" type="file" size="' . $p['size'] . '"></div>';
             $ret .= $this->get_field_sufix( $p );
+            $ret .= $this->field_after;
             $ret .= $this->get_field_messages( $p );
             $ret .= $this->fields_after;
             $ret .= $this->list_item_after();
@@ -1215,9 +1217,9 @@
             );
 
             $ret = '';
-            $ret .= '<div class="form-buttons">';
-            if ( $p['reset'] ) $ret .= '<div class="reset ' . $p['reset_class'] . '"><input class="btn-reset ' . $p['reset_btn_class'] . '" name="reset" type="reset" value="' . $p['reset_label'] . '"/></div>';
-            $ret .= '<div class="submit ' . $p['submit_class'] . '"><input class="btn-submit ' . $p['submit_btn_class'] . '" name="submit" type="submit" value="' . $p['submit_label'] . '"/></div>';
+            $ret .= '<div class="yerform-buttons">';
+            if ( $p['reset'] ) $ret .= '<div class="yerform-reset ' . $p['reset_class'] . '"><input class="yerform-reset-btn ' . $p['reset_btn_class'] . '" name="reset" type="reset" value="' . $p['reset_label'] . '"/></div>';
+            $ret .= '<div class="yerform-submit ' . $p['submit_class'] . '"><input class="yerform-submit-btn ' . $p['submit_btn_class'] . '" name="submit" type="submit" value="' . $p['submit_label'] . '"/></div>';
             $ret .= '</div>';
             
             $this->code .= $ret;
@@ -1291,10 +1293,10 @@
                 'class_legend' => false
             );
 
-            $class = '';
-            if ( $p['class'] ) $class = ' class="fieldset ' . $p['class'] . '"';
+            $class = 'yerform-fieldset-wrap';
+            if ( $p['class'] ) $class = ' ' . $p['class'];
 
-            $this->code .= '<div' . $class . '>';
+            $this->code .= '<div class="' . $class . '">';
             $this->code .= '<fieldset class="yerform-fieldset">';
             $this->code .= '<legend class="yerform-fieldset-legend ' . $p['class_legend'] . '">' . $p['legend'] . '</legend>';
 
@@ -1444,7 +1446,7 @@
             $ret = false;
 
             if ( $p['sufix'] ) {
-                $ret .= '<div class="field-sufix">';
+                $ret .= '<div class="yerform-field-sufix">';
                 $ret .= '<span>' . $p['sufix'] . '</span>';
                 $ret .= '</div>';
             }

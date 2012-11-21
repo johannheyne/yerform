@@ -11,6 +11,21 @@
 
 	/* FONT end */
 	
+	/* LAYOUT begin */
+
+		@yerform-width-max: 600px;
+		@yerform-list-gap: 16px;
+		@yerform-inline-horizontal-gap: 30px;
+		@yerform-checkbox-vertical-gap: -6px;
+		
+	/* LAYOUT end */
+	
+	/* FIELDSET begin */
+
+		@yerform-fieldset-margin: 20px;
+
+	/* FIELDSET end */
+	
 	/* FIELDS begin */
 
 		@yerform-border-color: black;
@@ -50,6 +65,7 @@
 		@yerform-label-root-padding: 30px;
 		@yerform-label-padding: 15px;
 		@yerform-label-checkbox-padding: 10px;
+		@yerform-sufix-padding: 10px;
 		
 		.yerform label:after {
 			content: ":";
@@ -57,13 +73,11 @@
 		
 	/* LABELS end */
 	
-	/* LAYOUT begin */
+	/* BUTTONS begin */
 
-		@yerform-list-gap: 16px;
-		@yerform-inline-horizontal-gap: 30px;
-		@yerform-checkbox-vertical-gap: -6px;
-		
-	/* LAYOUT end */
+		@yerform-submit-align: right;
+
+	/* BUTTONS end */
 	
 	/* RESPONSIVE begin */
 
@@ -75,15 +89,20 @@
 
 
 /* CORE begin */
-
-	/* PRESETS & FIXES begin */
+	
+	/* DEVELOPER begin */
 
 		.yerform * {
 			//background: rgba(0,0,0,0.05);
 		}
+		
 		li {
 			//border: 1px solid #999;
 		}
+
+	/* DEVELOPER end */
+	
+	/* PRESETS & FIXES begin */
 
 		.yerform * {
 			-moz-box-sizing: border-box;
@@ -102,7 +121,7 @@
 	/* MISC begin */
 
 		.yerform {
-			max-width: 600px;
+			max-width: @yerform-width-max;
 		}
 
 		.yerform-invisible {
@@ -151,10 +170,13 @@
 	/* MESSAGES end */
 
 	/* FIELDSET begin */
-
+		
+		.yerform-fieldset-wrap {
+			margin: @yerform-fieldset-margin 0;
+		}
+		
 		.yerform-fieldset {
 			border: none;
-			margin: 16px 0;
 			padding: 0;
 		}
 
@@ -289,7 +311,6 @@
 
 						> .yerform-fields-wrap {
 							display: table-cell;
-							vertical-align: top;
 						}
 					}
 				}
@@ -412,22 +433,48 @@
 		}
 
 	/* LABELS end */
+	
+	/* FIELDSUFIX begin */
 
-	/* FIELDS begin */
-
-		@media @yerform-breakpoint {
-
-			.yerform-fields-wrap {
-
-			}
-
+		.yerform-field-sufix {
+			display: table-cell;
+			font-family: @yerform-font-family;
+			font-size: @yerform-font-size;
+			line-height: round( @yerform-font-size * @yerform-label-lineheight-factor );
+			padding-top: round( @yerform-font-size * ( ( @yerform-textfield-height-factor - @yerform-label-lineheight-factor ) / 2 ) );
+			padding-bottom: round( @yerform-font-size * ( ( @yerform-textfield-height-factor - @yerform-label-lineheight-factor ) / 2 ) );
+			color: @yerform-font-color;
+			padding-left: @yerform-sufix-padding;
 		}
 
+	/* FIELDSUFIX end */
+	
+	/* FIELDS begin */
+		
+		.yerform-fields-wrap {
+			vertical-align: top;
+		}
+		
 		.yerform-field-wrap {
 			font-size: 0;
 			line-height: 0;
+			display: table;
+			width: 100%;
 		}
+		
+		.yerform-field {
+			display: table-cell;
+			vertical-align: top;
+		}
+		.yerform-list-item-sized > * > * > * > .yerform-field {
+			width: 1px;
+		}
+		
+		@media @yerform-breakpoint {
 
+			
+		}
+		
 		/* Text begin */
 
 			.yerform input[type="text"] {
@@ -441,12 +488,9 @@
 				line-height: round( @yerform-font-size * @yerform-textfield-height-factor );
 				color: @yerform-font-color;
 			}
-
-			@media @yerform-breakpoint {
-
-				.yerform input[size] {
-					width: auto;
-				}
+			
+			.yerform input[size] {
+				width: auto;
 			}
 
 			.yerform-list-item-error input[type="text"] {
@@ -490,8 +534,18 @@
 
 			.yerform-item-type-checkbox {
 				vertical-align: top;
+				
+				> * > .yerform-fields-wrap {
+					vertical-align: middle;
+					
+					> * > .yerform-field {
+						vertical-align: middle;
+					}
+				}
 			}
-
+			
+			
+			
 			.yerform-list-item-group .yerform-item-type-checkbox {
 				margin-bottom: 0;
 			}
@@ -523,6 +577,14 @@
 
 			.yerform-item-type-radio {
 				vertical-align: top;
+				
+				> * > .yerform-fields-wrap {
+					vertical-align: middle;
+					
+					> * > .yerform-field {
+						vertical-align: middle;
+					}
+				}
 			}
 
 			.yerform-list-item-group .yerform-item-type-radio {
@@ -553,7 +615,25 @@
 		/* RADIOBOX end */
 
 	/* FIELDS end */
+	
+	/* BUTTONS begin */
 
+		.yerform-buttons {
+			display: table;
+			width: 100%;
+			margin-top: 0;
+		}
+		
+		.yerform-reset,
+		.yerform-submit {
+			display: table-cell;
+		}
+		.yerform-submit {
+			text-align: @yerform-submit-align;
+		}
+
+	/* BUTTONS end */
+	
 /* CORE end */
 
 
