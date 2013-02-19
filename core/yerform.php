@@ -328,6 +328,7 @@
                 /* issit a field for validation */
                 if ( 
                     $f === 'field_text' OR
+                    $f === 'field_textarea' OR
                     $f === 'field_date' OR  
                     $f === 'field_file' OR  
                     $f === 'field_select'   
