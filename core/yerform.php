@@ -1185,9 +1185,9 @@
             //$class = 'yerform-list-item-group-inner';
             //$this->code .= '<div class="' . $class . '">';
             
-            if ( $p['label'] ) {
+            if ( $p['label'] !== false ) {
                 $this->code .= str_replace('>', ' class="yerform-group-label">', $this->label_before);
-                $this->code .= '<label>' . $p['label'] . '</label>';
+                if ( $p['label'] != '' ) $this->code .= '<label>' . $p['label'] . '</label>';
                 $this->code .= $this->label_after;
             }
             
