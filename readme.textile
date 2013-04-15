@@ -104,7 +104,9 @@ h3. Fieldset And List
 <pre><code>$form->set( 'fieldset_begin', array(
     'legend'=>'Contactdata',
     'class'=>false,
-    'require_info'=>'*required'
+    'require_info'=> array(
+        'text' => '*required'
+    )
 ));
     $form->set( 'list_begin', array(
         'list-layout' => 'block'
