@@ -118,7 +118,7 @@ h3. Fieldset And List
 $form->set( 'fieldset_end' );
 </code></pre>
 
-The placeholder {require_symbol} will show <span class="required">*</span> per default. You can change this via $form->required_label_sufix = '';
+The placeholder <code>{require_symbol}</code> will show <span class="required">*</span> per default. You can change this via <code>$form->required_label_sufix = '…';</code>.
 
 *list-layout*
 <em>(string) block, inline, table</em>
