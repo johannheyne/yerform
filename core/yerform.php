@@ -93,6 +93,8 @@
                 'action' => '',
                 'sent_page' => false,
                 'honeypot' => false,
+                'mail_form' => true,
+                'call_function_on_validation_is_true' => false,
                 'mail_subject' => false,
                 'sender_mail' => false,
                 'sender_name' => false,
@@ -134,7 +136,7 @@
                than make sure, to have the validationoptions for required and email.
             */
             
-            if ( $this->config['field_sender_mail'] && isset( $p['name'] ) && $p['name'] === $this->config['field_sender_mail'] ) {
+            if ( $this->config['mail_form'] && $this->config['field_sender_mail'] && isset( $p['name'] ) && $p['name'] === $this->config['field_sender_mail'] ) {
                 
                 if ( isset( $p['validation'] ) ) {
                     $p['validation'] += array(
@@ -217,7 +219,7 @@
                 }
 
                 // if valid then send mail and build message
-                if ( $this->validation === false ) {
+                if ( $this->config['mail_form'] && $this->validation === false ) {
 
                     $this->send_mail();
                 }
@@ -225,8 +227,7 @@
 
 
             // mail sending
-            
-            if ( $this->sent === true ) {
+            if ( $this->config['mail_form'] && $this->sent === true ) {
                 
                 
                 $this->messages['message_mail_sending'] = true;
@@ -244,7 +245,7 @@
 
 
             // mail sent
-            elseif ( $_GET AND isset( $_GET['sent'] ) AND $_GET['sent'] === 'true' ) {
+            elseif ( $this->config['mail_form'] AND $_GET AND isset( $_GET['sent'] ) AND $_GET['sent'] === 'true' ) {
 
                 $this->messages['message_mail_sent'] = true;
                 $this->messages();
@@ -271,10 +272,10 @@
 
                 // walk the form settings
                 foreach( $this->set as $key => $item) {
+                    
                     if ( $item['p']['display'] === true ) {
 
                         if ( $item['f'] === 'field_hidden' )    $this->field_hidden( $item['p'] );
-                       
                     }
                 }
                 
@@ -741,6 +742,7 @@
                 'cols' => $this->field_textarea_cols,
                 'rows' => $this->field_textarea_rows,
                 'padding' => array(0,0),
+                'layout' => false
             );
             
             $p['fieldtype'] = 'textarea';
