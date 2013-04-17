@@ -13,14 +13,30 @@
 	
 	/* LAYOUT begin */
 
+<<<<<<< HEAD
 		@yerform-width-max: 800px;
 		@yerform-list-gap: 16px;
 		@yerform-inline-horizontal-gap: 30px;
 		@yerform-checkbox-vertical-gap: 0;
+=======
+		@yerform-width-max: 600px;
+		@yerform-list-gap: 16px;
+		@yerform-inline-horizontal-gap: 30px;
+		@yerform-checkbox-vertical-gap: -6px;
+>>>>>>> c56dd184e5bb10f700f542f39bc6f4774e755ce0
 		
 	/* LAYOUT end */
 	
 	/* FIELDSET begin */
+<<<<<<< HEAD
+=======
+
+		@yerform-fieldset-margin: 20px;
+
+	/* FIELDSET end */
+	
+	/* FIELDS begin */
+>>>>>>> c56dd184e5bb10f700f542f39bc6f4774e755ce0
 
 		@yerform-fieldset-margin: 20px;
 
@@ -78,6 +94,7 @@
 		
 	/* LABELS end */
 	
+<<<<<<< HEAD
 	/* INFOS begin */
 		
 		@yerform-info-after-width: 200px;
@@ -85,6 +102,8 @@
 
 	/* INFOS end */
 	
+=======
+>>>>>>> c56dd184e5bb10f700f542f39bc6f4774e755ce0
 	/* BUTTONS begin */
 
 		@yerform-submit-align: right;
@@ -104,6 +123,7 @@
 
 /* CORE begin */
 	
+<<<<<<< HEAD
 	/* MIXINS begin */
 
 		.display-table() {
@@ -126,6 +146,8 @@
 
 	/* MIXINS end */
 	
+=======
+>>>>>>> c56dd184e5bb10f700f542f39bc6f4774e755ce0
 	/* DEVELOPER begin */
 
 		.yerform * {
@@ -171,39 +193,6 @@
 		}
 
 	/* MISC end */
-
-	/* MESSAGES begin */
-
-		/* MESSAGES begin */
-
-			.yerform-messages {
-				font-family: @yerform-font-family;
-				font-size: @yerform-font-size;
-				line-height: round( @yerform-font-size * 1.2 );
-			}
-
-			.yerform-messages-error {
-				color: @yerform-color-error;
-			}
-
-		/* MESSAGES end */
-
-		/* FIELDMESSAGE begin */
-
-			.yerform-field-message {
-				font-family: @yerform-font-family;
-				font-size: @yerform-font-size;
-				line-height: round( @yerform-font-size * 1.2 );
-				padding-top: 3px;
-			}
-
-			.yerform-field-message-error {
-				color: @yerform-color-error;
-			}
-
-		/* FIELDMESSAGE end */
-
-	/* MESSAGES end */
 
 	/* FIELDSET begin */
 		
@@ -502,6 +491,7 @@
 		
 	/* LABELS end */
 	
+<<<<<<< HEAD
 	/* FIELDTABLE begin */
 		
 		.yerform-field-table {
@@ -523,8 +513,47 @@
 		}
 		.yerform-field-sufix {
 			padding-left: @yerform-field-presufix-padding;
+=======
+	/* FIELDSUFIX begin */
+
+		.yerform-field-sufix {
+			display: table-cell;
+			font-family: @yerform-font-family;
+			font-size: @yerform-font-size;
+			line-height: round( @yerform-font-size * @yerform-label-lineheight-factor );
+			padding-top: round( @yerform-font-size * ( ( @yerform-textfield-height-factor - @yerform-label-lineheight-factor ) / 2 ) );
+			padding-bottom: round( @yerform-font-size * ( ( @yerform-textfield-height-factor - @yerform-label-lineheight-factor ) / 2 ) );
+			color: @yerform-font-color;
+			padding-left: @yerform-sufix-padding;
 		}
 
+	/* FIELDSUFIX end */
+	
+	/* FIELDS begin */
+		
+		.yerform-fields-wrap {
+			vertical-align: top;
+		}
+		
+		.yerform-field-wrap {
+			font-size: 0;
+			line-height: 0;
+			display: table;
+			width: 100%;
+		}
+		
+		.yerform-field {
+			display: table-cell;
+			vertical-align: top;
+>>>>>>> c56dd184e5bb10f700f542f39bc6f4774e755ce0
+		}
+		.yerform-list-item-sized > * > * > * > .yerform-field {
+			width: 1px;
+		}
+		
+		@media @yerform-breakpoint {
+
+<<<<<<< HEAD
 	/* FIELDPRESUFIX end */
 	
 	/* FIELDS begin */
@@ -533,6 +562,9 @@
 			display: inline-block;
 			.tag-font();
 			padding-left: @yerform-label-checkbox-padding;
+=======
+			
+>>>>>>> c56dd184e5bb10f700f542f39bc6f4774e755ce0
 		}
 		
 		/* Text begin */
@@ -549,6 +581,13 @@
 				color: @yerform-font-color;
 			}
 			
+<<<<<<< HEAD
+=======
+			.yerform input[size] {
+				width: auto;
+			}
+
+>>>>>>> c56dd184e5bb10f700f542f39bc6f4774e755ce0
 			.yerform-list-item-error input[type="text"] {
 				border: @yerform-textfield-border-error;
 	 			background: @yerform-textfield-background-error;
@@ -602,11 +641,27 @@
 		/* CHECKBOX begin */
 
 			.yerform-item-type-checkbox {
+<<<<<<< HEAD
 				.yerform-field {
 					.tag-font();
 				}
 			}
 			
+=======
+				vertical-align: top;
+				
+				> * > .yerform-fields-wrap {
+					vertical-align: middle;
+					
+					> * > .yerform-field {
+						vertical-align: middle;
+					}
+				}
+			}
+			
+			
+			
+>>>>>>> c56dd184e5bb10f700f542f39bc6f4774e755ce0
 			.yerform-list-item-group .yerform-item-type-checkbox {
 				margin-bottom: 0;
 			}
@@ -677,6 +732,7 @@
 
 	/* FIELDS end */
 	
+<<<<<<< HEAD
 	/* INFO begin */
 		
 		.yerform-info-after {
@@ -736,6 +792,10 @@
 	
 	/* BUTTONS begin */
 
+=======
+	/* BUTTONS begin */
+
+>>>>>>> c56dd184e5bb10f700f542f39bc6f4774e755ce0
 		.yerform-buttons {
 			display: table;
 			width: 100%;
