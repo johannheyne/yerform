@@ -110,7 +110,8 @@
                 'messages_validation' => array(
                     'required' => array( 'text'=>'required' ),
                     'email' => array( 'text'=>'invalid' )
-                )
+                ),
+                'language' => false
             );
 
             foreach ( $p as $key => $value ) {
@@ -598,9 +599,12 @@
         */
 
         protected function get_form() {
-
+            
+            $data = '';
+            if ( $this->config['language'] ) $data .= ' data-language="' . $this->config['language'] . '"';
+            
             $ret = '';
-            $ret .= '<form id="' . $this->form_id . '" class="yerform ' . $this->config['form_class'] . '" action="' . $this->config['action'] . '" method="post" enctype="multipart/form-data" name="yerform" target="_self">';
+            $ret .= '<form id="' . $this->form_id . '" class="yerform ' . $this->config['form_class'] . '" action="' . $this->config['action'] . '" method="post" enctype="multipart/form-data" name="yerform" target="_self"' . $data . '>';
             $ret .= '<input name="yerform-check" type="hidden" value="' . time() . '"/>';
             $ret .= $this->code;
             $ret .= '</form>';
@@ -703,10 +707,14 @@
                 'maxlength' => $this->field_text_maxlength,
                 'padding' => array(0,0),
                 'layout' => false,
-                'placeholder' => false
+                'placeholder' => false,
+                'class' => false
             );
             
+            
             $p['fieldtype'] = 'text';
+            
+            if( $p['class'] ) $p['class'] = ' ' . trim($p['class']);
             
             $attr = '';
             
@@ -726,7 +734,7 @@
                                 $ret .= $this->get_field_prefix( $p );
                                 $ret .= $this->field_before;
                                 
-                                    $ret .= '<div class="yerform-field"><input class="yerform-field-text" type="text" id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" value="' . $this->get_field_value( $p ) . '"' . $size . ' maxlength="' . $p['maxlength'] . '"' . $attr . '/></div>';
+                                    $ret .= '<div class="yerform-field"><input class="yerform-field-text' . $p['class'] . '" type="text" id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" value="' . $this->get_field_value( $p ) . '"' . $size . ' maxlength="' . $p['maxlength'] . '"' . $attr . '/></div>';
                                 
                                 $ret .= $this->field_after;
                                 $ret .= $this->get_field_sufix( $p );
@@ -868,9 +876,12 @@
                 'padding' => array(0,0),
                 'layout' => false,
                 'datepicker' => true,
-                'datepicker-min' => 0,
-                'datepicker-max' => 0,
-                'datepicker' => true,
+                'datepicker-mindate' => 0,
+                'datepicker-maxdate' => 0,
+                'datepicker-dateformat' => 'dd.mm.yy',
+                'datepicker-altformat' => 'yymmdd',
+                'datepicker-iconurl' => false,
+                'datepicker-altfieldname' => false,
                 'validation' => false
             );
 
@@ -895,8 +906,12 @@
 
             $data = '';
             if ( $p['datepicker'] ) {
-                $data .= ' data-datepicker-min="' . $p['datepicker-min'] . '"';
-                $data .= ' data-datepicker-max="' . $p['datepicker-max'] . '"';
+                $data .= ' data-datepicker-mindate="' . $p['datepicker-mindate'] . '"';
+                $data .= ' data-datepicker-maxdate="' . $p['datepicker-maxdate'] . '"';
+                $data .= ' data-datepicker-dateformat="' . $p['datepicker-dateformat'] . '"';
+                $data .= ' data-datepicker-altformat="' . $p['datepicker-altformat'] . '"';
+                if ( $p['datepicker-iconurl'] ) $data .= ' data-datepicker-iconurl="' . $p['datepicker-iconurl'] . '"';
+                if ( $p['datepicker-altfieldname'] ) $data .= ' data-datepicker-altfieldname="' . $p['datepicker-altfieldname'] . '"';
             }
 
             $ret = '';
@@ -904,7 +919,10 @@
             $ret .= $this->get_label( $p );
             $ret .= $this->fields_before;
             $ret .= $this->field_before;
-            $ret .= '<div class="yerform-field"><input class="form-field field-margin-right' . $class . '" type="text" id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" value="' . $this->get_field_value( $p ) . '" size="' . $p['size'] . '" maxlength="' . $p['maxlength'] . '"' .  $data . '/></div>';
+            $ret .= '<div class="yerform-field">';
+            $ret .= '<input class="form-field field-margin-right' . $class . '" type="text" id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" value="' . $this->get_field_value( $p ) . '" size="' . $p['size'] . '" maxlength="' . $p['maxlength'] . '"' .  $data . '/>';
+            if ( $p['datepicker-altfieldname'] ) $ret .= '<input id="' . $p['datepicker-altfieldname'] . '" name="' . $p['datepicker-altfieldname'] . '" type="hidden" value=""/>';
+            $ret .= '</div>';
             $ret .= $this->field_after;
             $ret .= $this->get_field_messages( $p );
             $ret .= $this->fields_after;
@@ -1129,7 +1147,7 @@
             
             $ret = '';
 
-            $ret .= '<input name="' . $this->get_field_name( $p ) . '" type="hidden" value="' . $this->get_field_value( $p ) . '"/>';
+            $ret .= '<input id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" type="hidden" value="' . $this->get_field_value( $p ) . '"/>';
             $this->code .= $ret;
         }
         

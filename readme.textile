@@ -53,6 +53,7 @@ h3. Configuration
     'action' => false,
     'sent_page' => false,
     'honeypot' => 'Honeypot',
+    'language' => false,
     'mail_subject' => 'Contact',
     'field_sender_mail' => 'email',
     'fields_sender_name' => array( 'surename', 'familyname' ),
@@ -87,6 +88,10 @@ h3. Configuration
 *sent_page*
 <em>(string)</em> URL to redirect, after a form was sent.
 The <em>default</em> is false.
+
+*language*
+<em>(language code)</em> Defines the language for all forms on the page.
+This is used by the jQuery.datepicker.
 
 h2. Global Messages
 
@@ -255,6 +260,79 @@ h3. Select
     'item-layout' => 'inline'
 ));
 </code></pre>
+
+h3. Date
+
+<pre><code>$form->set( 'field_date', array(
+    'name' => 'noname',
+    'label' => 'no name', 
+    'array' => false,
+    'size' => $form->field_text_size,
+    'maxlength' => $form->field_text_maxlength,
+    'padding' => array(0,0),
+    'layout' => false,
+    'datepicker' => false,
+    'datepicker-mindate' => 0,
+    'datepicker-maxdate' => 0,
+    'datepicker-dateformat' => 'dd.mm.yy',
+    'datepicker-altformat' => 'yymmdd',
+    'datepicker-iconurl' => false,
+    'datepicker-altfieldname' => false
+));
+</code></pre>
+
+*name*
+<em>(string)</em> The name and Id of the field.
+
+*label*
+<em>(string)</em> The label of the field.
+
+*array*
+<em>(integer)</em> For fields with same name.
+
+*value*
+<em>(string)</em> Defines a value prefilled.
+
+*size*
+<em>(integer)</em> Defines the size of the field. 
+The <em>default</em> is $form->field_text_size = 40.
+
+*maxlength*
+<em>(integer)</em> Defines the maximal lenght of the fields content. 
+The <em>default</em> is $form->field_text_maxlength = 200.
+
+*item-layout*
+<em>(string) inline, block</em> Defines the alignment of label and field.
+
+*padding*
+<em>(array( integer-left, integer-right ))</em> Defines the left and right padding of the field list-item. 
+This is usefull for giving horizontal orientated fields some spacing.
+
+*datepicker*
+<em>(bolean)</em> Enables the Datepicker.
+The Datepicker needs some extra files to included in the header:
+jQuery, jQuery-UI-Core, jQuery-UI-Datepicker, jQuery-UI-Theme and may one or more datepicker regional translation scripts (https://github.com/jquery/jquery-ui/tree/master/ui/i18n)
+* /jquery-ui/… place a jQuery-UI-Theme here an load the stylesheet in the header.
+* /js/yerform.js
+* /js/jquery.ui.datepicker-{language code}.js
+
+*datepicker-mindate*
+<em>(0 or string)</em>
+
+*datepicker-maxdate*
+<em>(0 or string)</em>
+
+*datepicker-dateformat*
+<em>(string)</em>
+
+*datepicker-altformat*
+<em>(string)</em>
+
+*datepicker-iconurl*
+<em>(url)</em>
+
+*datepicker-altfieldname*
+<em>(string)</em>
 
 h3. Hidden
 
