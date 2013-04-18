@@ -93,7 +93,7 @@
                 'action' => '',
                 'sent_page' => false,
                 'honeypot' => false,
-                'mail_form' => true,
+                'mail_form' => false,
                 'call_function_on_validation_is_true' => false,
                 'mail_subject' => false,
                 'sender_mail' => false,
@@ -222,6 +222,19 @@
                 if ( $this->config['mail_form'] && $this->validation === false ) {
 
                     $this->send_mail();
+                }
+                
+                if ( $this->config['call_function_on_validation_is_true'] && $this->validation === false ) {
+
+                    $return = call_user_func($this->config['call_function_on_validation_is_true'], array(
+                        'request' => $this->request
+                    ));
+                    
+                    $return += array(
+                        'request' => true
+                    );
+                    
+                    if ( !$return['request']  ) $this->request = false;
                 }
             }
 
@@ -1340,7 +1353,11 @@
                 'size' => false
             );
             
-            $p['layout'] += $this->p_list['layout'];
+            if ( count( $this->p_list['layout'] ) > 0 ) {
+                foreach ( $this->p_list['layout'] as $key => $value ) {
+                    $p['layout'][] = $value;
+                }
+            }
             
             $tag = $this->list_item_before;
 
@@ -1359,7 +1376,7 @@
             if ( $p['padding'][1] > 0 ) $style .= 'padding-right: ' . $p['padding'][1] . 'px;';
             
             $ret = str_replace('>', ' style="' . $style . '" class="' . $class . '">', $tag);
-            if ( $this->p_group['list-layout'] == 'table' ) $ret .= '<div class="yerform-list-item-table">';
+            if ( isset($this->p_group['list-layout']) && $this->p_group['list-layout'] == 'table' ) $ret .= '<div class="yerform-list-item-table">';
             //if ( $this->depht > 1 ) $ret .= '<div class="' . $class2 . '">';
             
             return $ret;
@@ -1371,7 +1388,7 @@
             
             //if ( $this->depht > 1 ) $ret .= '</div>';
             
-            if ( $this->p_group['list-layout'] == 'table' ) $ret .= '</div>';
+            if ( isset($this->p_group['list-layout']) && $this->p_group['list-layout'] == 'table' ) $ret .= '</div>';
             $ret .= $this->list_item_after;
             
             return $ret;
