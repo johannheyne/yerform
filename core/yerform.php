@@ -513,22 +513,19 @@
                         $p['temp_value'] = $this->request[ $p['name'] . '_yerform' ];
                     }
                     
-                    
-                    /* reformat the date anyway in dd.mm.yy because of mobile date inputs wont fit */
-                    $date_parsed = date_parse( $this->request[ $p['name'] ] );
-                    
-                    if ( $date_parsed['warning_count'] === 0 && $date_parsed['error_count'] === 0 ) {
-                        
-                        $p['temp_value'] = str_pad( $date_parsed['day'], 2, '0', STR_PAD_LEFT ) . '.' . str_pad( $date_parsed['month'], 2, '0', STR_PAD_LEFT ) . '.' . $date_parsed['year'];
-                    }
-                    
-                    
-                    // timestamp
                     $p['timestamp'] = false;
+                    $p['date_parsed'] = false;
                     
                     if ( $p['temp_value'] !== '' ) {
                     
+                        // timestamp
                         $p['timestamp'] = strtotime( $p['temp_value'] );
+                    
+                        /* may reformat the date anyway in dd.mm.yy because of iOS date UI-datepicker inputs wont fit */
+                        $p['temp_value'] = date( 'd.m.Y', $p['timestamp'] );
+                        
+                        /* parse day */
+                        $p['date_parsed'] = date_parse( $p['temp_value'] );
                     }
                 }
                 
@@ -573,7 +570,7 @@
                             // checkdate
                             if ( $valid['type'] === 'date-checkdate' ) {
                                 
-                                if ( $p['temp_value'] !== '' && !isset( $this->validation[ $p['name'] ] ) AND !checkdate( $date_parsed['month'], $date_parsed['day'], $date_parsed['year'] ) ) {
+                                if ( $p['temp_value'] !== '' && !isset( $this->validation[ $p['name'] ] ) AND !checkdate( $p['date_parsed']['month'], $p['date_parsed']['day'], $p['date_parsed']['year'] ) ) {
                                     $this->validation[ $p['name'] ][] = $this->config['message_checkdate'];
                                 }
                             }
