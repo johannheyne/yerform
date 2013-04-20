@@ -292,16 +292,15 @@ h3. Date
 ));
 </code></pre>
 
-<pre><code>$form->set( 'field_date', array(
-    Array
-    (
-        [request] => Array
-            (
-                [name] => the date in the format you set in the 'returnformat' parameter
-                [name.timestamp] => 1397865600
-            )
-    )
-));
+<pre>// returns
+Array
+(
+    [request] => Array
+        (
+            [name] => the date in the format you set in the 'returnformat' parameter
+            [name.timestamp] => 1397865600
+        )
+)
 </code></pre>
 
 *name*
