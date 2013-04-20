@@ -287,7 +287,6 @@ h3. Date
     'datepicker-maxdate' => 0,
     'datepicker-dateformat' => 'dd.mm.yy',
     'datepicker-iconurl' => false,
-    'datepicker-altfieldname' => false,
     'validation' => false
 ));
 </code></pre>
