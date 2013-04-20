@@ -43,6 +43,8 @@
         protected $expiretime = 3600;
         protected $p_list = array();
         protected $p_group = array();
+        protected $fields_defaults = array();
+        protected $dateformats_phpjs = array();
         
         public $form_id = 'yerform';
         public $field_text_size = 40;
@@ -57,7 +59,10 @@
         public function __construct() {
 
             $this->config['honeypot'] = false;
-
+            
+            $this->set_fields_defaults();
+            $this->set_dateformats_phpjs();
+            
             if ( $_REQUEST && isset( $_REQUEST['yerform-check'] ) && $_REQUEST['yerform-check'] + $this->expiretime > time() ) {
 
                 foreach ( $_REQUEST as $key => $value ) {
@@ -68,6 +73,125 @@
             }
         }
         
+        
+        
+        /** 
+        * setup default parameters for fields
+        */
+        
+        protected function set_fields_defaults() {
+        
+            $this->fields_defaults = array(
+                
+                'field_text' => array(
+                    'label' => 'no name', 
+                    'name' => 'noname',
+                    'array' => false,
+                    'size' => false,
+                    'maxlength' => $this->field_text_maxlength,
+                    'padding' => array(0,0),
+                    'layout' => false,
+                    'placeholder' => false,
+                    'class' => false
+                ),
+                'field_textarea' => array(
+                    'label' => 'no name', 
+                    'name' => 'noname',
+                    'array' => false,
+                    'cols' => $this->field_textarea_cols,
+                    'rows' => $this->field_textarea_rows,
+                    'padding' => array(0,0),
+                    'layout' => false
+                ),
+                'field_select' => array(
+                    'label' => 'no name', 
+                    'name' => 'noname',
+                    'value' => '',
+                    'array' => false,
+                    'padding' => array(0,0),
+                    'layout' => false,
+                    'data' => array( '' => 'wähle…' )
+                ),
+                'field_date' => array(
+                    'label' => 'no name', 
+                    'name' => 'noname',
+                    'use_type' => 'date',
+                    'array' => false,
+                    'size' => false,
+                    'maxlength' => $this->field_text_maxlength,
+                    'padding' => array(0,0),
+                    'layout' => false,
+                    'returnformat' => 'd.m.Y',
+                    'datepicker' => false,
+                    'datepicker-mindate' => 0,
+                    'datepicker-maxdate' => 0,
+                    'datepicker-dateformat' => 'd.m.Y',
+                    'datepicker-iconurl' => false,
+                    'validation' => false
+                ),
+                'field_checkbox' => array(
+                    'label' => 'no name', 
+                    'name' => 'noname',
+                    'array' => false,
+                    'data' => 'checked',
+                    'checked' => false,
+                    'padding' => array(0,0),
+                    'layout' => false,
+                    'labeltype' => 'field-after'
+                ),
+                'field_radio' => array(
+                    'label' => 'no name', 
+                    'name' => 'noname',
+                    'array' => false,
+                    'data' => 'checked',
+                    'checked' => false,
+                    'padding' => array(0,0),
+                    'layout' => false,
+                    'labeltype' => 'field-after'
+                ),
+                'field_file' => array(
+                    'label' => 'no name', 
+                    'name' => 'noname',
+                    'array' => false,
+                    'size' => $this->field_text_size / 2,
+                    'padding' => array(0,0),
+                    'layout' => false
+                ),
+                'field_html' => array(
+                    'padding' => array(0,0),
+                    'content' => ''
+                ),
+                'field_hidden' => array(
+                    'name' => 'noname',
+                    'array' => false,
+                    'value' => false                
+                )
+            );
+        }
+        
+        
+        
+        /** 
+        * setup default parameters for fields
+        */
+        
+        protected function set_dateformats_phpjs() {
+        
+            $this->dateformats_phpjs = array(
+                 'd' => 'dd', // day of month (two digit)
+                 'j' => 'd', // day of month (no leading zero)
+                 'z' => 'o', // day of the year (no leading zeros)
+                 'D' => 'D', // day name short
+                 'l' => 'DD', // day name long
+                 'm' => 'mm', // month of year (two digit)
+                 'n' => 'm', // month of year (no leading zero)
+                 'M' => 'M', // month name short
+                 'F' => 'MM', // month name long
+                 'y' => 'y', // year (two digit)
+                 'Y' => 'yy', // year (four digit)
+                 'U' => '@', // Unix timestamp (ms since 01/01/1970)
+            );
+        }
         
         
         /** 
@@ -111,6 +235,8 @@
                     'required' => array( 'text'=>'required' ),
                     'email' => array( 'text'=>'invalid' )
                 ),
+                'message_checkdate' => 'date does not exists',
+                'message_dateformat' => 'please format the date like 01.06.2013',
                 'language' => false
             );
 
@@ -339,7 +465,9 @@
 
                 $f = $field['f'];
                 $p = $field['p'];
-
+                
+                
+                
                 /* issit a field for validation */
                 if ( 
                     $f === 'field_text' OR
@@ -348,13 +476,70 @@
                     $f === 'field_file' OR  
                     $f === 'field_select'   
                 ) {
-
+                
+                $p += $this->fields_defaults[ $f ];
+                
+                
+                
+                /* add default validation types to field */
+                
+                if ( $f === 'field_date' ) {
+                    
+                    /* add validations */
+                    $p['validation'][-2] = array(
+                        'type' => 'date-format'
+                    );
+                    
+                    $p['validation'][-1] = array(
+                        'type' => 'date-checkdate'
+                    );
+                    
+                    ksort($p['validation']);
+                }
+                
+                
+                
+                /* before validation of the field */
+                
+                if ( $f === 'field_date' ) {
+                    
+                    // use a temporare var of request
+                    $p['temp_value'] = $this->request[ $p['name'] ];
+                    
+                    
+                    // get the value from alternate field of datepicker if exists
+                    if ( $this->request[ $p['name'] . '_yerform' ] !== '' ) {
+                    
+                        $p['temp_value'] = $this->request[ $p['name'] . '_yerform' ];
+                    }
+                    
+                    
+                    /* reformat the date anyway in dd.mm.yy because of mobile date inputs wont fit */
+                    $date_parsed = date_parse( $this->request[ $p['name'] ] );
+                    
+                    if ( $date_parsed['warning_count'] === 0 && $date_parsed['error_count'] === 0 ) {
+                        
+                        $p['temp_value'] = str_pad( $date_parsed['day'], 2, '0', STR_PAD_LEFT ) . '.' . str_pad( $date_parsed['month'], 2, '0', STR_PAD_LEFT ) . '.' . $date_parsed['year'];
+                    }
+                    
+                    
+                    // timestamp
+                    $timestamp = false;
+                    
+                    if ( $p['temp_value'] !== '' ) {
+                    
+                        $p['timestamp'] = strtotime( $p['temp_value'] );
+                    }
+                }
+                
+                
+                
                 /* are there validations for this field */
                 if ( isset( $p['validation'] ) ) {
-
+                    
                     /* go thru each validation-rule of the field */
                     foreach( $p['validation'] as $key => $valid ) {
-
+                        
                         // type of required, disables all other validations rules 
                         if ( $valid['type'] === 'required' AND $valid['cond'] === true ) {
                             if ( !isset( $this->request[ $p['name'] ] ) AND $this->files[ $p['name'] ]['error'] !== 0  ) $this->validation[ $p['name'] ][] = $valid['message'];
@@ -363,7 +548,7 @@
 
                         // all other validation rules 
                         if ( !isset( $this->validation[ $p['name'] ] ) ) {
-
+                            
                             // if
                             if ( $valid['type'] === 'if' ) {
 
@@ -376,25 +561,26 @@
                                     $this->validation[ $p['name'] ][] = $valid['message'];
                                 }
                             }
-
+                            
+                            // dateformat
+                            if ( $valid['type'] === 'date-format' ) {
+                            
+                                if ( $p['temp_value'] !== '' && !ereg( "^[0-9]{2}\.[0-9]{2}\.[0-9]{4}$", $p['temp_value'] ) ) {
+                                    $this->validation[ $p['name'] ][] = $this->config['message_dateformat'];
+                                }
+                            }
+                            
+                            // checkdate
+                            if ( $valid['type'] === 'date-checkdate' ) {
+                                
+                                if ( $p['temp_value'] !== '' && !isset( $this->validation[ $p['name'] ] ) AND !checkdate( $date_parsed['month'], $date_parsed['day'], $date_parsed['year'] ) ) {
+                                    $this->validation[ $p['name'] ][] = $this->config['message_checkdate'];
+                                }
+                            }
+                            
                             // date
                             if ( $valid['type'] === 'date' ) {
-
-                                $date = $this->request[ $p['name'] ];
-                                $date = explode( '.', $date );
-
-                                $timestamp = mktime( 0, 0, 0, $date[1], $date[0], $date[2]);
-
-                                // dateformat
-                                if ( !ereg( "^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{4}$", $this->request[ $p['name'] ] ) ) {
-                                    $this->validation[ $p['name'] ][] = $valid['message-dateformat'];
-                                }
-
-                                // checkdate
-                                if ( !isset( $this->validation[ $p['name'] ] ) AND !checkdate( $date[1], $date[0], $date[2] ) ) {
-                                    $this->validation[ $p['name'] ][] = $valid['message-checkdate'];
-                                }
-
+                                
                                 // min-max
                                 if ( !isset( $this->validation[ $p['name'] ] ) ) {
 
@@ -407,10 +593,10 @@
                                     }
 
                                     if ( isset( $valid['min'] ) ) {
-                                        if ( $timestamp < $this->datestamp( $valid['min'] ) ) $this->validation[ $p['name'] ][] = $valid['message-min-max'];
+                                        if ( $p['timestamp'] < $this->datestamp( $valid['min'] ) ) $this->validation[ $p['name'] ][] = $valid['message-min-max'];
                                     }
                                     if ( isset( $valid['max'] ) ) {
-                                        if ( $timestamp > $this->datestamp( $valid['max'] ) ) $this->validation[ $p['name'] ][] = $valid['message-min-max'];
+                                        if ( $p['timestamp'] > $this->datestamp( $valid['max'] ) ) $this->validation[ $p['name'] ][] = $valid['message-min-max'];
                                     }
                                 }
 
@@ -425,9 +611,10 @@
                                         $this->validation[ $p['name'] ][] =  $valid['dependency']['message'];
                                     }
                                 }
+                                
                             }
-
-                             // integer
+                            
+                            // integer
                              if ( $valid['type'] === 'integer' ) {
                                  if ( $this->get_field_value( $p ) !== '' ) {
                                
@@ -453,7 +640,6 @@
                                 }
                             }
                         
-                            
                             // email
                             if ( $valid['type'] === 'email' ) {
                                 if ( $this->get_field_value( $p ) !== '' ) {
@@ -463,18 +649,37 @@
                                     }
                                 }
                             }
-
-                            
-
                         }
                     }
                 }
+            
+                
+                /* after validation of field */
+                if ( $f === 'field_date' ) {
+                
+                    $this->set[ $num ]['p']['timestamp'] = $p['timestamp'];
+                    $this->set[ $num ]['p']['temp_value'] = $p['temp_value'];
+                    $this->set[ $num ]['p']['temp_value_yerform'] = $this->request[ $p['name'] . '_yerform' ];
+                    $this->set[ $num ]['p']['temp_request'] = date( $p['returnformat'], (int)$p['timestamp'] );
+                }
+            
             }
 
             /* check honeypot */
             if ( $this->config['honeypot'] AND $this->request[ strtolower( $this->config['honeypot'] ) ] != '' ) {
                 $this->validation = true;
                 $this->messages['message_honeypot'] = true;
+            }
+            
+            /* after validations succsess */
+            if ( $this->validation === false )  {
+                
+                foreach( $this->set as $num => $field ) {
+                    $p = $field['p'];
+                    if ( isset( $p['temp_request'] ) ) $this->request[ $p['name'] ] = $p['temp_request'];
+                    if ( isset( $this->request[ $p['name'] . '_yerform' ] ) ) unset($this->request[ $p['name'] . '_yerform' ]);
+                    if ( isset( $p['timestamp'] ) ) $this->request[ $p['name'] . '.timestamp'] = $p['timestamp'];
+                }
             }
 
         }
@@ -699,20 +904,9 @@
         
         protected function field_text( $p = array() ) {
             
-            $p += array(
-                'label' => 'no name', 
-                'name' => 'noname',
-                'array' => false,
-                'size' => false,
-                'maxlength' => $this->field_text_maxlength,
-                'padding' => array(0,0),
-                'layout' => false,
-                'placeholder' => false,
-                'class' => false
-            );
+            $p['fieldtype'] = 'field_text';
             
-            
-            $p['fieldtype'] = 'text';
+            $p += $this->fields_defaults[ $p['fieldtype'] ];
             
             if( $p['class'] ) $p['class'] = ' ' . trim($p['class']);
             
@@ -756,17 +950,9 @@
         
         protected function field_textarea( $p = array() ) {
             
-            $p += array(
-                'label' => 'no name', 
-                'name' => 'noname',
-                'array' => false,
-                'cols' => $this->field_textarea_cols,
-                'rows' => $this->field_textarea_rows,
-                'padding' => array(0,0),
-                'layout' => false
-            );
+            $p['fieldtype'] = 'field_textarea';
             
-            $p['fieldtype'] = 'textarea';
+            $p += $this->fields_defaults[ $p['fieldtype'] ];
             
             /*$ret = '';
             $ret .= $this->list_item_before( $p );
@@ -821,17 +1007,9 @@
         
         protected function field_select( $p = array() ) {
             
-            $p += array(
-                'label' => 'no name', 
-                'name' => 'noname',
-                'value' => '',
-                'array' => false,
-                'padding' => array(0,0),
-                'layout' => false,
-                'data' => array( '' => 'wähle…' )
-            );
+            $p['fieldtype'] = 'field_select';
             
-            $p['fieldtype'] = 'select';
+            $p += $this->fields_defaults[ $p['fieldtype'] ];
             
             $ret = '';
             $ret .= $this->list_item_before( $p );
@@ -867,29 +1045,16 @@
 
         protected function field_date( $p = array() ) {
 
-            $p += array(
-                'label' => 'no name', 
-                'name' => 'noname',
-                'array' => false,
-                'size' => $this->field_text_size,
-                'maxlength' => $this->field_text_maxlength,
-                'padding' => array(0,0),
-                'layout' => false,
-                'datepicker' => true,
-                'datepicker-mindate' => 0,
-                'datepicker-maxdate' => 0,
-                'datepicker-dateformat' => 'dd.mm.yy',
-                'datepicker-altformat' => 'yymmdd',
-                'datepicker-iconurl' => false,
-                'datepicker-altfieldname' => false,
-                'validation' => false
-            );
-
-            $p['fieldtype'] = 'date';
+            $p['fieldtype'] = 'field_date';
+            
+            $p += $this->fields_defaults[ $p['fieldtype'] ];
 
             $class = '';
             if ( $p['datepicker'] ) $class = ' datepicker';
-
+            
+            $size = '';
+            if ( $p['size'] ) $size .= ' size="' . $p['size'] . '"';
+            
             /* get the min and max day setings for jquery-datepicker from validation info */
             if ( $p['datepicker'] AND $p['validation'] ) {
                 foreach( $p['validation'] as $num => $item ) {
@@ -903,15 +1068,14 @@
                     }
                 }
             }
-
+            
             $data = '';
             if ( $p['datepicker'] ) {
                 $data .= ' data-datepicker-mindate="' . $p['datepicker-mindate'] . '"';
                 $data .= ' data-datepicker-maxdate="' . $p['datepicker-maxdate'] . '"';
-                $data .= ' data-datepicker-dateformat="' . $p['datepicker-dateformat'] . '"';
-                $data .= ' data-datepicker-altformat="' . $p['datepicker-altformat'] . '"';
+                $data .= ' data-datepicker-dateformat="' . strtr( $p['datepicker-dateformat'], $this->dateformats_phpjs ) . '"';
+                $data .= ' data-datepicker-yerformdateformat="' . strtr( 'd.m.Y', $this->dateformats_phpjs ) . '"';
                 if ( $p['datepicker-iconurl'] ) $data .= ' data-datepicker-iconurl="' . $p['datepicker-iconurl'] . '"';
-                if ( $p['datepicker-altfieldname'] ) $data .= ' data-datepicker-altfieldname="' . $p['datepicker-altfieldname'] . '"';
             }
 
             $ret = '';
@@ -920,8 +1084,8 @@
             $ret .= $this->fields_before;
             $ret .= $this->field_before;
             $ret .= '<div class="yerform-field">';
-            $ret .= '<input class="form-field field-margin-right' . $class . '" type="text" id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" value="' . $this->get_field_value( $p ) . '" size="' . $p['size'] . '" maxlength="' . $p['maxlength'] . '"' .  $data . '/>';
-            if ( $p['datepicker-altfieldname'] ) $ret .= '<input id="' . $p['datepicker-altfieldname'] . '" name="' . $p['datepicker-altfieldname'] . '" type="hidden" value=""/>';
+            $ret .= '<input class="yerform-field-' . $p['use_type'] . ' field-margin-right' . $class . '" type="' . $p['use_type'] . '" id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" value="' . $this->get_field_value( $p ) . '"' . $size . ' maxlength="' . $p['maxlength'] . '"' .  $data . '/>';
+            $ret .= '<input id="' . $this->get_field_name( $p ) . '_yerform" name="' . $this->get_field_name( $p ) . '_yerform" type="hidden" value="' . @$p['temp_value_yerform']. '"/>';
             $ret .= '</div>';
             $ret .= $this->field_after;
             $ret .= $this->get_field_messages( $p );
@@ -946,18 +1110,10 @@
 
         protected function field_checkbox( $p = array() ) {
 
-            $p += array(
-                'label' => 'no name', 
-                'name' => 'noname',
-                'array' => false,
-                'data' => 'checked',
-                'checked' => false,
-                'padding' => array(0,0),
-                'layout' => false,
-                'labeltype' => 'field-after'
-            );
-
-            $p['fieldtype'] = 'checkbox';
+            $p['fieldtype'] = 'field_checkbox';
+            
+            $p += $this->fields_defaults[ $p['fieldtype'] ];
+            
 
             if ( $this->get_field_value( $p ) !== '' OR $p['checked'] === true ) { $checked = ' checked'; } else { $checked = ''; }
 
@@ -1019,18 +1175,9 @@
 
         protected function field_radio( $p = array() ) {
 
-            $p += array(
-                'label' => 'no name', 
-                'name' => 'noname',
-                'array' => false,
-                'data' => 'checked',
-                'checked' => false,
-                'padding' => array(0,0),
-                'layout' => false,
-                'labeltype' => 'field-after'
-            );
-
-            $p['fieldtype'] = 'radio';
+            $p['fieldtype'] = 'field_radio';
+            
+            $p += $this->fields_defaults[ $p['fieldtype'] ];
 
             $checked = '';
             if ( $this->get_field_value( $p ) === $p['data'] ) $checked = ' checked';
@@ -1068,16 +1215,9 @@
         
         protected function field_file( $p = array() ) {
             
-            $p += array(
-                'label' => 'no name', 
-                'name' => 'noname',
-                'array' => false,
-                'size' => $this->field_text_size / 2,
-                'padding' => array(0,0),
-                'layout' => false
-            );
+            $p['fieldtype'] = 'field_file';
             
-            $p['fieldtype'] = 'file';
+            $p += $this->fields_defaults[ $p['fieldtype'] ];
             
             $ret = '';
             $ret .= $this->list_item_before( $p );
@@ -1108,12 +1248,9 @@
         
         protected function field_html( $p = array() ) {
             
-            $p += array(
-                'padding' => array(0,0),
-                'content' => ''
-            );
+            $p['fieldtype'] = 'field_html';
             
-            $p['fieldtype'] = 'html';
+            $p += $this->fields_defaults[ $p['fieldtype'] ];
             
             $ret = '';
             $ret .= $this->list_item_before( $p );
@@ -1137,13 +1274,9 @@
         
         protected function field_hidden( $p = array() ) {
             
-            $p += array(
-                'name' => 'noname',
-                'array' => false,
-                'value' => false
-            );
+            $p['fieldtype'] = 'field_hidden';
             
-            $p['fieldtype'] = 'hidden';
+            $p += $this->fields_defaults[ $p['fieldtype'] ];
             
             $ret = '';
 

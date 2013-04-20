@@ -1,6 +1,6 @@
 h1. yerform
 
-is a PHP class to create forms, handle validation and sending.
+is a PHP class to create forms and handle serverside-validations. The result can be send via e-mail or a function can be defined that will fire on requesting data having the formdata in the parameter.
 
 Building forms can be horrible, they are allways different and webdesigners are talented in making it nearly impossible. This piece of code tries to put the beast in a cage.
 
@@ -54,6 +54,8 @@ h3. Configuration
     'sent_page' => false,
     'honeypot' => 'Honeypot',
     'language' => false,
+    'call_function_on_validation_is_true' => false,
+    'mail_form' => false,
     'mail_subject' => 'Contact',
     'field_sender_mail' => 'email',
     'fields_sender_name' => array( 'surename', 'familyname' ),
@@ -81,7 +83,10 @@ h3. Configuration
     'messages_validation' => array(
         'required' => array( 'text'=>'required' ),
         'email' => array( 'text'=>'invalid' )
-    )
+    ),
+    'message_checkdate' => 'date does not exists',
+    'message_dateformat' => 'please format the date like 01.06.2013',
+    'language' => 'en-US'
 ));
 </code></pre>
 
@@ -91,7 +96,7 @@ The <em>default</em> is false.
 
 *language*
 <em>(language code)</em> Defines the language for all forms on the page.
-This is used by the jQuery.datepicker.
+This is used by the jQuery.datepicker!
 
 h2. Global Messages
 
@@ -170,7 +175,8 @@ h3. Text
     'maxlength' => '200',
     'item-layout' => 'inline',
     'padding' => array( 0, 0 ),
-    'class' => false
+    'class' => false,
+    'validation' => false
 ));
 </code></pre>
 
@@ -220,7 +226,8 @@ h3. Textarea
     'cols' => $this->field_textarea_cols,
     'rows' => $this->field_textarea_rows,
     'padding' => array(0,0),
-    'item-layout' => 'inline'
+    'item-layout' => 'inline',
+    'validation' => false
 ));
 </code></pre>
 
@@ -232,7 +239,8 @@ h3. Checkbox
     'label' => 'no name',
     'labeltype' => 'field-after',
     'data' => 'checked'.
-    'item-layout' => 'inline'
+    'item-layout' => 'inline',
+    'validation' => false
 ));
 </code></pre>
 
@@ -244,7 +252,8 @@ h3. Radio
     'label' => 'no name',
     'labeltype' => 'field-after',
     'data' => 'checked',
-    'item-layout' => 'inline'
+    'item-layout' => 'inline',
+    'validation' => false
 ));
 </code></pre>
 
@@ -257,27 +266,30 @@ h3. Select
     'data' => array(
         '' => 'wähle…'
     ),
-    'item-layout' => 'inline'
+    'item-layout' => 'inline',
+    'validation' => false
 ));
 </code></pre>
 
 h3. Date
 
 <pre><code>$form->set( 'field_date', array(
-    'name' => 'noname',
     'label' => 'no name', 
+    'name' => 'noname',
+    'use_field_type' => 'date',
     'array' => false,
-    'size' => $form->field_text_size,
+    'size' => false,
     'maxlength' => $form->field_text_maxlength,
     'padding' => array(0,0),
     'layout' => false,
+    'returnformat' => 'd.m.Y',
     'datepicker' => false,
     'datepicker-mindate' => 0,
     'datepicker-maxdate' => 0,
     'datepicker-dateformat' => 'dd.mm.yy',
-    'datepicker-altformat' => 'yymmdd',
     'datepicker-iconurl' => false,
-    'datepicker-altfieldname' => false
+    'datepicker-altfieldname' => false,
+    'validation' => false
 ));
 </code></pre>
 
@@ -286,6 +298,9 @@ h3. Date
 
 *label*
 <em>(string)</em> The label of the field.
+
+*use_field_type*
+<em>(string)</em> Define the type of the field that can be "date" or "text".
 
 *array*
 <em>(integer)</em> For fields with same name.
@@ -304,12 +319,16 @@ The <em>default</em> is $form->field_text_maxlength = 200.
 *item-layout*
 <em>(string) inline, block</em> Defines the alignment of label and field.
 
+*returnformat*
+<em>(string)</em> Define the format of the date that will be return in the result.
+Format the date like: http://www.php.net/manual/de/function.date.php
+
 *padding*
 <em>(array( integer-left, integer-right ))</em> Defines the left and right padding of the field list-item. 
 This is usefull for giving horizontal orientated fields some spacing.
 
 *datepicker*
-<em>(bolean)</em> Enables the Datepicker.
+<em>(bolean)</em> Enables the jQuery-UI-Datepicker. The Datepicker is disabled for iOS devices because of their nativ date selection UI.
 The Datepicker needs some extra files to included in the header:
 jQuery, jQuery-UI-Core, jQuery-UI-Datepicker, jQuery-UI-Theme and may one or more datepicker regional translation scripts (https://github.com/jquery/jquery-ui/tree/master/ui/i18n)
 * /jquery-ui/… place a jQuery-UI-Theme here an load the stylesheet in the header.
@@ -499,107 +518,3 @@ yerform is using a html redirect after sending the form to prevent resending the
     });
 });
 </code></pre>
-
-h2. HTML
-
-<pre><code><form id="my_contact_form" class="yerform" action="" method="post" enctype="multipart/form-data" name="yerform" target="_self">
-    
-    <input name="yerform" type="hidden" value="yerform">
-    
-    <div class="yerform-messages">
-        <div class="yerform-messages-error">Formular konnte nicht gesendet werden! Bitte prüfe folgende Felder: E-Mail</div>
-    </div>
-    
-    <div>
-        <fieldset class="yerform-fieldset">
-            <legend class="yerform-fieldset-legend ">Kontaktdaten</legend>
-            
-            <ul class="yerform-list  yerform-depht-1">
-                
-                <li style="" class="yerform-list-item yerform-item-type-text">
-                    <div class="yerform-list-item-inner">
-                        <div class="yerform-label-wrap">
-                            <label for="text">Text</label>
-                        </div>
-                        <div class="yerform-fields-wrap">
-                            <div class="yerform-field-wrap">
-                                <input type="text" id="text" name="text" value="" maxlength="200" placeholder="Text">
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                
-                <li class="yerform-list-item yerform-list-item-error yerform-item-type-text">
-                    <div class="yerform-list-item-inner">
-                        <div class="yerform-label-wrap">
-                            <label for="email">E-Mail<span class="required">*</span></label>
-                        </div>
-                        <div class="yerform-fields-wrap">
-                            <div class="yerform-field-wrap">
-                                <input type="text" id="email" name="email" value="" maxlength="200" placeholder="E-Mail">
-                            </div>
-                        
-                            <!-- this is an validation message for the field -->
-                            <div class="yerform-field-message">
-                                <span class="yerform-field-message-error">benötigt</span>
-                            </div>
-                        
-                        </div>
-                    </div>
-                </li>
-                
-                <li class="yerform-list-item-group yerform-group-inline">
-                    
-                    <!-- this is a group for may displaying the fields inline -->
-                    <div class="yerform-list-item-group-inner">
-                    
-                        <div class="yerform-group-label">
-                            <label>Inline Felder</label>
-                        </div>
-                    
-                        <div class="yerform-fields-wrap">
-                        
-                            <ul class="yerform-list yerform-list-inline yerform-depht-2">
-                            
-                                <li class="yerform-list-item yerform-item-type-text yerform-list-item-sized">
-                                    <div class="yerform-list-item-inner">
-                                        <div class="yerform-label-wrap">
-                                            <label for="plz">PLZ</label>
-                                        </div>
-                                        <div class="yerform-fields-wrap">
-                                            <div class="yerform-field-wrap">
-                                                <input type="text" id="plz" name="plz" value="" size="5" maxlength="5" placeholder="PLZ">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            
-                                <li class="yerform-list-item yerform-item-type-text">
-                                    <div class="yerform-list-item-inner">
-                                        <div class="yerform-label-wrap">
-                                            <label for="ort">Ort</label>
-                                        </div>
-                                        <div class="yerform-fields-wrap">
-                                            <div class="yerform-field-wrap">
-                                                <input class="form-field field-margin-right" type="text" id="ort" name="ort" value="" maxlength="200" placeholder="Ort">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            
-                            </ul>
-                        
-                        </div>
-                    
-                    </div>
-                    
-                </li>
-                
-            </ul>
-            
-        </fieldset>
-    </div>
-    
-</form>
-</code></pre>
-
