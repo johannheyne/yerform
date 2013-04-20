@@ -172,7 +172,6 @@ h3. Text
     'value' => '',
     'size' => '40',
     'maxlength' => '200',
-    'item-layout' => 'inline',
     'padding' => array( 0, 0 ),
     'class' => false,
     'validation' => false
@@ -205,9 +204,6 @@ The <em>default</em> is $form->field_text_size = 40.
 <em>(integer)</em> Defines the maximal lenght of the textfields content. 
 The <em>default</em> is $form->field_text_maxlength = 200.
 
-*item-layout*
-<em>(string) inline, block</em> Defines the alignment of label and field.
-
 *padding*
 <em>(array( integer-left, integer-right ))</em> Defines the left and right padding of the field list-item. 
 This is usefull for giving horizontal orientated fields some spacing.
@@ -225,7 +221,6 @@ h3. Textarea
     'cols' => $this->field_textarea_cols,
     'rows' => $this->field_textarea_rows,
     'padding' => array(0,0),
-    'item-layout' => 'inline',
     'validation' => false
 ));
 </code></pre>
@@ -237,8 +232,7 @@ h3. Checkbox
     'array' => false,
     'label' => 'no name',
     'labeltype' => 'field-after',
-    'data' => 'checked'.
-    'item-layout' => 'inline',
+    'data' => 'checked',
     'validation' => false
 ));
 </code></pre>
@@ -251,7 +245,6 @@ h3. Radio
     'label' => 'no name',
     'labeltype' => 'field-after',
     'data' => 'checked',
-    'item-layout' => 'inline',
     'validation' => false
 ));
 </code></pre>
@@ -265,7 +258,6 @@ h3. Select
     'data' => array(
         '' => 'wähle…'
     ),
-    'item-layout' => 'inline',
     'validation' => false
 ));
 </code></pre>
@@ -302,20 +294,17 @@ Array
 )
 </code></pre>
 
-*name*
-<em>(string)</em> The name and Id of the field.
-
 *label*
 <em>(string)</em> The label of the field.
+
+*name*
+<em>(string)</em> The name and Id of the field.
 
 *use_field_type*
 <em>(string)</em> Define the type of the field that can be "date" or "text".
 
 *array*
 <em>(integer)</em> For fields with same name.
-
-*value*
-<em>(string)</em> Defines a value prefilled.
 
 *size*
 <em>(integer)</em> Defines the size of the field. 
@@ -325,16 +314,13 @@ The <em>default</em> is $form->field_text_size = 40.
 <em>(integer)</em> Defines the maximal lenght of the fields content. 
 The <em>default</em> is $form->field_text_maxlength = 200.
 
-*item-layout*
-<em>(string) inline, block</em> Defines the alignment of label and field.
+*padding*
+<em>(array( integer-left, integer-right ))</em> Defines the left and right padding of the field list-item. 
+This is usefull for giving horizontal orientated fields some spacing.
 
 *returnformat*
 <em>(string)</em> Define the format of the date that will be return in the result.
 Format the date like: http://www.php.net/manual/de/function.date.php
-
-*padding*
-<em>(array( integer-left, integer-right ))</em> Defines the left and right padding of the field list-item. 
-This is usefull for giving horizontal orientated fields some spacing.
 
 *datepicker*
 <em>(bolean)</em> Enables the jQuery-UI-Datepicker. The Datepicker is disabled for iOS devices because of their nativ date selection UI.
@@ -353,14 +339,8 @@ jQuery, jQuery-UI-Core, jQuery-UI-Datepicker, jQuery-UI-Theme and may one or mor
 *datepicker-dateformat*
 <em>(string)</em>
 
-*datepicker-altformat*
-<em>(string)</em>
-
 *datepicker-iconurl*
 <em>(url)</em>
-
-*datepicker-altfieldname*
-<em>(string)</em>
 
 h3. Hidden
 
