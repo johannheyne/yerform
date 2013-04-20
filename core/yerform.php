@@ -110,12 +110,12 @@
                     'array' => false,
                     'padding' => array(0,0),
                     'layout' => false,
-                    'data' => array( '' => 'wähle…' )
+                    'data' => array( '' => 'choose…' )
                 ),
                 'field_date' => array(
                     'label' => 'no name', 
                     'name' => 'noname',
-                    'use_type' => 'date',
+                    'use_field_type' => 'date',
                     'array' => false,
                     'size' => false,
                     'maxlength' => $this->field_text_maxlength,
@@ -524,7 +524,7 @@
                     
                     
                     // timestamp
-                    $timestamp = false;
+                    $p['timestamp'] = false;
                     
                     if ( $p['temp_value'] !== '' ) {
                     
@@ -678,7 +678,7 @@
                     $p = $field['p'];
                     if ( isset( $p['temp_request'] ) ) $this->request[ $p['name'] ] = $p['temp_request'];
                     if ( isset( $this->request[ $p['name'] . '_yerform' ] ) ) unset($this->request[ $p['name'] . '_yerform' ]);
-                    if ( isset( $p['timestamp'] ) ) $this->request[ $p['name'] . '.timestamp'] = $p['timestamp'];
+                    if ( $p['timestamp'] ) $this->request[ $p['name'] . '.timestamp'] = $p['timestamp'];
                 }
             }
 
@@ -1084,7 +1084,7 @@
             $ret .= $this->fields_before;
             $ret .= $this->field_before;
             $ret .= '<div class="yerform-field">';
-            $ret .= '<input class="yerform-field-' . $p['use_type'] . ' field-margin-right' . $class . '" type="' . $p['use_type'] . '" id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" value="' . $this->get_field_value( $p ) . '"' . $size . ' maxlength="' . $p['maxlength'] . '"' .  $data . '/>';
+            $ret .= '<input class="yerform-field-' . $p['use_field_type'] . ' field-margin-right' . $class . '" type="' . $p['use_field_type'] . '" id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" value="' . $this->get_field_value( $p ) . '"' . $size . ' maxlength="' . $p['maxlength'] . '"' .  $data . '/>';
             $ret .= '<input id="' . $this->get_field_name( $p ) . '_yerform" name="' . $this->get_field_name( $p ) . '_yerform" type="hidden" value="' . @$p['temp_value_yerform']. '"/>';
             $ret .= '</div>';
             $ret .= $this->field_after;
