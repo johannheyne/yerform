@@ -1,7 +1,7 @@
 jQuery.noConflict();
 jQuery(document).ready(function(){
     
-    function is_devices_with_own_date_input() {
+    function yerform_is_devices_with_own_date_input() {
         
         var ret = false;
         
@@ -17,7 +17,7 @@ jQuery(document).ready(function(){
     /* Datepicker */
     (function(){
         
-        if ( !is_devices_with_own_date_input() ) {
+        if ( !yerform_is_devices_with_own_date_input() ) {
         
             var regional = jQuery('.yerform').data('language');
             if ( regional ) jQuery.datepicker.setDefaults( jQuery.datepicker.regional[ regional ] );
@@ -62,6 +62,18 @@ jQuery(document).ready(function(){
                 });
             });
         }
+
+    }());
+    
+    /* REMOVE ERROR CLASS AND MESSAGE ON FIELDCHANGE */
+    (function(){
+
+        jQuery('.yerform').find('.yerform-list-item-error input, .yerform-list-item-error textarea, .yerform-list-item-error select')
+            .on( 'change', function () {
+                console.log( 'change' );
+                jQuery(this).parents('.yerform-list-item-error').removeClass('yerform-list-item-error')
+                .find('.yerform-field-message').remove();
+            });
 
     }());
     
