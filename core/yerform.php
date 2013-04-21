@@ -219,6 +219,7 @@
                 'honeypot' => false,
                 'mail_form' => false,
                 'call_function_on_validation_is_true' => false,
+                'message_after_function_was_fired' => false,
                 'mail_subject' => false,
                 'sender_mail' => false,
                 'sender_name' => false,
@@ -228,8 +229,8 @@
                 'recipient_name' => false,
                 'mail_text' => false,
                 'message_error_main' => array( 'typ'=>'error', 'text'=>'The formular could not be send!' ),
-                'message_mail_sending' => array( 'typ'=>'info', 'text'=>'The e-mail is sending!' ),
-                'message_mail_sent' => array( 'typ'=>'info', 'text'=>'The e-mail was sent!' ),
+                'message_sending' => array( 'typ'=>'info', 'text'=>'Sending!' ),
+                'message_sent' => array( 'typ'=>'info', 'text'=>'Sent!' ),
                 'message_honeypot' => array( 'typ'=>'info', 'text'=>'Yer cheating!' ),
                 'messages_validation' => array(
                     'required' => array( 'text'=>'required' ),
@@ -332,6 +333,7 @@
             );
             
             $ret = '';
+            $show_form = true;
             
             // if request
             if ( $this->request ) {
@@ -351,49 +353,65 @@
                     $this->send_mail();
                 }
                 
+                // if valid then fire function
                 if ( $this->config['call_function_on_validation_is_true'] && $this->validation === false ) {
 
-                    $return = call_user_func($this->config['call_function_on_validation_is_true'], array(
+                    $ret_func = call_user_func($this->config['call_function_on_validation_is_true'], array(
                         'request' => $this->request
                     ));
                     
-                    $return += array(
-                        'request' => true
+                    $ret_func += array(
+                        'request' => true,
                     );
                     
-                    if ( !$return['request']  ) $this->request = false;
+                    if ( !$return['request']  ) {
+                        
+                        $this->request = false;
+                        $this->sent = true;
+                        $show_form = false;
+                        
+                        
+                    }
                 }
             }
 
 
             // mail sending
-            if ( $this->config['mail_form'] && $this->sent === true ) {
+            if ( $this->sent === true ) {
                 
-                
-                $this->messages['message_mail_sending'] = true;
+                $this->messages['message_sending'] = true;
                 $this->messages();
+                $show_form = false;
                 
                 if ( $_GET AND isset( $_GET['ajax'] ) ) {
                 }
                 else {
                     $ret .= '<meta http-equiv="refresh" content="0; URL=' . $this->config['sent_page'] . '?sent=true">';
                 }
-                
-                $ret .= $this->get_form();
-                
             }
 
 
             // mail sent
             elseif ( $this->config['mail_form'] AND $_GET AND isset( $_GET['sent'] ) AND $_GET['sent'] === 'true' ) {
 
-                $this->messages['message_mail_sent'] = true;
+                $this->messages['message_sent'] = true;
                 $this->messages();
-                
-                $ret .= $this->get_form();
+                $show_form = false;
             }
-            // if not send show form
-            else {
+            
+            elseif ( $this->config['call_function_on_validation_is_true'] AND isset( $_GET['sent'] ) AND $_GET['sent'] === 'true' ) {
+                
+                if ( $this->config['message_after_function_was_fired'] ) {
+                    
+                    $this->messages['message_after_function_was_fired'] = true;
+                    $this->messages();
+                    $show_form = false;
+                }
+            }
+            
+            
+            // if not send or fired a function show form
+            if ( $show_form ) {
 
                 // honeypot
                 if ( $this->config['honeypot'] ) {
@@ -442,11 +460,10 @@
                         if ( $item['f'] === 'messages' )        $this->messages( $item['p'] );
                     }
                 }
-
-                $ret .= $this->get_form();
-                
             }
-            
+
+                
+            $ret .= $this->get_form();
             
             if ( $p['output'] == 'echo' ) echo $ret;
             if ( $p['output'] == 'return' ) return $ret;
@@ -859,7 +876,6 @@
                 foreach($this->messages as $key => $value ) {
                     
                     $message = $this->config[ $key ];
-                    
                     if ( $fieldnames_string ) $message = str_replace( '{fields}', $fieldnames_string, $message );
                     
                     $ret .= '<div class="yerform-messages-' . $message['typ'] . '">' . $message['text'] . '</div>';

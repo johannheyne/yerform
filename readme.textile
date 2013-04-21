@@ -72,11 +72,11 @@ h3. Configuration
         'typ'=>'error',
         'text'=>'Could not send form! Check the following fields: {fields}'
     ),
-    'message_mail_sending' => array(
+    'message_sending' => array(
         'typ'=>'info',
-        'text'=>'Is sending!'
+        'text'=>'Sending!'
     ),
-    'message_mail_sent' => array(
+    'message_sent' => array(
         'typ'=>'info',
         'text'=>'Sent!'
     ),
@@ -417,7 +417,7 @@ h3. Date
 </code></pre>
 
 *min max*
-<em>(You can use the same date definitions as for strtotime())</em> Defines the minimum and maximum of the date.
+<em>(You can use the same all definitions of http://de1.php.net/manual/en/datetime.formats.php)</em> Defines the minimum and maximum of the date.
 For example:
 'now'
 '05-07-2012'
