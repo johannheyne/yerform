@@ -10,7 +10,7 @@
     * @license      MIT
     * @link         https://github.com/johannheyne/yerform
     */
-    
+
     class yerForm {
         
         protected $list_before = '<ul>';
@@ -45,6 +45,7 @@
         protected $p_group = array();
         protected $fields_defaults = array();
         protected $dateformats_phpjs = array();
+        protected $textcurr;
         
         public $form_id = 'yerform';
         public $field_text_size = 40;
@@ -54,6 +55,7 @@
         public $required_label_sufix = '<span class="required">*</span>';
         public $messages = false;
         public $validation = false;
+        public $text = false;
         
 
         public function __construct() {
@@ -84,8 +86,8 @@
             $this->fields_defaults = array(
                 
                 'field_text' => array(
-                    'label' => 'no name', 
-                    'name' => 'noname',
+                    'label' => false, 
+                    'name' => false,
                     'array' => false,
                     'size' => false,
                     'maxlength' => $this->field_text_maxlength,
@@ -95,8 +97,8 @@
                     'class' => false
                 ),
                 'field_textarea' => array(
-                    'label' => 'no name', 
-                    'name' => 'noname',
+                    'label' => false, 
+                    'name' => false,
                     'array' => false,
                     'cols' => $this->field_textarea_cols,
                     'rows' => $this->field_textarea_rows,
@@ -104,8 +106,8 @@
                     'layout' => false
                 ),
                 'field_select' => array(
-                    'label' => 'no name', 
-                    'name' => 'noname',
+                    'label' => false, 
+                    'name' => false,
                     'value' => '',
                     'array' => false,
                     'padding' => array(0,0),
@@ -113,8 +115,8 @@
                     'data' => array( '' => 'choose…' )
                 ),
                 'field_date' => array(
-                    'label' => 'no name', 
-                    'name' => 'noname',
+                    'label' => false, 
+                    'name' => false,
                     'use_field_type' => 'date',
                     'array' => false,
                     'size' => false,
@@ -130,8 +132,8 @@
                     'validation' => false
                 ),
                 'field_checkbox' => array(
-                    'label' => 'no name', 
-                    'name' => 'noname',
+                    'label' => false, 
+                    'name' => false,
                     'array' => false,
                     'data' => 'checked',
                     'checked' => false,
@@ -140,8 +142,8 @@
                     'labeltype' => 'field-after'
                 ),
                 'field_radio' => array(
-                    'label' => 'no name', 
-                    'name' => 'noname',
+                    'label' => false, 
+                    'name' => false,
                     'array' => false,
                     'data' => 'checked',
                     'checked' => false,
@@ -150,8 +152,8 @@
                     'labeltype' => 'field-after'
                 ),
                 'field_file' => array(
-                    'label' => 'no name', 
-                    'name' => 'noname',
+                    'label' => false, 
+                    'name' => false,
                     'array' => false,
                     'size' => $this->field_text_size / 2,
                     'padding' => array(0,0),
@@ -162,7 +164,7 @@
                     'content' => ''
                 ),
                 'field_hidden' => array(
-                    'name' => 'noname',
+                    'name' => false,
                     'array' => false,
                     'value' => false                
                 )
@@ -228,7 +230,17 @@
                 'recipient_mail' => false,
                 'recipient_name' => false,
                 'mail_text' => false,
-                'message_error_main' => array( 'typ'=>'error', 'text'=>'The formular could not be send!' ),
+                
+                'language' => 'en-US'
+            );
+
+            foreach ( $p as $key => $value ) {
+                
+                $this->config[$key] = $value;
+            }
+            
+            $this->text[ $this->config['language' ] ] += array(
+                'message_error_main' => array( 'typ'=>'error', 'text'=>'Could not send form! Check the following fields: {fields}' ),
                 'message_sending' => array( 'typ'=>'info', 'text'=>'Sending!' ),
                 'message_sent' => array( 'typ'=>'info', 'text'=>'Sent!' ),
                 'message_honeypot' => array( 'typ'=>'info', 'text'=>'Yer cheating!' ),
@@ -238,14 +250,14 @@
                 ),
                 'message_checkdate' => 'date does not exists',
                 'message_dateformat' => 'please format the date like 01.06.2013',
-                'language' => false
+                'fieldset' => array(
+                    'require_info' => array(
+                        'text' => 'Fields marked with {require_symbol} are reqired.'
+                    )
+                )
             );
-
-            foreach ( $p as $key => $value ) {
-                
-                $this->config[$key] = $value;
-            }
             
+            $this->textcurr = $this->text[ $this->config['language' ] ];
         }
         
         
@@ -271,11 +283,11 @@
                         998 => array(
                             'type' => 'required',
                             'cond' => true,
-                            'message' => $this->config['messages_validation']['required']['text']
+                            'message' => $this->textcurr['messages_validation']['required']['text']
                         ),
                         999 => array(
                             'type' => 'email',
-                            'message' => $this->config['messages_validation']['email']['text']
+                            'message' => $this->textcurr['messages_validation']['email']['text']
                         )
                     );
                 }
@@ -285,11 +297,11 @@
                             0 => array(
                                 'type' => 'required',
                                 'cond' => true,
-                                'message' => $this->config['messages_validation']['required']['text']
+                                'message' => $this->textcurr['messages_validation']['required']['text']
                             ),
                             1 => array(
                                 'type' => 'email',
-                                'message' => $this->config['messages_validation']['email']['text']
+                                'message' => $this->textcurr['messages_validation']['email']['text']
                             )
                         )
                     );
@@ -864,18 +876,28 @@
             $fieldnames_string = false;
             
             if ( isset ( $this->validation ) AND is_array( $this->validation ) ) {
+            
                 foreach ( $this->validation as $key => $item ) {
-                    $fieldnames[] = $this->fields[$key]['label'];
+                    
+                    $temp = $this->fields[$key];
+                    $temp += array( 'no_required_label_sufix' => true );
+                    
+                    $fieldnames[] = $this->get_label( $temp  );
+                    
+                    unset( $temp );
                 }
             }
             if ( isset( $fieldnames ) ) $fieldnames_string = implode( ', ', $fieldnames );
             
             /* loop the messages */
             if ( is_array( $this->messages ) ) {
+            
                 $ret .= '<div class="yerform-messages">';
+                
                 foreach($this->messages as $key => $value ) {
                     
-                    $message = $this->config[ $key ];
+                    $message = $this->textcurr[ $key ];
+                    
                     if ( $fieldnames_string ) $message = str_replace( '{fields}', $fieldnames_string, $message );
                     
                     $ret .= '<div class="yerform-messages-' . $message['typ'] . '">' . $message['text'] . '</div>';
@@ -1415,7 +1437,11 @@
 
             $check = false;
             
-            if ( isset( $p['validation'] ) ) {
+            $p += array(
+                'no_required_label_sufix' => false
+            );
+            
+            if ( $p['no_required_label_sufix'] === false && isset( $p['validation'] ) ) {
                 foreach( $p['validation'] as $key => $item ) {
                     if ( $item['type'] === 'required' AND $item['cond'] === true ) $check = $this->required_label_sufix;
                 }
@@ -1439,9 +1465,9 @@
         protected function get_label( $p = array() ) {
             
             $p += array(
-                'label' => 'no name', 
+                'label' => false, 
                 'labeltype' => false, 
-                'name' => 'noname',
+                'name' => false,
                 'label_sufix' => false
             );
             
@@ -1459,12 +1485,27 @@
                 $class_inputsufix .= ' class="yerform-displaynone"';
             }
             
-            $ret .= '<label for="' . $p['name'] . '"' . $class_input . '>' . $p['label'] . $this->get_require_label_sufix( $p ) . '</label>';
-            if ( $p['label_sufix'] ) $ret .= '<span' . $class_inputsufix . '>' . $p['label_sufix'] . '</span>';
+            if ( $p['label'] === false ) {
+                
+                if ( isset( $this->textcurr['fields'][ $this->get_field_name( $p ) ]['label'] ) ) {
+                    
+                    $p['label'] = $this->textcurr['fields'][ $this->get_field_name( $p ) ]['label'];
+                }
+            }
             
-            $ret .= $this->label_after;
+            if ( $p['label'] ) {
             
-            return $ret;
+                $ret .= '<label for="' . $p['name'] . '"' . $class_input . '>' . $p['label'] . $this->get_require_label_sufix( $p ) . '</label>';
+                if ( $p['label_sufix'] ) $ret .= '<span' . $class_inputsufix . '>' . $p['label_sufix'] . '</span>';
+            
+                $ret .= $this->label_after;
+            
+                return $ret;
+            }
+            else {
+            
+                return false;
+            }
         }
         
         
@@ -1481,14 +1522,38 @@
 
             $p += array(
                 'submit' => true,
-                'submit_label' => 'Submit',
+                'submit_label' => false,
                 'submit_class' => false,
                 'submit_btn_class' => false,
                 'reset' => true,
-                'reset_label' => 'Reset',
+                'reset_label' => false,
                 'reset_class' => false,
                 'reset_btn_class' => false
             );
+            
+            if ( $p['submit_label'] === false ) {
+                
+                if ( isset( $this->textcurr['buttons']['submit']['label'] ) ) {
+                    
+                    $p['submit_label'] = $this->textcurr['buttons']['submit']['label'];
+                }
+            }
+            else {
+                
+                $p['submit_label'] = 'Submit';
+            }
+            
+            if ( $p['reset_label'] === false ) {
+                
+                if ( isset( $this->textcurr['buttons']['reset']['label'] ) ) {
+                    
+                    $p['reset_label'] = $this->textcurr['buttons']['reset']['label'];
+                }
+            }
+            else {
+                
+                $p['reset_label'] = 'Reset';
+            }
 
             $ret = '';
             $ret .= '<div class="yerform-buttons">';
@@ -1569,19 +1634,45 @@
         protected function fieldset_begin( $p = array() ) {
 
             $p += array(
-                'legend' => 'no titel',
+                'legend' => false,
                 'class' => false,
                 'require_info' => false,
                 'class_legend' => false
             );
-
+            
+            if ( $p['legend'] === false ) {
+                
+                if ( isset( $this->textcurr['fieldsets'][ $p['name'] ]['legend'] ) ) {
+                    
+                    $p['legend'] = $this->textcurr['fieldsets'][ $p['name'] ]['legend'];
+                }
+            }
+            
+            if ( $p['require_info'] === false ) {
+                
+                if ( isset( $this->textcurr['fieldset']['require_info']['text'] ) ) {
+                    
+                    $p['require_info'] = $this->textcurr['fieldset']['require_info'];
+                }
+                
+                if ( isset( $this->textcurr['fieldsets'][ $p['name'] ]['require_info']['text'] ) ) {
+                    
+                    $p['require_info'] = $this->textcurr['fieldsets'][ $p['name'] ]['require_info'];
+                }
+            }
+            
+            
             $class = 'yerform-fieldset-wrap';
             if ( $p['class'] ) $class = ' ' . $p['class'];
 
             $this->code .= '<div class="' . $class . '">';
             $this->code .= '<fieldset class="yerform-fieldset">';
-            $this->code .= '<legend class="yerform-fieldset-legend ' . $p['class_legend'] . '">' . $p['legend'] . '</legend>';
-
+            
+            if ( $p['legend'] !== false ) {
+                
+                $this->code .= '<legend class="yerform-fieldset-legend ' . $p['class_legend'] . '">' . $p['legend'] . '</legend>';
+            }
+            
             if ( $p['require_info'] ) {
                 $this->require_info( $p['require_info'] );
             }
@@ -1643,7 +1734,7 @@
 
             $p += array(
                 'array' => false,
-                'name' => 'noname'
+                'name' => false
             );
 
             $name = $p['name'];
