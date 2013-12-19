@@ -13,10 +13,10 @@
 
     class YerForm {
 
-        protected $list_before = '<ul>';
-        protected $list_after = '</ul>';
-        protected $list_item_before = '<li>';
-        protected $list_item_after = '</li>';
+        protected $list_before = '<div>';
+        protected $list_after = '</div>';
+        protected $list_item_before = '<div>';
+        protected $list_item_after = '</div>';
         protected $label_before = '<div>';
         protected $label_after = '</div>';
         protected $fields_before = '<div class="yerform-fields-wrap">';
