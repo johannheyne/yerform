@@ -11,7 +11,7 @@
     * @link         https://github.com/johannheyne/yerform
     */
 
-    class yerForm {
+    class YerForm {
 
         protected $list_before = '<ul>';
         protected $list_after = '</ul>';
