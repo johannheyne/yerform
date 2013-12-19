@@ -13,10 +13,10 @@
 
             function __autoload( $class_name ) {
                 
-                if ( $class_name == 'yerForm' ) require_once( '../core/yerform.php');
+                if ( $class_name == 'YerForm' ) require_once( '../core/yerform.php');
             }
             
-            if ( class_exists('yerForm') ) {
+            if ( class_exists('YerForm') ) {
             
                 echo '<link rel="stylesheet" type="text/css" href="../themes/default/yerform-styles.css" />';
             }
@@ -39,7 +39,7 @@
 
             <?php
             
-                $form = new yerForm();
+                $form = new YerForm();
                 $form->form_id = 'contact_form';
             
                 // TEXT {
