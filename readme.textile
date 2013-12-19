@@ -120,9 +120,9 @@ h3. Fieldset And List
     $form->set( 'list_begin', array(
         'list-layout' => 'block'
     ));
-        
+
         /* fields and field groups */
-        
+
     $form->set( 'list_end' );
 $form->set( 'fieldset_end' );
 </code></pre>
@@ -142,7 +142,7 @@ h3. Fieldgroup
 ));
 
     /* some fields */
-    
+
 $form->set( 'group_end');
 </code></pre>
 
@@ -157,7 +157,6 @@ $form->set( 'group_end');
 
 *list-gap*
 <em>(bolean)</em> Enables gap between fields or groups if list-layout is block or inline.
-
 
 h2. Fields
 

@@ -1,31 +1,31 @@
 jQuery.noConflict();
 jQuery(document).ready(function(){
-    
-    function yerform_is_devices_with_own_date_input() {
-        
-        var ret = false;
-        
-     		// is iPad
-     		if(navigator.userAgent.match(/iPad/i) != null) 	ret = true;
 
-     		// is iPhone
-     		if(navigator.userAgent.match(/iPhone/i) != null) ret = true;
+    function yerform_is_devices_with_own_date_input() {
+
+        var ret = false;
+
+            // is iPad
+            if(navigator.userAgent.match(/iPad/i) != null)  ret = true;
+
+            // is iPhone
+            if(navigator.userAgent.match(/iPhone/i) != null) ret = true;
 
         return ret;
     }
-    
+
     /* Datepicker */
     (function(){
-        
+
         if ( !yerform_is_devices_with_own_date_input() ) {
-        
+
             var regional = jQuery('.yerform').data('language');
             if ( regional ) jQuery.datepicker.setDefaults( jQuery.datepicker.regional[ regional ] );
 
             jQuery('.yerform').each( function() {
 
                 jQuery(this).find('.datepicker' ).each( function() {
-                
+
                     var field = jQuery(this),
                         fieldname = field.attr('id'),
                         mindate = field.data('datepicker-mindate'),
@@ -34,13 +34,13 @@ jQuery(document).ready(function(){
                         yerformformat = field.data('datepicker-yerformdateformat'),
                         iconurl = field.data('datepicker-iconurl'),
                         regional = field.data('datepicker-regional');
-                
+
                     field
                         .attr('readonly','readonly');
-                
+
                     if ( mindate === 0 ) { mindate = null; }
                     if ( maxdate === 0 ) { maxdate = null; }
-                
+
                     var p = {};
 
                     p.dateFormat = dateformat;
@@ -55,7 +55,7 @@ jQuery(document).ready(function(){
                     }
                     p.minDate = mindate;
                     p.maxDate = maxdate;
-                
+
                     field
                         .datepicker(p)
                         .prop('type','text');
@@ -64,7 +64,7 @@ jQuery(document).ready(function(){
         }
 
     }());
-    
+
     /* REMOVE ERROR CLASS AND MESSAGE ON FIELDCHANGE */
     (function(){
 
@@ -76,6 +76,5 @@ jQuery(document).ready(function(){
             });
 
     }());
-    
-        
+
 });
