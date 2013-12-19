@@ -837,8 +837,7 @@
                 foreach ( $this->validation as $key => $item ) {
 
                     $temp = $this->fields[$key];
-                    $temp += array( 'no_required_label_sufix' => true );
-
+                    $temp += array( 'return' => 'text', 'no_required_label_sufix' => true );
                     $fieldnames[] = $this->get_label( $temp  );
 
                     unset( $temp );
@@ -854,9 +853,9 @@
                 foreach($this->messages as $key => $value ) {
 
                     $message = $this->textcurr[ $key ];
-
-                    if ( $fieldnames_string ) $message = str_replace( '{fields}', $fieldnames_string, $message );
-
+                    
+                    if ( $fieldnames_string ) $message['text'] = str_replace( '{fields}', $fieldnames_string, $message['text'] );
+                    
                     $ret .= '<div class="yerform-messages-' . $message['typ'] . '">' . $message['text'] . '</div>';
                 }
                 $ret .= '</div>';
@@ -1396,23 +1395,16 @@
                 'label' => false, 
                 'labeltype' => false, 
                 'name' => false,
-                'label_sufix' => false
+                'label_sufix' => false,
+                'no_required_label_sufix' => true,
+                'return' => 'html', // text
             );
 
             $class = 'yerform-label-wrap';
             if ( $p['labeltype'] === 'field-after') {
                 $class .= ' yerform-displaynone';
             }
-
-            $ret = '';
-            $ret .= str_replace('>', ' class="' . $class . '">', $this->label_before);
-
-            $class_input = '';
-            $class_inputsufix = '';
-            if ( $p['labeltype'] === 'field-after') {
-                $class_inputsufix .= ' class="yerform-displaynone"';
-            }
-
+            
             if ( $p['label'] === false ) {
 
                 if ( isset( $this->textcurr['fields'][ $this->get_field_name( $p ) ]['label'] ) ) {
@@ -1421,13 +1413,37 @@
                 }
             }
 
+            $ret = '';
+            
+            if ( $p['return'] == 'html' ) {
+                
+                $ret .= str_replace('>', ' class="' . $class . '">', $this->label_before);
+
+                $class_input = '';
+                $class_inputsufix = '';
+                
+                if ( $p['labeltype'] === 'field-after') {
+                
+                    $class_inputsufix .= ' class="yerform-displaynone"';
+                }
+
+                if ( $p['label'] ) {
+
+                    $ret .= '<label for="' . $p['name'] . '"' . $class_input . '>' . $p['label'] . $this->get_require_label_sufix( $p ) . '</label>';
+                    if ( $p['label_sufix'] ) $ret .= '<span' . $class_inputsufix . '>' . $p['label_sufix'] . '</span>';
+
+                    $ret .= $this->label_after;
+
+                }
+            }
+            
+            if ( $p['return'] == 'text' ) {
+                
+                $ret .= $p['label'] . $this->get_require_label_sufix( $p );
+            }
+            
             if ( $p['label'] ) {
-
-                $ret .= '<label for="' . $p['name'] . '"' . $class_input . '>' . $p['label'] . $this->get_require_label_sufix( $p ) . '</label>';
-                if ( $p['label_sufix'] ) $ret .= '<span' . $class_inputsufix . '>' . $p['label_sufix'] . '</span>';
-
-                $ret .= $this->label_after;
-
+                
                 return $ret;
             }
             else {
