@@ -672,10 +672,12 @@
             if ( $this->validation === false )  {
 
                 foreach( $this->set as $num => $field ) {
+
                     $p = $field['p'];
-                    if ( isset( $p['temp_request'] ) ) $this->request[ $p['name'] ] = $p['temp_request'];
-                    if ( isset( $this->request[ $p['name'] . '_yerform' ] ) ) unset($this->request[ $p['name'] . '_yerform' ]);
-                    if ( $p['timestamp'] ) $this->request[ $p['name'] . '.timestamp'] = $p['timestamp'];
+
+                    if ( isset( $p['name'] ) && isset( $p['temp_request'] ) ) $this->request[ $p['name'] ] = $p['temp_request'];
+                    if ( isset( $p['name'] ) && isset( $this->request[ $p['name'] . '_yerform' ] ) ) unset($this->request[ $p['name'] . '_yerform' ]);
+                    if ( isset( $p['timestamp'] ) && $p['timestamp'] ) $this->request[ $p['name'] . '.timestamp'] = $p['timestamp'];
                 }
             }
 
