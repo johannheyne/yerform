@@ -1397,7 +1397,7 @@
                 'labeltype' => false, 
                 'name' => false,
                 'label_sufix' => false,
-                'no_required_label_sufix' => true,
+                'no_required_label_sufix' => false,
                 'return' => 'html', // text
             );
 
