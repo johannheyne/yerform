@@ -1578,6 +1578,7 @@
 
             $p += array(
                 'legend' => false,
+                'name' => 'fieldset-1',
                 'class' => false,
                 'require_info' => false,
                 'class_legend' => false
