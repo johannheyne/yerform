@@ -1,4 +1,4 @@
-h1. yerform
+h1. YerForm
 
 is a PHP class to create forms and handle serverside-validations. The result can be send via e-mail or a function can be defined that will fire on requesting data having the formdata in the parameter.
 
@@ -8,19 +8,19 @@ This documentation is incomplete and corrupting changes still may ahead!
 
 h2. Roadmap
 
+Just ask me for your needs at mail@johannheyne.de or create a new issue.
+
 * captcha
 * complete documentation
 * definable dateformat for date validation
 * config swift (PHP Mail, Sendmail, Smtp & SSL)
 * [progressive] basic css styling, focusing on layoutoptions
 
-* [done] prepared for using with ajax
-* [done] output type return and echo
-* [done] field radio
-* [done] validation for email
-* [done] initial release
+h3. Changelog
 
-Just ask me for your needs at mail@johannheyne.de or create a new issue.
+* 02.01.2014
+  Added multi language support.
+  Now you can define multiple translations for all textsections like messages, validations, labels etc.
 
 h2. Setup
 
