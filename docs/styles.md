@@ -1,4 +1,4 @@
-[back to overview](../README.md#styles)
+[back to overview](../readme.md#styles)
 
 Styles
 ===============
@@ -6,4 +6,4 @@ Styles
 
 
 
-[back to overview](../README.md#styles)
+[back to overview](../readme.md#styles)

@@ -1,7 +1,7 @@
 YerForm
 ====================
 
-is a PHP class to create forms and handle serverside-validations. The result can be send via e-mail or a function can be defined that will fire on requesting data having the formdata in the parameter.
+YerForm is a PHP class to create forms and handle serverside-validations. The result can be send via e-mail or a function can be defined that will fire on requesting data having the formdata in the parameter.
 
 Building forms can be horrible, they are allways different and webdesigners are talented in making it nearly impossible. This piece of code tries to put the beast in a cage.
 
