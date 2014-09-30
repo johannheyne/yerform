@@ -307,7 +307,7 @@ Defines the maximal lenght of the textfields content.
 The *default* is ```$form->field_text_maxlength = 200;```.
 
 **padding**  
-*(array( integer-left, integer-right ))*  
+*( array( integer-left, integer-right ) )*  
 Defines the left and right padding of the field list-item. 
 This is usefull for giving horizontal orientated fields some spacing.
 
