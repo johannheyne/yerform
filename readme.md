@@ -119,8 +119,9 @@ $form->config( array(
 URL to redirect, after a form was sent.
 The *default* is false.
 
-**language**
-*(language code)* Defines the language for all forms on the page.
+**language**  
+*(language code)*  
+Defines the language for all forms on the page.
 This is used by the jQuery.datepicker!
 
 ###	Multi Language Setup
@@ -218,7 +219,7 @@ $form->set( 'fieldset_end' );
 
 The placeholder <code>{require_symbol}</code> will show <span class="required">*</span> per default. You can change this via <code>$form->required_label_sufix = '…';</code>.
 
-**list-layout**
+**list-layout**  
 *(string) block, inline, table*
 
 ### Fieldgroups
@@ -236,17 +237,19 @@ $form->set( 'group_begin', array(
 $form->set( 'group_end');
 ```
 
-**label**
-*(string)* Labelname of the group.
+**label**  
+*(string)*  
+Labelname of the group.
 
-**group-layout**
+**group-layout**  
 *(string) block, inline*
 
-**list-layout**
+**list-layout**  
 *(string) block, inline, table*
 
-**list-gap**
-*(bolean)* Enables gap between fields or groups if list-layout is block or inline.
+**list-gap**  
+*(bolean)*  
+Enables gap between fields or groups if list-layout is block or inline.
 
 Fields
 --------------------
@@ -269,38 +272,48 @@ $form->set( 'field_text', array(
 ));
 ```
 
-**name**
-*(string)* The name and Id of the field.
+**name**  
+*(string)*  
+The name and Id of the field.
 
-**array**
-*(integer)* For fields with same name like a checkboxset.
+**array**  
+*(integer)*  
+For fields with same name like a checkboxset.
 
-**label**
-*(string)* The label of the field.
+**label**  
+*(string)*  
+The label of the field.
 
-**placeholder**
-*(string)* Defines a placeholder text for the field.
+**placeholder**  
+*(string)*  
+Defines a placeholder text for the field.
 
-**sufix**
-*(string)* Displaying after the Field.
+**sufix**  
+*(string)*  
+Displaying after the Field.
 
-**value**
-*(string)* Defines a value prefilled.
+**value**  
+*(string)*  
+Defines a value prefilled.
 
-**size**
-*(integer)* Defines the size of the textfield. 
+**size**  
+*(integer)*  
+Defines the size of the textfield. 
 The *default* is $form->field_text_size = 40.
 
-**maxlength**
-*(integer)* Defines the maximal lenght of the textfields content. 
+**maxlength**  
+*(integer)*  
+Defines the maximal lenght of the textfields content. 
 The *default* is $form->field_text_maxlength = 200.
 
-**padding**
-*(array( integer-left, integer-right ))* Defines the left and right padding of the field list-item. 
+**padding**  
+*(array( integer-left, integer-right ))*  
+Defines the left and right padding of the field list-item. 
 This is usefull for giving horizontal orientated fields some spacing.
 
-**class**
-*(string)* Defines a class on the field list-item.
+**class**  
+*(string)*  
+Defines a class on the field list-item.
 
 ### Textarea
 
@@ -389,52 +402,60 @@ Array
 )
 ```
 
-**label**
-*(string)* The label of the field.
+**label**  
+*(string)*  The label of the field.
 
-**name**
-*(string)* The name and Id of the field.
+**name**  
+*(string)*  
+The name and Id of the field.
 
-**use_field_type**
-*(string)* Define the type of the field that can be "date" or "text".
+**use_field_type**  
+*(string)*  
+Define the type of the field that can be "date" or "text".
 
-**array**
-*(integer)* For fields with same name.
+**array**  
+*(integer)*  
+For fields with same name.
 
-**size**
-*(integer)* Defines the size of the field. 
+**size**  
+*(integer)*  
+Defines the size of the field. 
 The *default* is $form->field_text_size = 40.
 
-**maxlength**
-*(integer)* Defines the maximal lenght of the fields content. 
+**maxlength**  
+*(integer)*  
+Defines the maximal lenght of the fields content. 
 The *default* is $form->field_text_maxlength = 200.
 
-**padding**
-*(array( integer-left, integer-right ))* Defines the left and right padding of the field list-item. 
+**padding**  
+*(array( integer-left, integer-right ))*  
+Defines the left and right padding of the field list-item. 
 This is usefull for giving horizontal orientated fields some spacing.
 
-**returnformat**
-*(string)* Define the format of the date that will be return in the result.
+**returnformat**  
+*(string)*  
+Define the format of the date that will be return in the result.
 Format the date like: http://www.php.net/manual/de/function.date.php
 
-**datepicker**
-*(bolean)* Enables the jQuery-UI-Datepicker. The Datepicker is disabled for iOS devices because of their nativ date selection UI.
+**datepicker**  
+*(bolean)*  
+Enables the jQuery-UI-Datepicker. The Datepicker is disabled for iOS devices because of their nativ date selection UI.
 The Datepicker needs some extra files to included in the header:
 jQuery, jQuery-UI-Core, jQuery-UI-Datepicker, jQuery-UI-Theme and may one or more datepicker regional translation scripts (https://github.com/jquery/jquery-ui/tree/master/ui/i18n)
 * /jquery-ui/… place a jQuery-UI-Theme here an load the stylesheet in the header.
 * /js/yerform.js
 * /js/jquery.ui.datepicker-{language code}.js
 
-**datepicker-mindate**
+**datepicker-mindate**  
 *(0 or string)*
 
-**datepicker-maxdate**
+**datepicker-maxdate**  
 *(0 or string)*
 
-**datepicker-dateformat**
+**datepicker-dateformat**  
 *(string)*
 
-**datepicker-iconurl**
+**datepicker-iconurl**  
 *(url)*
 
 ### Hidden
@@ -455,8 +476,9 @@ $form->set( 'field_html', array(
 ));
 ```
 
-**content**
-*(string)* HTML-Code to display.
+**content**  
+*(string)*  
+HTML-Code to display.
 
 Validation
 --------------------
@@ -518,8 +540,9 @@ array(
 )
 ```
 
-**min max**
-*(You can use the same all definitions of http://de1.php.net/manual/en/datetime.formats.php)* Defines the minimum and maximum of the date.
+**min max**  
+*(You can use the same all definitions of http://de1.php.net/manual/en/datetime.formats.php)*  
+Defines the minimum and maximum of the date.
 For example:
 'now'
 '05-07-2012'
@@ -531,17 +554,17 @@ For example:
 'next Thursday'
 'last Monday'
 
-**dependency**
+**dependency**  
 Depending the value with the value of another date-field.
 
-**checkdate**
+**checkdate**  
 If a date not exists for example 32.13.2012
 
-**message-dateformat**
+**message-dateformat**  
 If the date does not fit the format "dd.mm.yy"
 The date format will be changeable in futur.
 
-**message-min-max**
+**message-min-max**  
 If the date does not fit the given range of min and/or max.
 
 h2. Output The Form
@@ -552,8 +575,9 @@ $form->run( array(
 ));
 ```
 
-**output**
-*('echo' | 'return')* Defines the type of output.
+**output**  
+*('echo' | 'return')*  
+Defines the type of output.
 
 h2. Submit And Reset Button
 
@@ -570,29 +594,37 @@ $form->set( 'form_buttons', array(
 ));
 ```
 
-**submit**
-*(false | true)* Enables the submit-button.
+**submit**  
+*(false | true)*  
+Enables the submit-button.
 
-**submit_label**
-*(string)* Defines the buttontext.
+**submit_label**  
+*(string)*  
+Defines the buttontext.
 
-**submit_class**
-*(false | string)* Defines the class of the submit-button container.
+**submit_class**  
+*(false | string)*  
+Defines the class of the submit-button container.
 
-**submit_btn_class**
-*(false | string)* Defines the class of the submit-button itself.
+**submit_btn_class**  
+*(false | string)*  
+Defines the class of the submit-button itself.
 
-**reset**
-*(false | true)* Enables the reset-button.
+**reset**  
+*(false | true)*  
+Enables the reset-button.
 
-**reset_label**
-*(string)* Defines the buttontext.
+**reset_label**  
+*(string)*  
+Defines the buttontext.
 
-**reset_class**
-*(false | string)* Defines the class of the reset-button container.
+**reset_class**  
+*(false | string)*  
+Defines the class of the reset-button container.
 
-**reset_btn_class**
-*(false | string)* Defines the class of the reset-button itself.
+**reset_btn_class**  
+*(false | string)*  
+Defines the class of the reset-button itself.
 
 h2. Ajax
 
