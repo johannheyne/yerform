@@ -39,15 +39,16 @@ function __autoload( $class_name ) {
 }
 ```
 
-###	Using YerForm Themes
+###	Styles
 
-Copy the styles of a YerForm Theme into your own styles an modify them as you need. Include a separate YerForm stylesheet only if the YerForm class exists.
+Copy the styles of a YerForm theme into your own styles an modify them as you need. Include a separate YerForm stylesheet only if the YerForm class exists.
 
 ```php
 if ( class_exists( 'YerForm' ) ) {
 	echo '<link rel="stylesheet" type="text/css" href="my-yerform-styles.css" />';
 }
 ```
+[Documentation of Styles](docs/styles.md)
 
 ###	Create a New Form
 
