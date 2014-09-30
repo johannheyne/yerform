@@ -1,10 +1,11 @@
 <?php
 
 	/**
-	* yerform
+	* Yerform
 	*
-	* an e-mail form class for PHP 5.2.0 or newer
+	* an e-mail form class for PHP 5.3.28 or newer
 	*
+	* @version		1.0
 	* @author		Johann Heyne
 	* @copyright	Copyright (c) Johann Heyne
 	* @license		MIT
