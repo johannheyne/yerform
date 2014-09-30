@@ -248,7 +248,7 @@ Labelname of the group.
 *(string) block, inline, table*
 
 **list-gap**  
-*(bolean)*  
+*(boolean)*  
 Enables gap between fields or groups if list-layout is block or inline.
 
 Fields
@@ -403,7 +403,8 @@ Array
 ```
 
 **label**  
-*(string)*  The label of the field.
+*(string)*  
+The label of the field.
 
 **name**  
 *(string)*  
@@ -425,10 +426,10 @@ The *default* is $form->field_text_size = 40.
 **maxlength**  
 *(integer)*  
 Defines the maximal lenght of the fields content. 
-The *default* is $form->field_text_maxlength = 200.
+The *default* is ```$form->field_text_maxlength = 200```.
 
 **padding**  
-*(array( integer-left, integer-right ))*  
+*( array( integer-left, integer-right ) )*  
 Defines the left and right padding of the field list-item. 
 This is usefull for giving horizontal orientated fields some spacing.
 
@@ -438,7 +439,7 @@ Define the format of the date that will be return in the result.
 Format the date like: http://www.php.net/manual/de/function.date.php
 
 **datepicker**  
-*(bolean)*  
+*(boolean)*  
 Enables the jQuery-UI-Datepicker. The Datepicker is disabled for iOS devices because of their nativ date selection UI.
 The Datepicker needs some extra files to included in the header:
 jQuery, jQuery-UI-Core, jQuery-UI-Datepicker, jQuery-UI-Theme and may one or more datepicker regional translation scripts (https://github.com/jquery/jquery-ui/tree/master/ui/i18n)
@@ -567,7 +568,8 @@ The date format will be changeable in futur.
 **message-min-max**  
 If the date does not fit the given range of min and/or max.
 
-h2. Output The Form
+Output The Form
+--------------------
 
 ```php
 $form->run( array(
@@ -579,7 +581,8 @@ $form->run( array(
 *('echo' | 'return')*  
 Defines the type of output.
 
-h2. Submit And Reset Button
+Submit And Reset Button
+--------------------
 
 ```php
 $form->set( 'form_buttons', array(
@@ -626,7 +629,8 @@ Defines the class of the reset-button container.
 *(false | string)*  
 Defines the class of the reset-button itself.
 
-h2. Ajax
+Ajax
+--------------------
 
 yerform is using a html redirect after sending the form to prevent resending the form by pagereload. This wont work, if the form is part of an ajax request. You can prevent this by adding the parameter ajax=y to the action url.
 
