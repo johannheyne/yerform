@@ -30,31 +30,33 @@ Setup
 ###	 The YerForm Class
 
 Autoload the "core/yerform.php". The class will only be loaded if it is needed.
-´´´php
+
+```php
 function __autoload( $class_name ) {
 	if ( $class_name == 'YerForm' ) require_once( 'yerform/core/yerform.php');
 }
-´´´
+```
 
 ###	 The YerForm Theme
 
 Include the styles from a theme if the YerForm class exists.
-´´´php
+
+```php
 if ( class_exists('YerForm') ) {
 	echo '<link rel="stylesheet" type="text/css" href="yerform/themes/default/yerform-styles.css" />';
 }
-´´´
+```
 
 ###	 Create A New Form
 
-´´´php
+```php
 $form = new YerForm();
 $form->form_id = 'my_contact_form';
-´´´
+```
 
 ###	 Configuration
 
-´´´php
+```php
 $form->config( array(
 	'form_class' => false,
 	'action' => false,
@@ -108,7 +110,7 @@ $form->config( array(
 	'message_checkdate' => 'date does not exists',
 	'message_dateformat' => 'please format the date like 01.06.2013'
 ));
-´´´
+```
 
 *sent_page*
 *(string)* URL to redirect, after a form was sent.
@@ -122,7 +124,7 @@ This is used by the jQuery.datepicker!
 
 In this <code>$form->text</code> array, the translations for languages can be managed. The current language refers to the configuration in <code>$form->config( array( 'language' => 'en-US' ) );</code>.
 
-´´´php
+```php
 $form->text = array(
 	'en-US' => array(
 		'message_error_main' => array(
@@ -174,16 +176,16 @@ $form->text = array(
 		),
 	),
 );
-´´´
+```
 
 Global Messages
 --------------------
 
 This is for all global messages like validation and send status.
 
-´´´php
+```php
 $form->set( 'messages' );
-´´´
+```
 
 Building The Form Structure
 --------------------
@@ -192,7 +194,7 @@ The basic structure are fieldsets. Inside a fieldset belongs a list. Inside a li
 
 ### Fieldset And List
 
-´´´php
+```php
 $form->set( 'fieldset_begin', array(
 	'name'=>'contactdata',
 	'legend'=>'Contactdata',
@@ -209,7 +211,7 @@ $form->set( 'fieldset_begin', array(
 
 	$form->set( 'list_end' );
 $form->set( 'fieldset_end' );
-´´´
+```
 
 The placeholder <code>{require_symbol}</code> will show <span class="required">*</span> per default. You can change this via <code>$form->required_label_sufix = '…';</code>.
 
@@ -218,7 +220,7 @@ The placeholder <code>{require_symbol}</code> will show <span class="required">*
 
 ### Fieldgroup
 
-´´´php
+```php
 $form->set( 'group_begin', array(
 	'label' => false,
 	'group-layout' => 'block',
@@ -229,7 +231,7 @@ $form->set( 'group_begin', array(
 	/* some fields */
 
 $form->set( 'group_end');
-´´´
+```
 
 *label*
 *(string)* Labelname of the group.
@@ -248,7 +250,7 @@ Fields
 
 ### Text
 
-´´´php
+```php
 $form->set( 'field_text', array(
 	'name' => 'no name',
 	'array' => false,
@@ -262,7 +264,7 @@ $form->set( 'field_text', array(
 	'class' => false,
 	'validation' => false
 ));
-´´´
+```
 
 *name*
 *(string)* The name and Id of the field.
@@ -299,7 +301,7 @@ This is usefull for giving horizontal orientated fields some spacing.
 
 ### Textarea
 
-´´´php
+```php
 $form->set( 'field_textarea', array(
 	'name' => 'noname',
 	'array' => false,
@@ -310,11 +312,11 @@ $form->set( 'field_textarea', array(
 	'padding' => array(0,0),
 	'validation' => false
 ));
-´´´
+```
 
 ### Checkbox
 
-´´´php
+```php
 $form->set( 'field_checkbox', array(
 	'name' => 'noname',
 	'array' => false,
@@ -323,11 +325,11 @@ $form->set( 'field_checkbox', array(
 	'data' => 'checked',
 	'validation' => false
 ));
-´´´
+```
 
 ### Radio
 
-´´´php
+```php
 $form->set( 'field_radio', array(
 	'name' => 'noname',
 	'array' => false,
@@ -336,11 +338,11 @@ $form->set( 'field_radio', array(
 	'data' => 'checked',
 	'validation' => false
 ));
-´´´
+```
 
 ### Select
 
-´´´php
+```php
 $form->set( 'field_select', array(
 	'name' => 'noname',
 	'array' => false,
@@ -350,11 +352,11 @@ $form->set( 'field_select', array(
 	),
 	'validation' => false
 ));
-´´´
+```
 
 ### Date
 
-´´´php
+```php
 $form->set( 'field_date', array(
 	'label' => 'no name', 
 	'name' => 'noname',
@@ -372,7 +374,7 @@ $form->set( 'field_date', array(
 	'datepicker-iconurl' => false,
 	'validation' => false
 ));
-´´´
+```
 
 <pre>// returns
 Array
@@ -383,7 +385,7 @@ Array
 			[name.timestamp] => 1397865600
 		)
 )
-´´´
+```
 
 *label*
 *(string)* The label of the field.
@@ -435,21 +437,21 @@ jQuery, jQuery-UI-Core, jQuery-UI-Datepicker, jQuery-UI-Theme and may one or mor
 
 ### Hidden
 
-´´´php
+```php
 $form->set( 'field_hidden', array(
 	'name' => 'noname',
 	'value' => ''
 ));
-´´´
+```
 
 ### HTML
 
-´´´php
+```php
 $form->set( 'field_html', array(
 	'padding' => array(0,0),
 	'content' => ''
 ));
-´´´
+```
 
 *content*
 *(string)* HTML-Code to display.
@@ -459,7 +461,7 @@ Validation
 
 Just a sample, where to place the validation array:
 
-´´´php
+```php
 $form->set( 'field_text', array(
 	'name' => 'surename',
 	'label' => 'Surename',
@@ -471,33 +473,33 @@ $form->set( 'field_text', array(
 			'message' => $messages['required']
 		)
 	)
-));´´´
+));```
 
 Just put the messages for each validation error type in a variable as an array like this:
 $messages['required'];
 
 ### Required
 
-´´´php
+```php
 array(
 	'type' => 'required',
 	'cond' => true,
 	'message' => $messages['required']
 )
-´´´
+```
 
 ### E-Mail
 
-´´´php
+```php
 array(
 	'type' => 'email',
 	'message' => $messages['email']
 )
-´´´
+```
 
 ### Date
 
-´´´php
+```php
 array(
 	'type' => 'date',
 	'min' => '+1 day',
@@ -512,7 +514,7 @@ array(
 	'message-dateformat' => $messages['dateformat'],
 	'message-min-max' => $messages['date-min-max']
 )
-´´´
+```
 
 *min max*
 *(You can use the same all definitions of http://de1.php.net/manual/en/datetime.formats.php)* Defines the minimum and maximum of the date.
@@ -542,18 +544,18 @@ If the date does not fit the given range of min and/or max.
 
 h2. Output The Form
 
-´´´php
+```php
 $form->run( array(
 	'output' => 'return'
 ));
-´´´
+```
 
 *output*
 *('echo' | 'return')* Defines the type of output.
 
 h2. Submit And Reset Button
 
-´´´php
+```php
 $form->set( 'form_buttons', array(
 	'submit' => true,
 	'submit_label' => 'Submit',
@@ -564,7 +566,7 @@ $form->set( 'form_buttons', array(
 	'reset_class' => false,
 	'reset_btn_class' => false
 ));
-´´´
+```
 
 *submit*
 *(false | true)* Enables the submit-button.
@@ -594,7 +596,7 @@ h2. Ajax
 
 yerform is using a html redirect after sending the form to prevent resending the form by pagereload. This wont work, if the form is part of an ajax request. You can prevent this by adding the parameter ajax=y to the action url.
 
-´´´php
+```php
 jQuery('body').find('.formwrap form').submit( function(event) {
 	event.preventDefault();
 
@@ -607,4 +609,4 @@ jQuery('body').find('.formwrap form').submit( function(event) {
 
 	});
 });
-´´´
+```
