@@ -27,7 +27,7 @@ Just ask me for your needs at mail@johannheyne.de or create a new issue.
 Setup
 --------------------
 
-###	 The YerForm Class
+###	Loading the YerForm Class
 
 Autoload the "core/yerform.php". The class will only be loaded if it is needed.
 
@@ -39,7 +39,7 @@ function __autoload( $class_name ) {
 }
 ```
 
-###	 The YerForm Theme
+###	Using YerForm Themes
 
 Copy the styles of a YerForm Theme into your own styles an modify them as you need. Include a separate YerForm stylesheet only if the YerForm class exists.
 
@@ -49,14 +49,14 @@ if ( class_exists( 'YerForm' ) ) {
 }
 ```
 
-###	 Create A New Form
+###	Create a New Form
 
 ```php
 $form = new YerForm();
 $form->form_id = 'my_contact_form';
 ```
 
-###	 Configuration
+###	Configuration
 
 ```php
 $form->config( array(
@@ -122,7 +122,7 @@ The *default* is false.
 *(language code)* Defines the language for all forms on the page.
 This is used by the jQuery.datepicker!
 
-###	 Multi Language
+###	Multi Language Setup
 
 In this <code>$form->text</code> array, the translations for languages can be managed. The current language refers to the configuration in <code>$form->config( array( 'language' => 'en-US' ) );</code>.
 
@@ -180,7 +180,7 @@ $form->text = array(
 );
 ```
 
-Global Messages
+Global Formular Messages
 --------------------
 
 This is for all global messages like validation and send status.
@@ -189,12 +189,12 @@ This is for all global messages like validation and send status.
 $form->set( 'messages' );
 ```
 
-Building The Form Structure
+Building the Form Structure
 --------------------
 
 The basic structure are fieldsets. Inside a fieldset belongs a list. Inside a list belongs fields and fieldgroups. A field represents a single list-item. But you can use groups for nesting the list.
 
-### Fieldset And List
+### Fieldset and List
 
 ```php
 $form->set( 'fieldset_begin', array(
@@ -220,7 +220,7 @@ The placeholder <code>{require_symbol}</code> will show <span class="required">*
 *list-layout*
 *(string) block, inline, table*
 
-### Fieldgroup
+### Fieldgroups
 
 ```php
 $form->set( 'group_begin', array(
@@ -376,9 +376,8 @@ $form->set( 'field_date', array(
 	'datepicker-iconurl' => false,
 	'validation' => false
 ));
-```
 
-<pre>// returns
+// returns
 Array
 (
 	[request] => Array
