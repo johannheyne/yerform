@@ -33,17 +33,19 @@ Autoload the "core/yerform.php". The class will only be loaded if it is needed.
 
 ```php
 function __autoload( $class_name ) {
-	if ( $class_name == 'YerForm' ) require_once( 'yerform/core/yerform.php');
+	if ( $class_name == 'YerForm' ) {
+		require_once( 'yerform/core/yerform.php');
+	}
 }
 ```
 
 ###	 The YerForm Theme
 
-Include the styles from a theme if the YerForm class exists.
+Copy the styles of a YerForm Theme into your own styles an modify them as you need. Include a separate YerForm stylesheet only if the YerForm class exists.
 
 ```php
-if ( class_exists('YerForm') ) {
-	echo '<link rel="stylesheet" type="text/css" href="yerform/themes/default/yerform-styles.css" />';
+if ( class_exists( 'YerForm' ) ) {
+	echo '<link rel="stylesheet" type="text/css" href="my-yerform-styles.css" />';
 }
 ```
 
