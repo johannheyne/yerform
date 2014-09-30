@@ -126,7 +126,7 @@ This is used by the jQuery.datepicker!
 
 ###	Multi Language Setup
 
-In this <code>$form->text</code> array, the translations for languages can be managed. The current language refers to the configuration in <code>$form->config( array( 'language' => 'en-US' ) );</code>.
+In this ```$form->text``` array, the translations for languages can be managed. The current language refers to the configuration in ```$form->config( array( 'language' => 'en-US' ) );```.
 
 ```php
 $form->text = array(
@@ -217,7 +217,7 @@ $form->set( 'fieldset_begin', array(
 $form->set( 'fieldset_end' );
 ```
 
-The placeholder <code>{require_symbol}</code> will show <span class="required">*</span> per default. You can change this via <code>$form->required_label_sufix = '…';</code>.
+The placeholder ```{require_symbol}``` will show ```<span class="required">*</span>``` per default. You can change this via ```$form->required_label_sufix = '…';```.
 
 **list-layout**  
 *(string) block, inline, table*
@@ -299,12 +299,12 @@ Defines a value prefilled.
 **size**  
 *(integer)*  
 Defines the size of the textfield. 
-The *default* is $form->field_text_size = 40.
+The *default* is ```$form->field_text_size = 40;```.
 
 **maxlength**  
 *(integer)*  
 Defines the maximal lenght of the textfields content. 
-The *default* is $form->field_text_maxlength = 200.
+The *default* is ```$form->field_text_maxlength = 200;```.
 
 **padding**  
 *(array( integer-left, integer-right ))*  
@@ -421,12 +421,12 @@ For fields with same name.
 **size**  
 *(integer)*  
 Defines the size of the field. 
-The *default* is $form->field_text_size = 40.
+The *default* is ```$form->field_text_size = 40;```.
 
 **maxlength**  
 *(integer)*  
 Defines the maximal lenght of the fields content. 
-The *default* is ```$form->field_text_maxlength = 200```.
+The *default* is ```$form->field_text_maxlength = 200;```.
 
 **padding**  
 *( array( integer-left, integer-right ) )*  
