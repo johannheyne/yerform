@@ -114,8 +114,8 @@ $form->config( array(
 ));
 ```
 
-**sent_page** 
-*(string)* 
+**sent_page**  
+*(string)*  
 URL to redirect, after a form was sent.
 The *default* is false.
 
