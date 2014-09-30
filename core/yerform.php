@@ -207,32 +207,44 @@
 
 		public function config( $p = array() ) {
 
-			$p += array(
+			$defaults = array(
 				'form_class' => '',
 				'action' => '',
 				'sent_page' => false,
 				'honeypot' => false,
 				'mail_form' => false,
+				'mail_send_script' => 'swift',
+				'mail_send_methode' => 'phpmail', // phpmail, sendmail, smtp
+				'mail_send_config' => array(
+					'sendmail' => array(
+						'path' => false // OSX MAMP: '/usr/sbin/sendmail -t -i -f' 
+					),
+					'smtp' => array(
+						'server' => false,
+						'port' => false,
+						'user' => false,
+						'password' => false,
+						'ssl' => false
+					)
+				),
+				'mail_text' => false,
+				'mail_subject' => false,
 				'call_function_on_validation_is_true' => false,
 				'message_after_function_was_fired' => false,
-				'mail_subject' => false,
 				'sender_mail' => false,
 				'sender_name' => false,
 				'field_sender_mail' => false,
 				'fields_sender_name' => false,
 				'recipient_mail' => false,
 				'recipient_name' => false,
-				'mail_text' => false,
-
 				'language' => 'en-US'
 			);
 
-			foreach ( $p as $key => $value ) {
+			$p = array_replace_recursive( $defaults, $p );
 
-				$this->config[$key] = $value;
-			}
+			$this->config = array_replace_recursive( $this->config, $p );
 
-			$this->text[ $this->config['language' ] ] += array(
+			$defaults = array(
 				'message_error_main' => array( 'typ'=>'error', 'text'=>'Could not send form! Check the following fields: {fields}' ),
 				'message_sending' => array( 'typ'=>'info', 'text'=>'Sending!' ),
 				'message_sent' => array( 'typ'=>'info', 'text'=>'Sent!' ),
@@ -249,6 +261,8 @@
 					)
 				)
 			);
+
+			$this->text[ $this->config['language' ] ] = array_replace_recursive( $defaults, $this->text[ $this->config['language' ] ] );
 
 			$this->textcurr = $this->text[ $this->config['language' ] ];
 		}
@@ -735,54 +749,88 @@
 
 			// mail it with Swiftmailer
 
-			require_once( dirname(__FILE__) . '/../assets/swift/lib/swift_required.php');
+			require_once( dirname(__FILE__) . '/../assets/swift/lib/swift_required.php' );
 
-			// Create the Transport
+			if ( $this->config['mail_send_script'] === 'swift' ) {
 
-				// if ( function_exists('proc_open') ) { print_o( 'yes');  } else { print_o( 'no' ); }
+				// Create the Transport
 
-				/* PHP Mail
-					$transport = Swift_MailTransport::newInstance();
-				*/
+					// if ( function_exists('proc_open') ) { print_o( 'yes');  } else { print_o( 'no' ); }
 
-				/* Sendmail
-					$transport = Swift_SendmailTransport::newInstance('/usr/sbin/sendmail');
-				*/
+					/* PHP Mail */
 
-				/* Smtp & SSL
-					$transport = Swift_SmtpTransport::newInstance( 'server.net', 123, 'ssl' )
-						->setUsername( 'post+domain.de' )
-						->setPassword( '12345678' );
-				*/
+					if ( $this->config['mail_send_methode'] === 'phpmail' ) {
 
-			$transport = Swift_MailTransport::newInstance();
+						$transport = Swift_MailTransport::newInstance();
+					}
 
-			// Create the Mailer using your created Transport
-			$mailer = Swift_Mailer::newInstance( $transport );
+					/* Sendmail */
 
-			// Create a message
-			$message = Swift_Message::newInstance( $mail_subject )
-				->setFrom( array( $sender_mail => $sender_name ) )
-				->setTo( array( $this->config['recipient_mail'] => $this->config['recipient_name'] ) )
-				->setBody( trim( stripslashes( $mail_text ) ) );
+					if ( $this->config['mail_send_methode'] === 'sendmail' ) {
 
-			// Attache files
-			if ( isset($_FILES) ) {
-				foreach ( $_FILES as $key => $item ) {
-					if ( $item['tmp_name'] != '' ) {
-						$message->attach( Swift_Attachment::fromPath( $item['tmp_name'] )->setFilename($item['name']) );
+						$transport = Swift_SendmailTransport::newInstance( $this->config['mail_send_config']['sendmail']['path'] . ' ' . $this->config['recipient_mail'] );
+					}
+
+					/* SMTP */
+
+					if ( $this->config['mail_send_methode'] === 'smtp' ) {
+
+						$transport = Swift_SmtpTransport::newInstance();
+
+						if ( $this->config['mail_send_config']['smtp']['server'] ) {
+
+							$transport->setHost( $this->config['mail_send_config']['smtp']['server'] );
+						}
+
+						if ( $this->config['mail_send_config']['smtp']['port'] ) {
+
+							$transport->setPort( $this->config['mail_send_config']['smtp']['port'] );
+						}
+
+						if ( $this->config['mail_send_config']['smtp']['user'] ) {
+
+							$transport->setUsername( $this->config['mail_send_config']['smtp']['user'] );
+						}
+
+						if ( $this->config['mail_send_config']['smtp']['password'] ) {
+
+							$transport->setPassword( $this->config['mail_send_config']['smtp']['password'] );
+						}
+
+						if ( $this->config['mail_send_config']['smtp']['ssl'] ) {
+
+							$transport->setEncryption('ssl');
+						}
+
+					}
+
+				// Create the Mailer using your created Transport
+				$mailer = Swift_Mailer::newInstance( $transport );
+
+				// Create a message
+				$message = Swift_Message::newInstance( $mail_subject )
+					->setFrom( array( $sender_mail => $sender_name ) )
+					->setTo( array( $this->config['recipient_mail'] => $this->config['recipient_name'] ) )
+					->setBody( trim( stripslashes( $mail_text ) ) );
+
+				// Attache files
+				if ( isset($_FILES) ) {
+					foreach ( $_FILES as $key => $item ) {
+						if ( $item['tmp_name'] != '' ) {
+							$message->attach( Swift_Attachment::fromPath( $item['tmp_name'] )->setFilename($item['name']) );
+						}
 					}
 				}
-			}
 
-			//print_o( $mail_subject . $sender_mail .  $sender_name . $mail_text . $this->config['recipient_mail'] . $this->config['recipient_name'] );
-			//print_o( $message );
+				//print_o( $mail_subject . $sender_mail .  $sender_name . $mail_text . $this->config['recipient_mail'] . $this->config['recipient_name'] );
+				//print_o( $message );
 
-			// Send the message
-			$result = $mailer->send( $message );
-			if ( $result ) {
-				$this->sent = true;
-				$this->request = false;
+				// Send the message
+				$result = $mailer->send( $message );
+				if ( $result ) {
+					$this->sent = true;
+					$this->request = false;
+				}
 			}
 
 		}
