@@ -472,7 +472,7 @@
 					if ( $item['p']['display'] === true ) {
 
 						if ( $item['f'] === 'field_hidden' ) {
-							
+
 							$this->field_hidden( $item['p'] );
 						}
 					}
@@ -1197,18 +1197,16 @@
 
 									$ret .= '<select id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '">';
 										foreach($p['data'] as $key => $value) {
-											
-											
-											
+
 											// optgroup
 											if ( is_array( $value ) ) {
-											
+
 												$ret .= '<optgroup label="' . $key . '">';
-													
+
 													foreach ( $value as $key2 => $value2 ) {
-														
+
 														// optgroup option
-														
+
 														if ( $this->get_field_value( $p ) == $key2 ) {
 
 															$selected = ' selected';
@@ -1217,16 +1215,16 @@
 
 															$selected = '';
 														}
-														
+
 														$ret .= '<option value="' . $key2 . '"' . $selected . '>' . $value2 . '</option>';
 													}
-													
+
 												$ret .= '</optgroup>';
 											}
-											
+
 											// option
 											else {
-												
+
 												if ( $this->get_field_value( $p ) == $key ) {
 
 													$selected = ' selected';
@@ -1235,7 +1233,7 @@
 
 													$selected = '';
 												}
-												
+
 												$ret .= '<option value="' . $key . '"' . $selected . '>' . $value . '</option>';
 											}
 										}
@@ -1354,18 +1352,18 @@
 			$p['fieldtype'] = 'field_checkbox';
 
 			$p += $this->fields_defaults[ $p['fieldtype'] ];
-			
+
 			// error_log( print_r( $p, true) );
-			
+
 			if (
 				$this->get_field_value( $p ) !== '' OR
 				$p['checked'] === true
 			) {
-				
+
 				$checked = ' checked';
 			}
 			else {
-				
+
 				$checked = '';
 			}
 
@@ -1717,13 +1715,13 @@
 					$p['label'] = $this->textcurr['fields'][ $this->get_field_name( $p ) ]['label'];
 				}
 			}
-			
+
 			$ret = '';
-			
+
 			$ret .= $p['label'];
-			
+
 			if ( ! $p['no_required_label_sufix'] ) {
-				
+
 				$ret .= $this->get_require_label_sufix( $p );
 			}
 
@@ -1736,7 +1734,7 @@
 				return false;
 			}
 		}
-		
+
 		/** 
 		* Label
 		* Gibt den HTML-Code f&uuml;r ein Label aus.
@@ -1909,7 +1907,7 @@
 
 				$class .= ' yerform-list-item-sized';
 			}
-			
+
 			if ( in_array( 'label-inline', $p['layout'] ) ) {
 
 				$class .= ' yerform-label-inline';
