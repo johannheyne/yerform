@@ -44,32 +44,75 @@
 
 				// TEXT {
 
-					// EN-US {
+					$form->text = array(
+						'en-US' => array(
+							'message_error_main' => array(
+								'typ'=>'error',
+								'text'=>'Could not send form! Check the following fields: {fields}'
+							),
+							'message_sending' => array(
+								'typ'=>'info',
+								'text'=>'Sending!'
+							),
+							'message_sent' => array(
+								'typ'=>'info',
+								'text'=>'Sent!'
+							),
+							'message_checkdate' => 'date does not exists',
+							'message_dateformat' => 'please format the date like 01.06.2013',
+							'messages_validation' => array(
+								'required' => array(
+									'text' => 'required'
+								),
+								'email' => array(
+									'text' => 'invalid'
+								)
+							),
 
-						$form->text['en-US']['message_error_main'] = array( 'typ'=>'error', 'text'=>'Could not send form! Check the following fields: {fields}' );
-						$form->text['en-US']['message_sending'] = array( 'typ'=>'info', 'text'=>'Sending!' );
-						$form->text['en-US']['message_sent'] = array( 'typ'=>'info', 'text'=>'Sent!' );
-						$form->text['en-US']['message_checkdate'] = 'date does not exists';
-						$form->text['en-US']['message_dateformat'] = 'please format the date like 01.06.2013';
-						$form->text['en-US']['messages_validation'] = array(
-							'required' => array( 'text' => 'required' ),
-							'email' => array( 'text' => 'invalid' )
-						);
+							'fieldset' => array(
+								'require_info' => array(
+									'text' => 'Fields marked with {require_symbol} are required.'
+								)
+							),
+							'fieldsets' => array(
+								'kontaktdaten' => array(
+									'legend' => 'Contactdata',
+									'require_info' => array(
+										'text' => 'Fields marked with {require_symbol} are required.'
+									)
+								)
+							),
 
-						$form->text['en-US']['fieldset']['require_info'] = array( 'text' => 'Fields marked with {require_symbol} are required.' );
-						$form->text['en-US']['fieldsets']['kontaktdaten']['legend'] = 'Contactdata';
-						$form->text['en-US']['fieldsets']['kontaktdaten']['require_info'] = array( 'text' => 'Fields marked with {require_symbol} are required.' );
+							'fields' => array(
+								'email' => array(
+									'label' => 'E-Mail'
+								),
+								'select' => array(
+									'label' => 'Select'
+								),
+								'checkbox' => array(
+									'label' =>'Checkbox'
+								),
+								'radio' => array(
+									'label' =>'Radio'
+								),
+								'message' => array(
+									'label' =>'Message'
+								)
+							),
 
-						$form->text['en-US']['fields']['email']['label'] = 'E-Mail';
-						$form->text['en-US']['fields']['select']['label'] = 'Select';
-						$form->text['en-US']['fields']['checkbox']['label'] = 'Checkbox';
-						$form->text['en-US']['fields']['radio']['label'] = 'Radio';
-						$form->text['en-US']['fields']['message']['label'] = 'Message';
+							'buttons' => array(
+								'submit' => array(
+									'label' => 'Submit'
+								),
+								'reset' => array(
+									'label' => 'Cancel'
+								)
+							)
+						)
+					);
 
-						$form->text['en-US']['buttons']['submit']['label'] = 'Submit';
-						$form->text['en-US']['buttons']['reset']['label'] = 'Cancel';
-
-					// }
+				// }
 
 				// CONFIG {
 
@@ -131,40 +174,61 @@
 						));
 
 						$form->set( 'field_select', array(
-						    'name' => 'select',
-						    'array' => false,
-						    'data' => array(
-					        	'' => 'wähle…',
-					        	'a' => 'A',
+							'name' => 'select',
+							'array' => false,
+							'data' => array(
+								'' => 'wähle…',
+								'a' => 'A',
 								'b' => 'B',
 								'Numbers' => array(
 									'1' => '1',
 									'2' => '2',
 								)
-						    ),
-						    'validation' => array()
+							),
+							'validation' => array(
+								0 => array(
+									'type' => 'required',
+									'cond' => true,
+								)
+							)
 						));
 
 						$form->set( 'field_checkbox', array(
-						    'name' => 'checkbox',
-						    'array' => false,
-						    'labeltype' => 'field-after',
-						    'data' => 'checked',
-							'checked' => true,
-							'validation' => array(),
+							'name' => 'checkbox',
+							'array' => false,
+							'labeltype' => 'field-after',
+							'data' => 'checked',
+							'checked' => false,
+							'validation' => array(
+								0 => array(
+									'type' => 'required',
+									'cond' => true,
+								)
+							),
 						));
 
 						$form->set( 'field_radio', array(
-						    'name' => 'radio',
-						    'array' => false,
-						    'labeltype' => 'field-after',
-						    'data' => 'checked',
-						    'checked' => true,
-							'validation' => array(),
+							'name' => 'radio',
+							'array' => false,
+							'labeltype' => 'field-after',
+							'data' => 'checked',
+							'checked' => false,
+							'validation' => array(
+								0 => array(
+									'type' => 'required',
+									'cond' => true,
+								)
+							),
 						));
 
 						$form->set( 'field_textarea', array(
 							'name' => 'message',
+							'validation' => array(
+								0 => array(
+										'type' => 'required',
+										'cond' => true,
+									)
+								),
 						));
 
 					$form->set( 'list_end' );

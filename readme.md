@@ -93,25 +93,7 @@ $form->config( array(
 		E-Mail: {email}
 		Message:
 		{message}
-	",
-	'message_error_main' => array(
-		'typ'=>'error',
-		'text'=>'Could not send form! Check the following fields: {fields}'
-	),
-	'message_sending' => array(
-		'typ'=>'info',
-		'text'=>'Sending!'
-	),
-	'message_sent' => array(
-		'typ'=>'info',
-		'text'=>'Sent!'
-	),
-	'messages_validation' => array(
-		'required' => array( 'text'=>'required' ),
-		'email' => array( 'text'=>'invalid' )
-	),
-	'message_checkdate' => 'date does not exists',
-	'message_dateformat' => 'please format the date like 01.06.2013'
+	"
 ));
 ```
 Parameter | Type | Default | Description
@@ -143,6 +125,8 @@ $form->text = array(
 		'messages_validation' => array(
 			'required' => array( 'text' => 'required' ),
 			'email' => array( 'text' => 'invalid' ),
+			'checkdate' => array( 'text'=>'date does not exists' )
+			'dateformat' => array( 'text'=>'please format the date like 01.06.2015' )
 		),
 		'fieldset' => array(
 			'require_info' => array(
@@ -442,10 +426,10 @@ $form->set( 'field_html', array(
 *string*  
 HTML-Code to display.
 
-Validation
+Fields Validation
 --------------------
 
-Just a sample, where to place the validation array:
+Just a sample, where to place the validations:
 
 ```php
 $form->set( 'field_text', array(
@@ -456,21 +440,19 @@ $form->set( 'field_text', array(
 		0 => array(
 			'type' => 'required',
 			'cond' => true,
-			'message' => $messages['required']
+			 // 'message' => '' the message should be defined in `$form->text[ {language-key} ]['fields'][ {field-name} ]['validation']['required']['text']`
 		)
 	)
 ));```
-
-Just put the messages for each validation error type in a variable as an array like this:
-$messages['required'];
+	
+Just define multiple validations like this:
 
 ### Required
 
 ```php
 array(
 	'type' => 'required',
-	'cond' => true,
-	'message' => $messages['required']
+	'cond' => true
 )
 ```
 
@@ -478,8 +460,7 @@ array(
 
 ```php
 array(
-	'type' => 'email',
-	'message' => $messages['email']
+	'type' => 'email'
 )
 ```
 
@@ -494,11 +475,11 @@ array(
 		'field' => 'fieldname',
 		'value' => '+1 day',
 		'operator' => '>=',
-		'message' => $messages['date-dependency']
+		'message' => ''
 	),
-	'message-checkdate' => $messages['checkdate'],
-	'message-dateformat' => $messages['dateformat'],
-	'message-min-max' => $messages['date-min-max']
+	'message-checkdate' => '',
+	'message-dateformat' => '',
+	'message-min-max' => ''
 )
 ```
 
@@ -524,7 +505,7 @@ If a date not exists for example 32.13.2012
 
 **message-dateformat**  
 If the date does not fit the format "dd.mm.yy"
-The date format will be changeable in futur.
+The date format may will be changeable in future.
 
 **message-min-max**  
 If the date does not fit the given range of min and/or max.

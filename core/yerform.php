@@ -540,6 +540,9 @@
 					$f === 'field_text' OR
 					$f === 'field_textarea' OR
 					$f === 'field_date' OR	
+					$f === 'field_checkbox' OR	
+					$f === 'field_radio' OR	
+					$f === 'field_date' OR	
 					$f === 'field_file' OR	
 					$f === 'field_select'	
 				) {
@@ -603,14 +606,39 @@
 							$valid['cond'] === true
 						) {
 
+							if ( ! isset( $valid['message'] ) ) {
+
+								if ( isset( $this->textcurr['messages_validation']['required']['text'] ) ) {
+
+									$valid['message'] = $this->textcurr['messages_validation']['required']['text'];
+								}
+								
+								if ( isset( $this->textcurr['fields'][ $p['name'] ]['required']['text'] ) ) {
+
+									$valid['message'] = $this->textcurr['fields'][ $p['name'] ]['validation']['required']['text'];
+								}
+							}
+
+							// FILES
 							if (
 								! isset( $this->request[ $p['name'] ] ) AND
+								isset( $this->files[ $p['name'] ] ) AND
 								$this->files[ $p['name'] ]['error'] !== 0
 							) {
 
 								$this->validation[ $p['name'] ][] = $valid['message'];
 							}
+							
+							// CHECKBOX / RADIO
+							if (
+								! isset( $this->request[ $p['name'] ] ) AND
+								! isset( $this->files[ $p['name'] ] )
+							) {
 
+								$this->validation[ $p['name'] ][] = $valid['message'];
+							}
+
+							// OTHER FIELDS
 							if (
 								isset( $this->request[ $p['name'] ] ) AND
 								$this->request[ $p['name'] ] === ''
@@ -628,6 +656,16 @@
 
 								if ( $this->ifit( $valid['value'], $valid['operator'], $this->request[ $p['name'] ] ) ) {
 
+									if ( isset( $this->textcurr['messages_validation']['if']['text'] ) ) {
+
+										$valid['message'] = $this->textcurr['messages_validation']['if']['text'];
+									}
+
+									if ( isset( $this->textcurr['fields'][ $p['name'] ]['if']['text'] ) ) {
+
+										$valid['message'] = $this->textcurr['fields'][ $p['name'] ]['validation']['if']['text'];
+									}
+									
 									$this->validation[ $p['name'] ][] = $valid['message'];
 								}
 							}
@@ -636,6 +674,16 @@
 							if ( $valid['type'] === 'expression' ) {
 
 								if ( !ereg( $valid['cond'], $this->request[ $p['name'] ] ) ) {
+
+									if ( isset( $this->textcurr['messages_validation']['expression']['text'] ) ) {
+
+										$valid['message'] = $this->textcurr['messages_validation']['expression']['text'];
+									}
+
+									if ( isset( $this->textcurr['fields'][ $p['name'] ]['expression']['text'] ) ) {
+
+										$valid['message'] = $this->textcurr['fields'][ $p['name'] ]['validation']['expression']['text'];
+									}
 
 									$this->validation[ $p['name'] ][] = $valid['message'];
 								}
@@ -649,6 +697,16 @@
 									! ereg( "^[0-9]{2}\.[0-9]{2}\.[0-9]{4}$", $p['temp_value'] )
 								) {
 
+									if ( isset( $this->textcurr['messages_validation']['dateformat']['text'] ) ) {
+
+										$valid['message'] = $this->textcurr['messages_validation']['dateformat']['text'];
+									}
+
+									if ( isset( $this->textcurr['fields'][ $p['name'] ]['dateformat']['text'] ) ) {
+
+										$valid['message'] = $this->textcurr['fields'][ $p['name'] ]['validation']['dateformat']['text'];
+									}
+
 									$this->validation[ $p['name'] ][] = $this->config['message_dateformat'];
 								}
 							}
@@ -661,6 +719,16 @@
 									! isset( $this->validation[ $p['name'] ] ) AND
 									! checkdate( $p['date_parsed']['month'], $p['date_parsed']['day'], $p['date_parsed']['year'] )
 								) {
+
+									if ( isset( $this->textcurr['messages_validation']['checkdate']['text'] ) ) {
+
+										$valid['message'] = $this->textcurr['messages_validation']['checkdate']['text'];
+									}
+
+									if ( isset( $this->textcurr['fields'][ $p['name'] ]['checkdate']['text'] ) ) {
+
+										$valid['message'] = $this->textcurr['fields'][ $p['name'] ]['validation']['checkdate']['text'];
+									}
 
 									$this->validation[ $p['name'] ][] = $this->config['message_checkdate'];
 								}
@@ -730,6 +798,16 @@
 										(int)$this->get_field_value( $p ) != $this->get_field_value( $p )
 									) {
 
+										if ( isset( $this->textcurr['messages_validation']['integer']['text'] ) ) {
+
+											$valid['message'] = $this->textcurr['messages_validation']['integer']['text'];
+										}
+
+										if ( isset( $this->textcurr['fields'][ $p['name'] ]['integer']['text'] ) ) {
+
+											$valid['message'] = $this->textcurr['fields'][ $p['name'] ]['validation']['integer']['text'];
+										}
+										
 										$this->validation[ $this->get_field_name( $p ) ][] = $valid['message'];
 									 }
 								 }
@@ -764,6 +842,16 @@
 								if ( $this->get_field_value( $p ) !== '' ) {
 
 									if ( ! filter_var( $this->get_field_value( $p ), FILTER_VALIDATE_EMAIL ) ) {
+
+										if ( isset( $this->textcurr['messages_validation']['email']['text'] ) ) {
+
+											$valid['message'] = $this->textcurr['messages_validation']['email']['text'];
+										}
+
+										if ( isset( $this->textcurr['fields'][ $p['name'] ]['email']['text'] ) ) {
+
+											$valid['message'] = $this->textcurr['fields'][ $p['name'] ]['validation']['email']['text'];
+										}
 
 										$this->validation[ $this->get_field_name( $p ) ][] = $valid['message'];
 									}
