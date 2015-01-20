@@ -301,7 +301,7 @@ Parameter | Type | Default | Options | Description
 **name** | *string* | | | The name and Id of the field.
 **array** | *integer* | | | For fields with same name like ```name="something[1]"```
 **label** | *string* | | |The label of the field.
-**labeltype** | *string* | field-after | field-after, none | Defines displaying of the Label
+**labeltype** | *string* | field-after | field-after, none | Defines displaying of the Label.
 **data** | *string* | | | Defines the submit value.
 **prefix** | *string* | | | Displaying before the Field.
 **sufix** | *string* | | | Displaying after the Field.
@@ -326,7 +326,7 @@ Parameter | Type | Default | Options | Description
 **name** | *string* | | | The name and Id of the field.
 **array** | *integer* | | | For fields with same name like ```name="something[1]"```
 **label** | *string* | | |The label of the field.
-**labeltype** | *string* | field-after | field-after, none | Defines displaying of the Label
+**labeltype** | *string* | field-after | field-after, none | Defines displaying of the Label.
 **data** | *string* | | | Defines the submit value.
 **prefix** | *string* | | | Displaying before the Field.
 **sufix** | *string* | | | Displaying after the Field.
