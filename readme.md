@@ -302,7 +302,7 @@ Parameter | Type | Default | Options | Description
 **array** | *integer* | | | For fields with same name like ```name="something[1]"```
 **label** | *string* | | |The label of the field.
 **labeltype** | *string* | field-after | field-after, none | Defines displaying of the Label.
-**data** | *string* | | | Defines the submit value.
+**data** | *string* | checked | | Defines the submit value.
 **prefix** | *string* | | | Displaying before the Field.
 **sufix** | *string* | | | Displaying after the Field.
 **padding** | *array(&nbsp;int,&nbsp;int&nbsp;)* | ( 0, 0 ) | | Defines the left and right padding of the field list-item. This is usefull for giving horizontal orientated fields some spacing.
@@ -327,7 +327,7 @@ Parameter | Type | Default | Options | Description
 **array** | *integer* | | | For fields with same name like ```name="something[1]"```
 **label** | *string* | | |The label of the field.
 **labeltype** | *string* | field-after | field-after, none | Defines displaying of the Label.
-**data** | *string* | | | Defines the submit value.
+**data** | *string* | checked | | Defines the submit value.
 **prefix** | *string* | | | Displaying before the Field.
 **sufix** | *string* | | | Displaying after the Field.
 **padding** | *array(&nbsp;int,&nbsp;int&nbsp;)* | ( 0, 0 ) | | Defines the left and right padding of the field list-item. This is usefull for giving horizontal orientated fields some spacing.
