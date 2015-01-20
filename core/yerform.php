@@ -888,9 +888,9 @@
 				foreach ( $this->validation as $key => $item ) {
 
 					$temp = $this->fields[$key];
-					$temp += array( 'return' => 'text', 'no_required_label_sufix' => true );
+					$temp += array( 'no_required_label_sufix' => true );
 
-					$fieldnames[] = $this->get_label( $temp	 );
+					$fieldnames[] = $this->return_label( $temp	 );
 
 					unset( $temp );
 				}
@@ -967,7 +967,7 @@
 								$ret .= $this->get_field_prefix( $p );
 								$ret .= $this->field_before;
 
-									$ret .= '<div class="yerform-field"><input class="yerform-field-text' . $p['class'] . '" type="text" id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" value="' . $this->get_field_value( $p ) . '"' . $size . ' maxlength="' . $p['maxlength'] . '"' . $attr . '/></div>';
+									$ret .= '<input class="yerform-field-text' . $p['class'] . '" type="text" id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" value="' . $this->get_field_value( $p ) . '"' . $size . ' maxlength="' . $p['maxlength'] . '"' . $attr . '/>';
 
 								$ret .= $this->field_after;
 								$ret .= $this->get_field_sufix( $p );
@@ -991,19 +991,6 @@
 
 			$p += $this->fields_defaults[ $p['fieldtype'] ];
 
-			/*$ret = '';
-			$ret .= $this->list_item_before( $p );
-			$ret .= $this->get_label( $p );
-			$ret .= $this->fields_before;
-			$ret .= $this->field_before;
-			$ret .= '<div class="yerform-field"><textarea id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" cols="' . $p['cols'] . '" rows="' . $p['rows'] . '">' . $this->get_field_value( $p ) . '</textarea></div>';
-			$ret .= $this->get_field_sufix( $p );
-			$ret .= $this->field_after;
-			$ret .= $this->get_field_messages( $p );
-			$ret .= $this->fields_after;
-			$ret .= $this->list_item_after();
-			$this->code .= $ret;*/
-
 			$ret = '';
 			$ret .= $this->list_item_before( $p );
 				$ret .= $this->get_label( $p );
@@ -1015,7 +1002,7 @@
 								$ret .= $this->get_field_prefix( $p );
 								$ret .= $this->field_before;
 
-									$ret .= '<div class="yerform-field"><textarea id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" cols="' . $p['cols'] . '" rows="' . $p['rows'] . '">' . $this->get_field_value( $p ) . '</textarea></div>';
+									$ret .= '<textarea id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" cols="' . $p['cols'] . '" rows="' . $p['rows'] . '">' . $this->get_field_value( $p ) . '</textarea>';
 
 								$ret .= $this->field_after;
 								$ret .= $this->get_field_sufix( $p );
@@ -1048,19 +1035,69 @@
 
 			$ret = '';
 			$ret .= $this->list_item_before( $p );
-			$ret .= $this->get_label( $p );
-			$ret .= $this->fields_before;
-			$ret .= $this->field_before;
-			$ret .= '<div class="yerform-field"><select id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '">';
-			foreach($p['data'] as $key => $value) {
-				if ( $this->get_field_value( $p ) == $key ) { $selected = ' selected'; } else { $selected = ''; }
-				$ret .= '<option value="' . $key . '"' . $selected . '>' . $value . '</option>';
-			}
-			$ret .= '</select></div>';
-			$ret .= $this->get_field_sufix( $p );
-			$ret .= $this->field_after;
-			$ret .= $this->get_field_messages( $p );
-			$ret .= $this->fields_after;
+				$ret .= $this->get_label( $p );
+				$ret .= $this->messagetable_before;
+					$ret .= $this->get_info_before( $p );
+					$ret .= $this->infoaftertable_before;
+						$ret .= $this->fieldcell_before;
+							$ret .= $this->fieldtable_before;
+								$ret .= $this->get_field_prefix( $p );
+								$ret .= $this->field_before;
+
+									$ret .= '<select id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '">';
+										foreach($p['data'] as $key => $value) {
+											
+											
+											
+											// optgroup
+											if ( is_array( $value ) ) {
+											
+												$ret .= '<optgroup label="' . $key . '">';
+													
+													foreach ( $value as $key2 => $value2 ) {
+														
+														// optgroup option
+														
+														if ( $this->get_field_value( $p ) == $key2 ) {
+
+															$selected = ' selected';
+														}
+														else {
+
+															$selected = '';
+														}
+														
+														$ret .= '<option value="' . $key2 . '"' . $selected . '>' . $value2 . '</option>';
+													}
+													
+												$ret .= '</optgroup>';
+											}
+											
+											// option
+											else {
+												
+												if ( $this->get_field_value( $p ) == $key ) {
+
+													$selected = ' selected';
+												}
+												else {
+
+													$selected = '';
+												}
+												
+												$ret .= '<option value="' . $key . '"' . $selected . '>' . $value . '</option>';
+											}
+										}
+									$ret .= '</select>';
+
+								$ret .= $this->field_after;
+								$ret .= $this->get_field_sufix( $p );
+							$ret .= $this->fieldtable_after;
+						$ret .= $this->fieldcell_after;
+						$ret .= $this->get_info_after( $p );
+					$ret .= $this->infoaftertable_after;
+					$ret .= $this->get_field_messages( $p );
+				$ret .= $this->messagetable_after;
 			$ret .= $this->list_item_after();
 			$this->code .= $ret;
 		}
@@ -1113,18 +1150,27 @@
 
 			$ret = '';
 			$ret .= $this->list_item_before( $p );
-			$ret .= $this->get_label( $p );
-			$ret .= $this->fields_before;
-			$ret .= $this->field_before;
-			$ret .= '<div class="yerform-field">';
-			$ret .= '<input class="yerform-field-' . $p['use_field_type'] . ' field-margin-right' . $class . '" type="' . $p['use_field_type'] . '" id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" value="' . $this->get_field_value( $p ) . '"' . $size . ' maxlength="' . $p['maxlength'] . '"' .  $data . '/>';
-			$ret .= '<input id="' . $this->get_field_name( $p ) . '_yerform" name="' . $this->get_field_name( $p ) . '_yerform" type="hidden" value="' . @$p['temp_value_yerform']. '"/>';
-			$ret .= '</div>';
-			$ret .= $this->field_after;
-			$ret .= $this->get_field_messages( $p );
-			$ret .= $this->fields_after;
-			$ret .= $this->list_item_after();
+				$ret .= $this->get_label( $p );
+				$ret .= $this->messagetable_before;
+					$ret .= $this->get_info_before( $p );
+					$ret .= $this->infoaftertable_before;
+						$ret .= $this->fieldcell_before;
+							$ret .= $this->fieldtable_before;
+								$ret .= $this->get_field_prefix( $p );
+								$ret .= $this->field_before;
 
+									$ret .= '<input class="yerform-field-' . $p['use_field_type'] . ' field-margin-right' . $class . '" type="' . $p['use_field_type'] . '" id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" value="' . $this->get_field_value( $p ) . '"' . $size . ' maxlength="' . $p['maxlength'] . '"' .  $data . '/>';
+									$ret .= '<input id="' . $this->get_field_name( $p ) . '_yerform" name="' . $this->get_field_name( $p ) . '_yerform" type="hidden" value="' . @$p['temp_value_yerform']. '"/>';
+
+								$ret .= $this->field_after;
+								$ret .= $this->get_field_sufix( $p );
+							$ret .= $this->fieldtable_after;
+						$ret .= $this->fieldcell_after;
+						$ret .= $this->get_info_after( $p );
+					$ret .= $this->infoaftertable_after;
+					$ret .= $this->get_field_messages( $p );
+				$ret .= $this->messagetable_after;
+			$ret .= $this->list_item_after();
 			$this->code .= $ret;
 		}
 
@@ -1144,25 +1190,18 @@
 			$p['fieldtype'] = 'field_checkbox';
 
 			$p += $this->fields_defaults[ $p['fieldtype'] ];
+			
+			// error_log( print_r( $p, true) );
+			
+			if ( $this->get_field_value( $p ) !== '' OR $p['checked'] === true ) {
+				
+				$checked = ' checked';
+			}
+			else {
+				
+				$checked = '';
+			}
 
-			if ( $this->get_field_value( $p ) !== '' OR $p['checked'] === true ) { $checked = ' checked'; } else { $checked = ''; }
-
-			/*$ret = '';
-			$ret .= $this->list_item_before( $p );
-			$ret .= $this->get_label( $p );
-			$ret .= $this->fields_before;
-			$ret .= $this->field_before;
-			$ret .= '<div class="yerform-field"><input type="checkbox" id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" value="' . $p['data'] . '"' . $checked . '/>';
-			if ( $p['labeltype'] === 'field-after' ) $ret .= '<span class="yerform-field-after">' . $p['label'] . '</span>';
-			$ret .= '</div>';
-			$ret .= $this->get_field_sufix( $p );
-			$ret .= $this->field_after;
-			$ret .= $this->get_field_messages( $p );
-			$ret .= $this->fields_after;
-			$ret .= $this->list_item_after();
-
-			$this->code .= $ret;
-			*/
 			$ret = '';
 			$ret .= $this->list_item_before( $p );
 				$ret .= $this->get_label( $p );
@@ -1175,7 +1214,7 @@
 								$ret .= $this->field_before;
 
 									$ret .= '<input type="checkbox" id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" value="' . $p['data'] . '"' . $checked . '/>';
-									if ( $p['labeltype'] === 'field-after' ) $ret .= '<span class="yerform-field-after">' . $p['label'] . '</span>';
+									if ( $p['labeltype'] === 'field-after' ) $ret .= '<span class="yerform-field-after">' . $this->return_label( $p ) . '</span>';
 
 								$ret .= $this->field_after;
 								$ret .= $this->get_field_sufix( $p );
@@ -1213,18 +1252,27 @@
 
 			$ret = '';
 			$ret .= $this->list_item_before( $p );
-			$ret .= $this->get_label( $p );
-			$ret .= $this->fields_before;
-			$ret .= $this->field_before;
-			$ret .= '<div class="yerform-field"><input type="radio" id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" value="' . $p['data'] . '"' . $checked . '/>';
-			if ( $p['labeltype'] === 'field-after' ) $ret .= '<span class="yerform-field-after">' . $p['label'] . '</span>';
-			$ret .= '</div>';
-			$ret .= $this->get_field_sufix( $p );
-			$ret .= $this->field_after;
-			$ret .= $this->get_field_messages( $p );
-			$ret .= $this->fields_after;
-			$ret .= $this->list_item_after();
+				$ret .= $this->get_label( $p );
+				$ret .= $this->messagetable_before;
+					$ret .= $this->get_info_before( $p );
+					$ret .= $this->infoaftertable_before;
+						$ret .= $this->fieldcell_before;
+							$ret .= $this->fieldtable_before;
+								$ret .= $this->get_field_prefix( $p );
+								$ret .= $this->field_before;
 
+									$ret .= '<input type="radio" id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" value="' . $p['data'] . '"' . $checked . '/>';
+									if ( $p['labeltype'] === 'field-after' ) $ret .= '<span class="yerform-field-after">' . $this->return_label( $p ) . '</span>';
+
+								$ret .= $this->field_after;
+								$ret .= $this->get_field_sufix( $p );
+							$ret .= $this->fieldtable_after;
+						$ret .= $this->fieldcell_after;
+						$ret .= $this->get_info_after( $p );
+					$ret .= $this->infoaftertable_after;
+					$ret .= $this->get_field_messages( $p );
+				$ret .= $this->messagetable_after;
+			$ret .= $this->list_item_after();
 			$this->code .= $ret;
 		}
 
@@ -1247,14 +1295,25 @@
 
 			$ret = '';
 			$ret .= $this->list_item_before( $p );
-			$ret .= $this->get_label( $p );
-			$ret .= $this->fields_before;
-			$ret .= $this->field_before;
-			$ret .= '<div class="yerform-field"><input name="' . $this->get_field_name( $p ) . '" type="file" size="' . $p['size'] . '"></div>';
-			$ret .= $this->get_field_sufix( $p );
-			$ret .= $this->field_after;
-			$ret .= $this->get_field_messages( $p );
-			$ret .= $this->fields_after;
+				$ret .= $this->get_label( $p );
+				$ret .= $this->messagetable_before;
+					$ret .= $this->get_info_before( $p );
+					$ret .= $this->infoaftertable_before;
+						$ret .= $this->fieldcell_before;
+							$ret .= $this->fieldtable_before;
+								$ret .= $this->get_field_prefix( $p );
+								$ret .= $this->field_before;
+
+									$ret .= '<input name="' . $this->get_field_name( $p ) . '" type="file" size="' . $p['size'] . '">';
+
+								$ret .= $this->field_after;
+								$ret .= $this->get_field_sufix( $p );
+							$ret .= $this->fieldtable_after;
+						$ret .= $this->fieldcell_after;
+						$ret .= $this->get_info_after( $p );
+					$ret .= $this->infoaftertable_after;
+					$ret .= $this->get_field_messages( $p );
+				$ret .= $this->messagetable_after;
 			$ret .= $this->list_item_after();
 			$this->code .= $ret;
 		}
@@ -1278,7 +1337,7 @@
 
 			$ret = '';
 			$ret .= $this->list_item_before( $p );
-			$ret .= $p['content'];
+				$ret .= $p['content'];
 			$ret .= $this->list_item_after();
 			$this->code .= $ret;
 		}
@@ -1441,6 +1500,50 @@
 		* @vari		label_after
 		*/
 
+		protected function return_label( $p = array() ) {
+
+			$p += array(
+				'label' => false,
+				'no_required_label_sufix' => false
+			);
+
+			if ( $p['label'] === false ) {
+
+				if ( isset( $this->textcurr['fields'][ $this->get_field_name( $p ) ]['label'] ) ) {
+
+					$p['label'] = $this->textcurr['fields'][ $this->get_field_name( $p ) ]['label'];
+				}
+			}
+			
+			$ret = '';
+			
+			$ret .= $p['label'];
+			
+			if ( ! $p['no_required_label_sufix'] ) {
+				
+				$ret .= $this->get_require_label_sufix( $p );
+			}
+
+			if ( $p['label'] ) {
+
+				return $ret;
+			}
+			else {
+
+				return false;
+			}
+		}
+		
+		/** 
+		* Label
+		* Gibt den HTML-Code f&uuml;r ein Label aus.
+		* F&uuml;gt Zeichen an Label an f&uuml;r "required" Felder.
+		*
+		* @parent	field_text()
+		* @vari		label_before
+		* @vari		label_after
+		*/
+
 		protected function get_label( $p = array() ) {
 
 			$p += array(
@@ -1459,13 +1562,7 @@
 				$class .= ' yerform-displaynone';
 			}
 
-			if ( $p['label'] === false ) {
-
-				if ( isset( $this->textcurr['fields'][ $this->get_field_name( $p ) ]['label'] ) ) {
-
-					$p['label'] = $this->textcurr['fields'][ $this->get_field_name( $p ) ]['label'];
-				}
-			}
+			$p['label'] = $this->return_label( $p );
 
 			$ret = '';
 
@@ -1483,17 +1580,12 @@
 
 				if ( $p['label'] ) {
 
-					$ret .= '<label for="' . $p['name'] . '"' . $class_input . '>' . $p['label'] . $this->get_require_label_sufix( $p ) . '</label>';
+					$ret .= '<label for="' . $p['name'] . '"' . $class_input . '>' . $p['label'] . '</label>';
 					if ( $p['label_sufix'] ) $ret .= '<span' . $class_inputsufix . '>' . $p['label_sufix'] . '</span>';
 
 					$ret .= $this->label_after;
 
 				}
-			}
-
-			if ( $p['return'] == 'text' ) {
-
-				$ret .= $p['label'] . $this->get_require_label_sufix( $p );
 			}
 
 			if ( $p['label'] ) {

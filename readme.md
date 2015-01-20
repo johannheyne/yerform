@@ -27,7 +27,7 @@ Just ask me for your needs at mail@johannheyne.de or create a new issue.
 Setup
 --------------------
 
-###	Loading the YerForm Class
+### Loading the YerForm Class
 
 Autoload the "core/yerform.php". The class will only be loaded if it is needed.
 
@@ -39,7 +39,7 @@ function __autoload( $class_name ) {
 }
 ```
 
-###	Styles
+### Styles
 
 Copy the styles of a YerForm theme into your own styles an modify them as you need. Include a separate YerForm stylesheet only if the YerForm class exists.
 
@@ -50,14 +50,14 @@ if ( class_exists( 'YerForm' ) ) {
 ```
 [Documentation of Styles](docs/styles.md)
 
-###	Create a New Form
+### Create a New Form
 
 ```php
 $form = new YerForm();
 $form->form_id = 'my_contact_form';
 ```
 
-###	Configuration
+### Configuration
 
 ```php
 $form->config( array(
@@ -114,18 +114,12 @@ $form->config( array(
 	'message_dateformat' => 'please format the date like 01.06.2013'
 ));
 ```
+Parameter | Type | Default | Description
+:--|:--|:--|:--
+**sent_page** | *string* | false | URL to redirect, after a form was sent.
+**language**| *string* | 'en-US' | Defines the language for all forms on the page. This is used by the jQuery.datepicker!
 
-**sent_page**  
-*(string)*  
-URL to redirect, after a form was sent.
-The *default* is false.
-
-**language**  
-*(language code)*  
-Defines the language for all forms on the page.
-This is used by the jQuery.datepicker!
-
-###	Multi Language Setup
+### Multi Language Setup
 
 In this ```$form->text``` array, the translations for languages can be managed. The current language refers to the configuration in ```$form->config( array( 'language' => 'en-US' ) );```.
 
@@ -220,8 +214,9 @@ $form->set( 'fieldset_end' );
 
 The placeholder ```{require_symbol}``` will show ```<span class="required">*</span>``` per default. You can change this via ```$form->required_label_sufix = '…';```.
 
-**list-layout**  
-*(string) block, inline, table*
+Parameter | Type | Default | Options | Description
+:--|:--|:--|:--|:--
+**list-layout** | *string* | block | block, inline, table |
 
 ### Fieldgroups
 
@@ -238,19 +233,12 @@ $form->set( 'group_begin', array(
 $form->set( 'group_end');
 ```
 
-**label**  
-*(string)*  
-Labelname of the group.
-
-**group-layout**  
-*(string) block, inline*
-
-**list-layout**  
-*(string) block, inline, table*
-
-**list-gap**  
-*(boolean)*  
-Enables gap between fields or groups if list-layout is block or inline.
+Parameter | Type | Default | Options | Description
+:--|:--|:--|:--|:--
+**label** | *string* | | | Labelname of the group.
+**group-layout** | *string* | block | block, inline |
+**list-layout** | *string* | block | block, inline, table |
+**list-gap** | *boolean* | | | Enables gap between fields or groups if list-layout is block or inline.
 
 Fields
 --------------------
@@ -263,8 +251,9 @@ $form->set( 'field_text', array(
 	'array' => false,
 	'label' => 'no name',
 	'placeholder' => false,
-	'sufix' => '',
 	'value' => '',
+	'prefix' => '',
+	'sufix' => '',
 	'size' => '40',
 	'maxlength' => '200',
 	'padding' => array( 0, 0 ),
@@ -273,48 +262,19 @@ $form->set( 'field_text', array(
 ));
 ```
 
-**name**  
-*(string)*  
-The name and Id of the field.
-
-**array**  
-*(integer)*  
-For fields with same name like a checkboxset.
-
-**label**  
-*(string)*  
-The label of the field.
-
-**placeholder**  
-*(string)*  
-Defines a placeholder text for the field.
-
-**sufix**  
-*(string)*  
-Displaying after the Field.
-
-**value**  
-*(string)*  
-Defines a value prefilled.
-
-**size**  
-*(integer)*  
-Defines the size of the textfield. 
-The *default* is ```$form->field_text_size = 40;```.
-
-**maxlength**  
-*(integer)*  
-Defines the maximal lenght of the textfields content. 
-The *default* is ```$form->field_text_maxlength = 200;```.
-
-**padding**  
-*( array( integer-left, integer-right ) )*  
-Defines the left and right padding of the field list-item. 
-This is usefull for giving horizontal orientated fields some spacing.
-
-**class**  
-*(string)*  
-Defines a class on the field list-item.
+Parameter | Type | Default | Options | Description
+:--|:--|:--|:--|:--
+**name** | *string* | | | The name and Id of the field.
+**array** | *integer* | | | For fields with same name like ```name="something[1]"```
+**label** | *string* | | |The label of the field.
+**placeholder** | *string* | | | Defines a placeholder text for the field.
+**value** | *string* | | | Defines a value prefilled.
+**prefix** | *string* | | | Displaying before the Field.
+**sufix** | *string* | | | Displaying after the Field.
+**size** | *integer* | 40 | | Defines the size of the textfield.<br>Change default via<br>```$form->field_text_size = 40;```
+**maxlength** | *integer* | 200 | | Defines the maximal lenght of the textfields content.<br>Change default via<br>```$form->field_text_maxlength = 200;```
+**padding** | *array(&nbsp;int,&nbsp;int&nbsp;)* | ( 0, 0 ) | | Defines the left and right padding of the field list-item. This is usefull for giving horizontal orientated fields some spacing.
+**class** | *string* | | | Defines a class on the field list-item.
 
 ### Textarea
 
@@ -404,28 +364,28 @@ Array
 ```
 
 **label**  
-*(string)*  
+*string*  
 The label of the field.
 
 **name**  
-*(string)*  
+*string*  
 The name and Id of the field.
 
 **use_field_type**  
-*(string)*  
+*string*  
 Define the type of the field that can be "date" or "text".
 
 **array**  
-*(integer)*  
+*integer*  
 For fields with same name.
 
 **size**  
-*(integer)*  
+*integer*  
 Defines the size of the field. 
 The *default* is ```$form->field_text_size = 40;```.
 
 **maxlength**  
-*(integer)*  
+*integer*  
 Defines the maximal lenght of the fields content. 
 The *default* is ```$form->field_text_maxlength = 200;```.
 
@@ -435,7 +395,7 @@ Defines the left and right padding of the field list-item.
 This is usefull for giving horizontal orientated fields some spacing.
 
 **returnformat**  
-*(string)*  
+*string*  
 Define the format of the date that will be return in the result.
 Format the date like: http://www.php.net/manual/de/function.date.php
 
@@ -455,7 +415,7 @@ jQuery, jQuery-UI-Core, jQuery-UI-Datepicker, jQuery-UI-Theme and may one or mor
 *(0 or string)*
 
 **datepicker-dateformat**  
-*(string)*
+*string*
 
 **datepicker-iconurl**  
 *(url)*
@@ -479,7 +439,7 @@ $form->set( 'field_html', array(
 ```
 
 **content**  
-*(string)*  
+*string*  
 HTML-Code to display.
 
 Validation
@@ -603,7 +563,7 @@ $form->set( 'form_buttons', array(
 Enables the submit-button.
 
 **submit_label**  
-*(string)*  
+*string*  
 Defines the buttontext.
 
 **submit_class**  
@@ -619,7 +579,7 @@ Defines the class of the submit-button itself.
 Enables the reset-button.
 
 **reset_label**  
-*(string)*  
+*string*  
 Defines the buttontext.
 
 **reset_class**  

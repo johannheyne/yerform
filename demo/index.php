@@ -60,12 +60,11 @@
 						$form->text['en-US']['fieldsets']['kontaktdaten']['legend'] = 'Contactdata';
 						$form->text['en-US']['fieldsets']['kontaktdaten']['require_info'] = array( 'text' => 'Fields marked with {require_symbol} are required.' );
 
-						$form->text['en-US']['fields']['surename']['label'] = 'Surename';
-						$form->text['en-US']['fields']['familyname']['label'] = 'Familyname';
 						$form->text['en-US']['fields']['email']['label'] = 'E-Mail';
-						$form->text['en-US']['fields']['plz_ort']['label'] = 'ZIP|City';
-						$form->text['en-US']['fields']['telefon']['label'] = 'Telefon';
-						$form->text['en-US']['fields']['nachricht']['label'] = 'Message';
+						$form->text['en-US']['fields']['select']['label'] = 'Select';
+						$form->text['en-US']['fields']['checkbox']['label'] = 'Checkbox';
+						$form->text['en-US']['fields']['radio']['label'] = 'Radio';
+						$form->text['en-US']['fields']['message']['label'] = 'Message';
 
 						$form->text['en-US']['buttons']['submit']['label'] = 'Submit';
 						$form->text['en-US']['buttons']['reset']['label'] = 'Cancel';
@@ -118,26 +117,54 @@
 					'name'=>'Contactform'
 				));
 					$form->set( 'list_begin', array(
-						'list-layout' => 'block'
+						'group-layout' => 'block',
+						'list-layout' => 'table',
 					));
 
 						/* fields and field groups */
 
 						$form->set( 'field_text', array(
-							'name' => 'surename'
+							'name' => 'email',
+							'sufix' => 'Sufix',
+							'prefix' => 'Prefix',
+							'validation' => array(),
 						));
 
-						$form->set( 'field_text', array(
-							'name' => 'familyname'
+						$form->set( 'field_select', array(
+						    'name' => 'select',
+						    'array' => false,
+						    'data' => array(
+					        	'' => 'wähle…',
+					        	'a' => 'A',
+								'b' => 'B',
+								'Numbers' => array(
+									'1' => '1',
+									'2' => '2',
+								)
+						    ),
+						    'validation' => array()
 						));
 
-						$form->set( 'field_text', array(
-							'name' => 'email'
+						$form->set( 'field_checkbox', array(
+						    'name' => 'checkbox',
+						    'array' => false,
+						    'labeltype' => 'field-after',
+						    'data' => 'checked',
+							'checked' => true,
+							'validation' => array(),
+						));
+
+						$form->set( 'field_radio', array(
+						    'name' => 'radio',
+						    'array' => false,
+						    'labeltype' => 'field-after',
+						    'data' => 'checked',
+						    'checked' => true,
+							'validation' => array(),
 						));
 
 						$form->set( 'field_textarea', array(
 							'name' => 'message',
-							'label' => 'Message'
 						));
 
 					$form->set( 'list_end' );
