@@ -198,7 +198,7 @@
 							'array' => false,
 							'labeltype' => 'field-after',
 							'data' => 'checked',
-							'checked' => false,
+							'checked' => true,
 							'validation' => array(
 								0 => array(
 									'type' => 'required',
@@ -211,7 +211,7 @@
 							'name' => 'radio',
 							'array' => false,
 							'labeltype' => 'field-after',
-							'data' => 'checked',
+							'data' => '1',
 							'checked' => false,
 							'validation' => array(
 								0 => array(
@@ -220,6 +220,13 @@
 								)
 							),
 						));
+							$form->set( 'field_radio', array(
+								'name' => 'radio',
+								'array' => false,
+								'labeltype' => 'field-after',
+								'data' => '2',
+								'checked' => false
+							));
 
 						$form->set( 'field_textarea', array(
 							'name' => 'message',

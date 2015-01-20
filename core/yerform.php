@@ -1468,14 +1468,15 @@
 
 			$p += $this->fields_defaults[ $p['fieldtype'] ];
 
-			// error_log( print_r( $p, true) );
-
 			if (
 				$this->get_field_value( $p ) !== '' OR
-				$p['checked'] === true
+				(
+					! $this->request AND
+					$p['checked'] === true
+				)
 			) {
 
-				$checked = ' checked';
+				$checked = ' checked="checked"';
 			}
 			else {
 
@@ -1534,7 +1535,7 @@
 
 			if ( $this->get_field_value( $p ) === $p['data'] ) {
 
-				$checked = ' checked';
+				$checked = ' checked="checked"';
 			}
 
 			if (
@@ -1542,7 +1543,7 @@
 				$p['checked'] === true
 			) {
 
-				$checked = ' checked';
+				$checked = ' checked="checked"';
 			}
 
 			$ret = '';
