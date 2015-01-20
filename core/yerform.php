@@ -72,6 +72,7 @@
 			) {
 
 				foreach ( $_REQUEST as $key => $value ) {
+
 					$this->request[ $key ] = $this->sanitize( $value );
 				}
 
@@ -200,6 +201,7 @@
 		*/
 
 		protected function sanitize( $string ) {
+
 			$string = strip_tags( $string );
 			$string = htmlspecialchars( $string, ENT_QUOTES );
 			return $string;
@@ -293,6 +295,7 @@
 			) {
 
 				if ( isset( $p['validation'] ) ) {
+
 					$p['validation'] += array(
 						998 => array(
 							'type' => 'required',
@@ -306,6 +309,7 @@
 					);
 				}
 				else {
+
 					$p += array(
 						'validation' => array(
 							0 => array(
@@ -337,6 +341,7 @@
 				$f === 'field_file' OR
 				$f === 'field_date'
 			) {
+
 				$this->fields[ $p['name'] ] = $p;
 			}
 		}
@@ -415,8 +420,10 @@
 					$_GET AND
 					isset( $_GET['ajax'] )
 				) {
+
 				}
 				else {
+
 					$ret .= '<meta http-equiv="refresh" content="0; URL=' . $this->config['sent_page'] . '?sent=true">';
 				}
 			}
@@ -595,6 +602,7 @@
 							$valid['type'] === 'required' AND
 							$valid['cond'] === true
 						) {
+
 							if (
 								! isset( $this->request[ $p['name'] ] ) AND
 								$this->files[ $p['name'] ]['error'] !== 0
@@ -628,6 +636,7 @@
 							if ( $valid['type'] === 'expression' ) {
 
 								if ( !ereg( $valid['cond'], $this->request[ $p['name'] ] ) ) {
+
 									$this->validation[ $p['name'] ][] = $valid['message'];
 								}
 							}
@@ -652,6 +661,7 @@
 									! isset( $this->validation[ $p['name'] ] ) AND
 									! checkdate( $p['date_parsed']['month'], $p['date_parsed']['day'], $p['date_parsed']['year'] )
 								) {
+
 									$this->validation[ $p['name'] ][] = $this->config['message_checkdate'];
 								}
 							}
@@ -666,6 +676,7 @@
 										isset( $valid['min'] ) OR
 										isset( $valid['max'] )
 									) {
+
 										$array = array (
 											"{min}" => date( "d.m.Y", $this->datestamp( $valid['min'] ) ),
 											"{max}" => date( "d.m.Y", $this->datestamp( $valid['max'] ) )
@@ -702,6 +713,7 @@
 									$value = $timestamp - $timestamp_dep;
 
 									if ( ! $this->ifit( $value, $valid['dependency']['operator'], 0 ) ) {
+
 										$this->validation[ $p['name'] ][] =	 $valid['dependency']['message'];
 									}
 								}
@@ -752,6 +764,7 @@
 								if ( $this->get_field_value( $p ) !== '' ) {
 
 									if ( ! filter_var( $this->get_field_value( $p ), FILTER_VALIDATE_EMAIL ) ) {
+
 										$this->validation[ $this->get_field_name( $p ) ][] = $valid['message'];
 									}
 								}
@@ -776,6 +789,7 @@
 				$this->config['honeypot'] AND
 				$this->request[ strtolower( $this->config['honeypot'] ) ] != ''
 			) {
+
 				$this->validation = true;
 				$this->messages['message_honeypot'] = true;
 			}
@@ -824,20 +838,25 @@
 			/* sender email */
 			$sender_mail = false;
 			if ( $this->config['sender_mail'] ) {
+
 				$sender_mail = $this->config['sender_mail'];
 			}
 			if ( $this->config['field_sender_mail'] ) {
+
 				$sender_mail = $this->request[ $this->config['field_sender_mail'] ];
 			}
 
 			/* sender name */
 			$sender_name = false;
 			if ( $this->config['fields_sender_name'] ) {
+
 				foreach ( $this->config['fields_sender_name'] as $key => $value ) {
+
 					$sender_name .= $this->request[ $value ] . ' ';
 				}
 			}
 			if ( $this->config['sender_name'] ) {
+
 				$sender_name = $this->config['sender_name'];
 			}
 			$sender_name = trim( $sender_name );
@@ -851,6 +870,7 @@
 			// get off the whitespace of lines
 			$mail_text_arr = explode( "\n", $mail_text );
 			foreach($mail_text_arr as $key => $value) {
+
 				$mail_text_arr[ $key ]	= trim( $value );
 			}
 			$mail_text = implode( "\n", $mail_text_arr );
@@ -859,6 +879,7 @@
 			$array = false;
 
 			foreach( $this->fields as $name => $item) {
+
 				$value = $_REQUEST[ $name ];
 
 				if ( is_array($value) ) {
@@ -955,6 +976,7 @@
 				// Send the message
 				$result = $mailer->send( $message );
 				if ( $result ) {
+
 					$this->sent = true;
 					$this->request = false;
 				}
@@ -1285,12 +1307,17 @@
 				$p['datepicker'] AND
 				$p['validation']
 			) {
+
 				foreach( $p['validation'] as $num => $item ) {
+
 					if ( $item['type'] === 'date' ) {
+
 						if ( isset( $item['min'] ) ) {
+
 							$p['datepicker-min'] = ( $this->datestamp( $item['min'] ) - mktime( 0, 0, 0, date("m"), date("d"), date("Y")) ) / 86400 . 'd';
 						}
 						if ( isset( $item['max'] ) ) {
+
 							$p['datepicker-max'] = ( $this->datestamp( $item['max'] ) - mktime( 0, 0, 0, date("m"), date("d"), date("Y")) ) / 86400 . 'd';
 						}
 					}
@@ -1624,6 +1651,7 @@
 			//$this->code .= '<div class="' . $class . '">';
 
 			if ( $p['label'] !== false ) {
+
 				$this->code .= str_replace('>', ' class="yerform-group-label">', $this->label_before);
 
 				if ( $p['label'] != '' ) {
@@ -1679,6 +1707,7 @@
 				$p['no_required_label_sufix'] === false &&
 				isset( $p['validation'] )
 			) {
+
 				foreach( $p['validation'] as $key => $item ) {
 
 					if (
@@ -1879,7 +1908,9 @@
 			);
 
 			if ( count( $this->p_list['layout'] ) > 0 ) {
+
 				foreach ( $this->p_list['layout'] as $key => $value ) {
+
 					$p['layout'][] = $value;
 				}
 			}
@@ -2027,6 +2058,7 @@
 			}
 
 			if ( $p['require_info'] ) {
+
 				$this->require_info( $p['require_info'] );
 			}
 		}
@@ -2061,6 +2093,7 @@
 		protected function ifit( $var1, $op, $var2 ) {
 
 			switch ( $op ) {
+
 				case "=":  return $var1 == $var2;
 				case "!=": return $var1 != $var2;
 				case ">=": return $var1 >= $var2;
@@ -2106,6 +2139,7 @@
 			$value = $p['value'];
 
 			if ( isset($this->request[ $p['name'] ]) ) {
+
 				$value = @$this->request[ $p['name'] ];
 
 				if ( $p['array'] !== false ) {
@@ -2133,21 +2167,26 @@
 			$ret = false;
 
 			if ( $p['info'] ) {
+
 				$ret .= '<span class="info">' . $p['info'] . '</span>';
 			}
 
 			if ( $p['info_html'] ) {
+
 				$ret .= '<div class="info_html">' . $p['info_html'] . '</div>';
 			}
 
 			if ( isset( $this->validation[ $this->get_field_name( $p ) ] ) ) {
+
 				$ret .= '<span class="yerform-field-message-error">' . implode( '<br/>', $this->validation[ $this->get_field_name( $p ) ] ) . '</span>';
 			}
 
 			if ( $ret ) {
+
 				return '<div class="yerform-field-message">' . $ret . '</div>';
 			}
 			else {
+
 				return $ret;
 			}
 		}
@@ -2165,6 +2204,7 @@
 			$ret = false;
 
 			if ( $p['prefix'] ) {
+
 				$ret .= '<div class="yerform-field-prefix">';
 				$ret .= '<span>' . $p['prefix'] . '</span>';
 				$ret .= '</div>';
@@ -2186,6 +2226,7 @@
 			$ret = false;
 
 			if ( $p['sufix'] ) {
+
 				$ret .= '<div class="yerform-field-sufix">';
 				$ret .= '<span>' . $p['sufix'] . '</span>';
 				$ret .= '</div>';
@@ -2207,6 +2248,7 @@
 			$ret = false;
 
 			if ( $p['info-before'] ) {
+
 				$ret .= '<div class="yerform-info-before">';
 				$ret .= '<span>' . $p['info-before'] . '</span>';
 				$ret .= '</div>';
@@ -2228,6 +2270,7 @@
 			$ret = false;
 
 			if ( $p['info-after'] ) {
+
 				$ret .= '<div class="yerform-info-after">';
 				$ret .= '<span>' . $p['info-after'] . '</span>';
 				$ret .= '</div>';
