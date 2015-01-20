@@ -1874,9 +1874,13 @@
 				'return' => 'html', // text
 			);
 
+
 			$class = 'yerform-label-wrap';
 
-			if ( $p['labeltype'] === 'field-after') {
+			if (
+				$p['labeltype'] === 'field-after' OR
+				$p['labeltype'] === 'none'
+			) {
 
 				$class .= ' yerform-displaynone';
 			}

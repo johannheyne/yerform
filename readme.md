@@ -120,13 +120,14 @@ $form->text = array(
 			'typ'=>'info',
 			'text'=>'Sent!',
 		),
-		'message_checkdate' => 'date does not exists',
-		'message_dateformat' => 'please format the date like 01.06.2013',
+		//'message_checkdate' => 'date does not exists', !deprecated
+		//'message_dateformat' => 'please format the date like 01.06.2013', !deprecated
 		'messages_validation' => array(
 			'required' => array( 'text' => 'required' ),
 			'email' => array( 'text' => 'invalid' ),
-			'checkdate' => array( 'text'=>'date does not exists' )
+			'checkdate' => array( 'text'=>'date does not exists' ),
 			'dateformat' => array( 'text'=>'please format the date like 01.06.2015' )
+			'min-max' => array( 'text'=>'should be between {min} and {max}' )
 		),
 		'fieldset' => array(
 			'require_info' => array(
@@ -144,6 +145,14 @@ $form->text = array(
 		'fields' => array(
 			'email' => array(
 				'label' => 'E-Mail',
+			),
+			'name' => array(
+				'label' => 'E-Mail',
+				'validation' => array(
+					'required' => array(
+						'text' => 'The name is required!'
+					)
+				)
 			),
 			'message' => array(
 				'label' => 'Massage',
@@ -287,6 +296,17 @@ $form->set( 'field_checkbox', array(
 	'validation' => false
 ));
 ```
+Parameter | Type | Default | Options | Description
+:--|:--|:--|:--|:--
+**name** | *string* | | | The name and Id of the field.
+**array** | *integer* | | | For fields with same name like ```name="something[1]"```
+**label** | *string* | | |The label of the field.
+**labeltype** | *field-after, none* | field-after | |The label of the field.
+**data** | *string* | | | Defines the submit value.
+**prefix** | *string* | | | Displaying before the Field.
+**sufix** | *string* | | | Displaying after the Field.
+**padding** | *array(&nbsp;int,&nbsp;int&nbsp;)* | ( 0, 0 ) | | Defines the left and right padding of the field list-item. This is usefull for giving horizontal orientated fields some spacing.
+**class** | *string* | | | Defines a class on the field list-item.
 
 ### Radio
 
@@ -300,6 +320,19 @@ $form->set( 'field_radio', array(
 	'validation' => false
 ));
 ```
+
+Parameter | Type | Default | Options | Description
+:--|:--|:--|:--|:--
+**name** | *string* | | | The name and Id of the field.
+**array** | *integer* | | | For fields with same name like ```name="something[1]"```
+**label** | *string* | | |The label of the field.
+**labeltype** | *field-after, none* | field-after | |The label of the field.
+**data** | *string* | | | Defines the submit value.
+**prefix** | *string* | | | Displaying before the Field.
+**sufix** | *string* | | | Displaying after the Field.
+**padding** | *array(&nbsp;int,&nbsp;int&nbsp;)* | ( 0, 0 ) | | Defines the left and right padding of the field list-item. This is usefull for giving horizontal orientated fields some spacing.
+**class** | *string* | | | Defines a class on the field list-item.
+
 
 ### Select
 
