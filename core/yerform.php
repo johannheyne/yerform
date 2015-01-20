@@ -65,7 +65,11 @@
 			$this->set_fields_defaults();
 			$this->set_dateformats_phpjs();
 
-			if ( $_REQUEST && isset( $_REQUEST['yerform-check'] ) && $_REQUEST['yerform-check'] + $this->expiretime > time() ) {
+			if (
+				$_REQUEST &&
+				isset( $_REQUEST['yerform-check'] ) &&
+				$_REQUEST['yerform-check'] + $this->expiretime > time()
+			) {
 
 				foreach ( $_REQUEST as $key => $value ) {
 					$this->request[ $key ] = $this->sanitize( $value );
@@ -281,7 +285,12 @@
 			   than make sure, to have the validationoptions for required and email.
 			*/
 
-			if ( $this->config['mail_form'] && $this->config['field_sender_mail'] && isset( $p['name'] ) && $p['name'] === $this->config['field_sender_mail'] ) {
+			if (
+				$this->config['mail_form'] &&
+				$this->config['field_sender_mail'] &&
+				isset( $p['name'] ) &&
+				$p['name'] === $this->config['field_sender_mail']
+			) {
 
 				if ( isset( $p['validation'] ) ) {
 					$p['validation'] += array(
@@ -363,13 +372,19 @@
 				}
 
 				// if valid then send mail and build message
-				if ( $this->config['mail_form'] && $this->validation === false ) {
+				if (
+					$this->config['mail_form'] &&
+					$this->validation === false
+				) {
 
 					$this->send_mail();
 				}
 
 				// if valid then fire function
-				if ( $this->config['call_function_on_validation_is_true'] && $this->validation === false ) {
+				if (
+					$this->config['call_function_on_validation_is_true'] &&
+					$this->validation === false
+				) {
 
 					$ret_func = call_user_func($this->config['call_function_on_validation_is_true'], array(
 						'request' => $this->request
@@ -396,7 +411,10 @@
 				$this->messages();
 				$show_form = false;
 
-				if ( $_GET AND isset( $_GET['ajax'] ) ) {
+				if (
+					$_GET AND
+					isset( $_GET['ajax'] )
+				) {
 				}
 				else {
 					$ret .= '<meta http-equiv="refresh" content="0; URL=' . $this->config['sent_page'] . '?sent=true">';
@@ -404,14 +422,23 @@
 			}
 
 			// mail sent
-			elseif ( $this->config['mail_form'] AND $_GET AND isset( $_GET['sent'] ) AND $_GET['sent'] === 'true' ) {
+			elseif (
+				$this->config['mail_form'] AND
+				$_GET AND
+				isset( $_GET['sent'] ) AND
+				$_GET['sent'] === 'true'
+			) {
 
 				$this->messages['message_sent'] = true;
 				$this->messages();
 				$show_form = false;
 			}
 
-			elseif ( $this->config['call_function_on_validation_is_true'] AND isset( $_GET['sent'] ) AND $_GET['sent'] === 'true' ) {
+			elseif (
+				$this->config['call_function_on_validation_is_true'] AND
+				isset( $_GET['sent'] ) AND
+				$_GET['sent'] === 'true'
+			) {
 
 				if ( $this->config['message_after_function_was_fired'] ) {
 
@@ -444,7 +471,10 @@
 
 					if ( $item['p']['display'] === true ) {
 
-						if ( $item['f'] === 'field_hidden' )	$this->field_hidden( $item['p'] );
+						if ( $item['f'] === 'field_hidden' ) {
+							
+							$this->field_hidden( $item['p'] );
+						}
 					}
 				}
 
@@ -452,31 +482,38 @@
 
 					if ( $item['p']['display'] === true ) {
 
-						if ( $item['f'] === 'list_begin' )		$this->list_begin( $item['p'] );
-						if ( $item['f'] === 'list_end' )		$this->list_end();
-						if ( $item['f'] === 'group_begin' )		$this->group_begin( $item['p'] );
-						if ( $item['f'] === 'group_end' )		$this->group_end();
-						if ( $item['f'] === 'field_text' )		$this->field_text( $item['p'] );
-						if ( $item['f'] === 'field_textarea' )	$this->field_textarea( $item['p'] );
-						if ( $item['f'] === 'field_select' )	$this->field_select( $item['p'] );
-						if ( $item['f'] === 'field_checkbox' )	$this->field_checkbox( $item['p'] );
-						if ( $item['f'] === 'field_radio' )		$this->field_radio( $item['p'] );
-						if ( $item['f'] === 'field_date' )		$this->field_date( $item['p'] );
-						if ( $item['f'] === 'field_file' )		$this->field_file( $item['p'] );
-						if ( $item['f'] === 'field_html' )		$this->field_html( $item['p'] );
-						if ( $item['f'] === 'form_buttons' )	$this->form_buttons( $item['p'] );
-						if ( $item['f'] === 'fieldset_begin' )	$this->fieldset_begin( $item['p'] );
-						if ( $item['f'] === 'fieldset_end' )	$this->fieldset_end( $item['p'] );
-						if ( $item['f'] === 'require_info' )	$this->require_info( $item['p'] );
-						if ( $item['f'] === 'messages' )		$this->messages( $item['p'] );
+						if ( $item['f'] === 'list_begin' )		{ $this->list_begin( $item['p'] ); }
+						if ( $item['f'] === 'list_end' )		{ $this->list_end(); }
+						if ( $item['f'] === 'group_begin' )		{ $this->group_begin( $item['p'] ); }
+						if ( $item['f'] === 'group_end' )		{ $this->group_end(); }
+						if ( $item['f'] === 'field_text' )		{ $this->field_text( $item['p'] ); }
+						if ( $item['f'] === 'field_textarea' )	{ $this->field_textarea( $item['p'] ); }
+						if ( $item['f'] === 'field_select' )	{ $this->field_select( $item['p'] ); }
+						if ( $item['f'] === 'field_checkbox' )	{ $this->field_checkbox( $item['p'] ); }
+						if ( $item['f'] === 'field_radio' )		{ $this->field_radio( $item['p'] ); }
+						if ( $item['f'] === 'field_date' )		{ $this->field_date( $item['p'] ); }
+						if ( $item['f'] === 'field_file' )		{ $this->field_file( $item['p'] ); }
+						if ( $item['f'] === 'field_html' )		{ $this->field_html( $item['p'] ); }
+						if ( $item['f'] === 'form_buttons' )	{ $this->form_buttons( $item['p'] ); }
+						if ( $item['f'] === 'fieldset_begin' )	{ $this->fieldset_begin( $item['p'] ); }
+						if ( $item['f'] === 'fieldset_end' )	{ $this->fieldset_end( $item['p'] ); }
+						if ( $item['f'] === 'require_info' )	{ $this->require_info( $item['p'] ); }
+						if ( $item['f'] === 'messages' )		{ $this->messages( $item['p'] ); }
 					}
 				}
 			}
 
 			$ret .= $this->get_form();
 
-			if ( $p['output'] == 'echo' ) echo $ret;
-			if ( $p['output'] == 'return' ) return $ret;
+			if ( $p['output'] == 'echo' ) {
+
+				echo $ret;
+			}
+
+			if ( $p['output'] == 'return' ) {
+
+				return $ret;
+			}
 		}
 
 		/** 
@@ -554,9 +591,25 @@
 					foreach( $p['validation'] as $key => $valid ) {
 
 						// type of required, disables all other validations rules 
-						if ( $valid['type'] === 'required' AND $valid['cond'] === true ) {
-							if ( !isset( $this->request[ $p['name'] ] ) AND $this->files[ $p['name'] ]['error'] !== 0  ) $this->validation[ $p['name'] ][] = $valid['message'];
-							if ( isset( $this->request[ $p['name'] ] ) AND $this->request[ $p['name'] ] === '' ) $this->validation[ $p['name'] ][] = $valid['message'];
+						if (
+							$valid['type'] === 'required' AND
+							$valid['cond'] === true
+						) {
+							if (
+								! isset( $this->request[ $p['name'] ] ) AND
+								$this->files[ $p['name'] ]['error'] !== 0
+							) {
+
+								$this->validation[ $p['name'] ][] = $valid['message'];
+							}
+
+							if (
+								isset( $this->request[ $p['name'] ] ) AND
+								$this->request[ $p['name'] ] === ''
+							) {
+
+								$this->validation[ $p['name'] ][] = $valid['message'];
+							}
 						}
 
 						// all other validation rules 
@@ -565,11 +618,15 @@
 							// if
 							if ( $valid['type'] === 'if' ) {
 
-								if ( $this->ifit( $valid['value'], $valid['operator'], $this->request[ $p['name'] ] ) ) $this->validation[ $p['name'] ][] = $valid['message'];
+								if ( $this->ifit( $valid['value'], $valid['operator'], $this->request[ $p['name'] ] ) ) {
+
+									$this->validation[ $p['name'] ][] = $valid['message'];
+								}
 							}
 
 							// expression
 							if ( $valid['type'] === 'expression' ) {
+
 								if ( !ereg( $valid['cond'], $this->request[ $p['name'] ] ) ) {
 									$this->validation[ $p['name'] ][] = $valid['message'];
 								}
@@ -578,7 +635,11 @@
 							// dateformat
 							if ( $valid['type'] === 'date-format' ) {
 
-								if ( $p['temp_value'] !== '' && !ereg( "^[0-9]{2}\.[0-9]{2}\.[0-9]{4}$", $p['temp_value'] ) ) {
+								if (
+									$p['temp_value'] !== '' &&
+									! ereg( "^[0-9]{2}\.[0-9]{2}\.[0-9]{4}$", $p['temp_value'] )
+								) {
+
 									$this->validation[ $p['name'] ][] = $this->config['message_dateformat'];
 								}
 							}
@@ -586,7 +647,11 @@
 							// checkdate
 							if ( $valid['type'] === 'date-checkdate' ) {
 
-								if ( $p['temp_value'] !== '' && !isset( $this->validation[ $p['name'] ] ) AND !checkdate( $p['date_parsed']['month'], $p['date_parsed']['day'], $p['date_parsed']['year'] ) ) {
+								if (
+									$p['temp_value'] !== '' &&
+									! isset( $this->validation[ $p['name'] ] ) AND
+									! checkdate( $p['date_parsed']['month'], $p['date_parsed']['day'], $p['date_parsed']['year'] )
+								) {
 									$this->validation[ $p['name'] ][] = $this->config['message_checkdate'];
 								}
 							}
@@ -597,7 +662,10 @@
 								// min-max
 								if ( !isset( $this->validation[ $p['name'] ] ) ) {
 
-									if ( isset( $valid['min'] ) OR isset( $valid['max'] )) {
+									if (
+										isset( $valid['min'] ) OR
+										isset( $valid['max'] )
+									) {
 										$array = array (
 											"{min}" => date( "d.m.Y", $this->datestamp( $valid['min'] ) ),
 											"{max}" => date( "d.m.Y", $this->datestamp( $valid['max'] ) )
@@ -606,21 +674,34 @@
 									}
 
 									if ( isset( $valid['min'] ) ) {
-										if ( $p['timestamp'] < $this->datestamp( $valid['min'] ) ) $this->validation[ $p['name'] ][] = $valid['message-min-max'];
+
+										if ( $p['timestamp'] < $this->datestamp( $valid['min'] ) ) {
+
+											$this->validation[ $p['name'] ][] = $valid['message-min-max'];
+										}
 									}
+
 									if ( isset( $valid['max'] ) ) {
-										if ( $p['timestamp'] > $this->datestamp( $valid['max'] ) ) $this->validation[ $p['name'] ][] = $valid['message-min-max'];
+
+										if ( $p['timestamp'] > $this->datestamp( $valid['max'] ) ) {
+
+											$this->validation[ $p['name'] ][] = $valid['message-min-max'];
+										}
 									}
 								}
 
 								// dependency
-								if ( !isset( $this->validation[ $p['name'] ] ) AND isset( $valid['dependency'] ) ) {
+								if (
+									! isset( $this->validation[ $p['name'] ] ) AND
+									isset( $valid['dependency'] )
+								) {
 
 									$date_dep = explode( '.', $this->request[ $valid['dependency']['field'] ] );
 
 									$timestamp_dep = strtotime( $valid['dependency']['value'] , strtotime( $date_dep[2] . '-' . $date_dep[1] . '-' . $date_dep[0] ) );
 									$value = $timestamp - $timestamp_dep;
-									if ( !$this->ifit( $value, $valid['dependency']['operator'], 0 ) ) {
+
+									if ( ! $this->ifit( $value, $valid['dependency']['operator'], 0 ) ) {
 										$this->validation[ $p['name'] ][] =	 $valid['dependency']['message'];
 									}
 								}
@@ -629,18 +710,30 @@
 
 							// integer
 							 if ( $valid['type'] === 'integer' ) {
+
 								 if ( $this->get_field_value( $p ) !== '' ) {
 
-									if ( !is_numeric( $this->get_field_value( $p ) ) OR (int)$this->get_field_value( $p ) != $this->get_field_value( $p ) ) {
-										 $this->validation[ $this->get_field_name( $p ) ][] = $valid['message'];
+									if (
+										! is_numeric( $this->get_field_value( $p ) ) OR
+										(int)$this->get_field_value( $p ) != $this->get_field_value( $p )
+									) {
+
+										$this->validation[ $this->get_field_name( $p ) ][] = $valid['message'];
 									 }
 								 }
 							 }
 
 							// range
-							if ( $valid['type'] === 'range' AND !isset( $this->validation[ $this->get_field_name( $p ) ] ) AND $this->get_field_value( $p ) != '' ) {
+							if (
+								$valid['type'] === 'range' AND
+								! isset( $this->validation[ $this->get_field_name( $p ) ] ) AND
+								$this->get_field_value( $p ) != ''
+							) {
 
-									if ( (float)$this->get_field_value( $p ) < (float)$valid['min'] OR (float)$this->get_field_value( $p ) > (float)$valid['max'] ) {
+									if (
+										(float)$this->get_field_value( $p ) < (float)$valid['min'] OR
+										(float)$this->get_field_value( $p ) > (float)$valid['max']
+									) {
 
 										$array = array (
 											"{min}" => $valid['min'],
@@ -655,9 +748,10 @@
 
 							// email
 							if ( $valid['type'] === 'email' ) {
+
 								if ( $this->get_field_value( $p ) !== '' ) {
 
-									if ( !filter_var( $this->get_field_value( $p ), FILTER_VALIDATE_EMAIL ) ) {
+									if ( ! filter_var( $this->get_field_value( $p ), FILTER_VALIDATE_EMAIL ) ) {
 										$this->validation[ $this->get_field_name( $p ) ][] = $valid['message'];
 									}
 								}
@@ -678,7 +772,10 @@
 			}
 
 			/* check honeypot */
-			if ( $this->config['honeypot'] AND $this->request[ strtolower( $this->config['honeypot'] ) ] != '' ) {
+			if (
+				$this->config['honeypot'] AND
+				$this->request[ strtolower( $this->config['honeypot'] ) ] != ''
+			) {
 				$this->validation = true;
 				$this->messages['message_honeypot'] = true;
 			}
@@ -690,9 +787,29 @@
 
 					$p = $field['p'];
 
-					if ( isset( $p['name'] ) && isset( $p['temp_request'] ) ) $this->request[ $p['name'] ] = $p['temp_request'];
-					if ( isset( $p['name'] ) && isset( $this->request[ $p['name'] . '_yerform' ] ) ) unset($this->request[ $p['name'] . '_yerform' ]);
-					if ( isset( $p['timestamp'] ) && $p['timestamp'] ) $this->request[ $p['name'] . '.timestamp'] = $p['timestamp'];
+					if (
+						isset( $p['name'] ) &&
+						isset( $p['temp_request'] )
+					) {
+
+						$this->request[ $p['name'] ] = $p['temp_request'];
+					}
+
+					if (
+						isset( $p['name'] ) &&
+						isset( $this->request[ $p['name'] . '_yerform' ] )
+					) {
+
+						unset($this->request[ $p['name'] . '_yerform' ]);
+					}
+
+					if (
+						isset( $p['timestamp'] ) &&
+						$p['timestamp']
+					) {
+
+						$this->request[ $p['name'] . '.timestamp'] = $p['timestamp'];
+					}
 				}
 			}
 
@@ -740,11 +857,18 @@
 
 			// fill placeholders
 			$array = false;
-			foreach($this->fields as $name => $item) {
+
+			foreach( $this->fields as $name => $item) {
 				$value = $_REQUEST[ $name ];
-				if ( is_array($value) ) $value = trim( implode( ', ', $value ), ', ' );
+
+				if ( is_array($value) ) {
+
+					$value = trim( implode( ', ', $value ), ', ' );
+				}
+
 				$array['{' . $name . '}'] = $value;
 			}
+
 			$mail_text = trim( strtr($mail_text, $array) );
 
 			// mail it with Swiftmailer
@@ -815,8 +939,11 @@
 
 				// Attache files
 				if ( isset($_FILES) ) {
+
 					foreach ( $_FILES as $key => $item ) {
+
 						if ( $item['tmp_name'] != '' ) {
+
 							$message->attach( Swift_Attachment::fromPath( $item['tmp_name'] )->setFilename($item['name']) );
 						}
 					}
@@ -844,7 +971,11 @@
 		protected function get_form() {
 
 			$data = '';
-			if ( $this->config['language'] ) $data .= ' data-language="' . $this->config['language'] . '"';
+
+			if ( $this->config['language'] ) {
+
+				$data .= ' data-language="' . $this->config['language'] . '"';
+			}
 
 			$ret = '';
 			$ret .= '<form id="' . $this->form_id . '" class="yerform ' . $this->config['form_class'] . '" action="' . $this->config['action'] . '" method="post" enctype="multipart/form-data" name="yerform" target="_self"' . $data . '>';
@@ -883,7 +1014,10 @@
 			/* get fields of validation error and build a string */
 			$fieldnames_string = false;
 
-			if ( isset ( $this->validation ) AND is_array( $this->validation ) ) {
+			if (
+				isset ( $this->validation ) AND
+				is_array( $this->validation )
+			) {
 
 				foreach ( $this->validation as $key => $item ) {
 
@@ -895,7 +1029,11 @@
 					unset( $temp );
 				}
 			}
-			if ( isset( $fieldnames ) ) $fieldnames_string = implode( ', ', $fieldnames );
+
+			if ( isset( $fieldnames ) ) {
+
+				$fieldnames_string = implode( ', ', $fieldnames );
+			}
 
 			/* loop the messages */
 			if ( is_array( $this->messages ) ) {
@@ -906,7 +1044,10 @@
 
 					$message = $this->textcurr[ $key ];
 
-					if ( $fieldnames_string ) $message['text'] = str_replace( '{fields}', $fieldnames_string, $message['text'] );
+					if ( $fieldnames_string ) {
+
+						$message['text'] = str_replace( '{fields}', $fieldnames_string, $message['text'] );
+					}
 
 					$ret .= '<div class="yerform-messages-' . $message['typ'] . '">' . $message['text'] . '</div>';
 				}
@@ -947,14 +1088,24 @@
 
 			$p += $this->fields_defaults[ $p['fieldtype'] ];
 
-			if( $p['class'] ) $p['class'] = ' ' . trim($p['class']);
+			if ( $p['class'] ) {
+
+				$p['class'] = ' ' . trim( $p['class'] );
+			}
 
 			$attr = '';
 
-			if ( $p['placeholder'] ) $attr .= ' placeholder="' . $p['placeholder'] . '"';
+			if ( $p['placeholder'] ) {
+
+				$attr .= ' placeholder="' . $p['placeholder'] . '"';
+			}
 
 			$size = '';
-			if ( $p['size'] ) $size .= ' size="' . $p['size'] . '"';
+
+			if ( $p['size'] ) {
+
+				$size .= ' size="' . $p['size'] . '"';
+			}
 
 			$ret = '';
 			$ret .= $this->list_item_before( $p );
@@ -1120,13 +1271,22 @@
 			$p += $this->fields_defaults[ $p['fieldtype'] ];
 
 			$class = '';
-			if ( $p['datepicker'] ) $class = ' datepicker';
+			if ( $p['datepicker'] ) {
+
+				$class = ' datepicker';
+			}
 
 			$size = '';
-			if ( $p['size'] ) $size .= ' size="' . $p['size'] . '"';
+			if ( $p['size'] ) {
+
+				$size .= ' size="' . $p['size'] . '"';
+			}
 
 			/* get the min and max day setings for jquery-datepicker from validation info */
-			if ( $p['datepicker'] AND $p['validation'] ) {
+			if (
+				$p['datepicker'] AND
+				$p['validation']
+			) {
 				foreach( $p['validation'] as $num => $item ) {
 					if ( $item['type'] === 'date' ) {
 						if ( isset( $item['min'] ) ) {
@@ -1141,11 +1301,15 @@
 
 			$data = '';
 			if ( $p['datepicker'] ) {
+
 				$data .= ' data-datepicker-mindate="' . $p['datepicker-mindate'] . '"';
 				$data .= ' data-datepicker-maxdate="' . $p['datepicker-maxdate'] . '"';
 				$data .= ' data-datepicker-dateformat="' . strtr( $p['datepicker-dateformat'], $this->dateformats_phpjs ) . '"';
 				$data .= ' data-datepicker-yerformdateformat="' . strtr( 'd.m.Y', $this->dateformats_phpjs ) . '"';
-				if ( $p['datepicker-iconurl'] ) $data .= ' data-datepicker-iconurl="' . $p['datepicker-iconurl'] . '"';
+				if ( $p['datepicker-iconurl'] ) {
+
+					$data .= ' data-datepicker-iconurl="' . $p['datepicker-iconurl'] . '"';
+				}
 			}
 
 			$ret = '';
@@ -1193,7 +1357,10 @@
 			
 			// error_log( print_r( $p, true) );
 			
-			if ( $this->get_field_value( $p ) !== '' OR $p['checked'] === true ) {
+			if (
+				$this->get_field_value( $p ) !== '' OR
+				$p['checked'] === true
+			) {
 				
 				$checked = ' checked';
 			}
@@ -1214,7 +1381,11 @@
 								$ret .= $this->field_before;
 
 									$ret .= '<input type="checkbox" id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" value="' . $p['data'] . '"' . $checked . '/>';
-									if ( $p['labeltype'] === 'field-after' ) $ret .= '<span class="yerform-field-after">' . $this->return_label( $p ) . '</span>';
+
+									if ( $p['labeltype'] === 'field-after' ) {
+
+										$ret .= '<span class="yerform-field-after">' . $this->return_label( $p ) . '</span>';
+									}
 
 								$ret .= $this->field_after;
 								$ret .= $this->get_field_sufix( $p );
@@ -1247,8 +1418,19 @@
 			$p += $this->fields_defaults[ $p['fieldtype'] ];
 
 			$checked = '';
-			if ( $this->get_field_value( $p ) === $p['data'] ) $checked = ' checked';
-			if ( $this->get_field_value( $p ) === '' && $p['checked'] === true ) $checked = ' checked';
+
+			if ( $this->get_field_value( $p ) === $p['data'] ) {
+
+				$checked = ' checked';
+			}
+
+			if (
+				$this->get_field_value( $p ) === '' &&
+				$p['checked'] === true
+			) {
+
+				$checked = ' checked';
+			}
 
 			$ret = '';
 			$ret .= $this->list_item_before( $p );
@@ -1262,7 +1444,11 @@
 								$ret .= $this->field_before;
 
 									$ret .= '<input type="radio" id="' . $this->get_field_name( $p ) . '" name="' . $this->get_field_name( $p ) . '" value="' . $p['data'] . '"' . $checked . '/>';
-									if ( $p['labeltype'] === 'field-after' ) $ret .= '<span class="yerform-field-after">' . $this->return_label( $p ) . '</span>';
+
+									if ( $p['labeltype'] === 'field-after' ) {
+
+										$ret .= '<span class="yerform-field-after">' . $this->return_label( $p ) . '</span>';
+									}
 
 								$ret .= $this->field_after;
 								$ret .= $this->get_field_sufix( $p );
@@ -1383,12 +1569,17 @@
 			$this->p_list= $p;
 
 			$class = false;
-			if ( $p['class'] ) $class .= ' ' . $p['class'];
+
+			if ( $p['class'] ) {
+
+				$class .= ' ' . $p['class'];
+			}
+
 			$class .= ' yerform-depht-' . $this->depht;
-			if ( in_array( 'block', $p['layout'] ) ) $class .= ' yerform-list-block';
-			if ( in_array( 'table', $p['layout'] ) ) $class .= ' yerform-list-table';
-			if ( in_array( 'inline', $p['layout'] ) ) $class .= ' yerform-list-inline';
-			if ( in_array( 'label-table', $p['layout'] ) ) $class .= ' yerform-list-label-table';
+			if ( in_array( 'block', $p['layout'] ) ) { $class .= ' yerform-list-block'; }
+			if ( in_array( 'table', $p['layout'] ) ) { $class .= ' yerform-list-table'; }
+			if ( in_array( 'inline', $p['layout'] ) ) { $class .= ' yerform-list-inline'; }
+			if ( in_array( 'label-table', $p['layout'] ) ) { $class .= ' yerform-list-label-table'; }
 
 			$this->code .= str_replace('>', ' class="yerform-list ' . $class . '">', $this->list_before);
 		}
@@ -1426,9 +1617,9 @@
 			$this->depht = $this->depht + 1;
 
 			$class = '';
-			if ( $p['class'] ) $class = ' ' . $p['class'];
-			if ( $p['group-layout'] === 'block' ) $class .= ' yerform-group-block';
-			if ( $p['group-layout'] === 'inline' ) $class .= ' yerform-group-inline';
+			if ( $p['class'] ) { $class = ' ' . $p['class']; }
+			if ( $p['group-layout'] === 'block' ) { $class .= ' yerform-group-block'; }
+			if ( $p['group-layout'] === 'inline' ) { $class .= ' yerform-group-inline'; }
 
 			$this->code .= str_replace('>', ' class="yerform-list-item-group' . $class . '">', $this->list_item_before);
 			//$class = 'yerform-list-item-group-inner';
@@ -1436,19 +1627,24 @@
 
 			if ( $p['label'] !== false ) {
 				$this->code .= str_replace('>', ' class="yerform-group-label">', $this->label_before);
-				if ( $p['label'] != '' ) $this->code .= '<label>' . $p['label'] . '</label>';
+
+				if ( $p['label'] != '' ) {
+
+					$this->code .= '<label>' . $p['label'] . '</label>';
+				}
+
 				$this->code .= $this->label_after;
 			}
 
 			$this->code .= str_replace('">', ' yerform-group">', $this->fields_before);
 
 			$class = '';
-			if ( $p['list-layout'] === 'block' ) $class .= 'yerform-list-block';
-			if ( $p['list-layout'] === 'table' ) $class .= 'yerform-list-table';
-			if ( $p['list-layout'] === 'inline' ) $class .= 'yerform-list-inline';
+			if ( $p['list-layout'] === 'block' ) { $class .= 'yerform-list-block'; }
+			if ( $p['list-layout'] === 'table' ) { $class .= 'yerform-list-table'; }
+			if ( $p['list-layout'] === 'inline' ) { $class .= 'yerform-list-inline'; }
 
 			$class .= ' yerform-depht-' . $this->depht;
-			if ( $p['list-gap'] ) $class .= ' yerform-list-gap';
+			if ( $p['list-gap'] ) { $class .= ' yerform-list-gap'; }
 			$ret = str_replace('>', ' class="yerform-list ' . $class . '">', $this->list_before);
 			$this->code .= $ret;
 
@@ -1481,9 +1677,16 @@
 				'no_required_label_sufix' => false
 			);
 
-			if ( $p['no_required_label_sufix'] === false && isset( $p['validation'] ) ) {
+			if (
+				$p['no_required_label_sufix'] === false &&
+				isset( $p['validation'] )
+			) {
 				foreach( $p['validation'] as $key => $item ) {
-					if ( $item['type'] === 'required' AND $item['cond'] === true ) $check = $this->required_label_sufix;
+
+					if (
+						$item['type'] === 'required' AND
+						$item['cond'] === true
+					) $check = $this->required_label_sufix;
 				}
 			}
 
@@ -1573,7 +1776,7 @@
 				$class_input = '';
 				$class_inputsufix = '';
 
-				if ( $p['labeltype'] === 'field-after') {
+				if ( $p['labeltype'] === 'field-after' ) {
 
 					$class_inputsufix .= ' class="yerform-displaynone"';
 				}
@@ -1581,7 +1784,11 @@
 				if ( $p['label'] ) {
 
 					$ret .= '<label for="' . $p['name'] . '"' . $class_input . '>' . $p['label'] . '</label>';
-					if ( $p['label_sufix'] ) $ret .= '<span' . $class_inputsufix . '>' . $p['label_sufix'] . '</span>';
+
+					if ( $p['label_sufix'] ) {
+
+						$ret .= '<span' . $class_inputsufix . '>' . $p['label_sufix'] . '</span>';
+					}
 
 					$ret .= $this->label_after;
 
@@ -1645,7 +1852,12 @@
 
 			$ret = '';
 			$ret .= '<div class="yerform-buttons">';
-			if ( $p['reset'] ) $ret .= '<div class="yerform-reset ' . $p['reset_class'] . '"><input class="yerform-reset-btn ' . $p['reset_btn_class'] . '" name="reset" type="reset" value="' . $p['reset_label'] . '"/></div>';
+
+			if ( $p['reset'] ) {
+
+				$ret .= '<div class="yerform-reset ' . $p['reset_class'] . '"><input class="yerform-reset-btn ' . $p['reset_btn_class'] . '" name="reset" type="reset" value="' . $p['reset_label'] . '"/></div>';
+			}
+
 			$ret .= '<div class="yerform-submit ' . $p['submit_class'] . '"><input class="yerform-submit-btn ' . $p['submit_btn_class'] . '" name="submit" type="submit" value="' . $p['submit_label'] . '"/></div>';
 			$ret .= '</div>';
 
@@ -1677,21 +1889,69 @@
 			$tag = $this->list_item_before;
 
 			$class = 'yerform-list-item';
-			if ( isset( $this->validation[ $this->get_field_name( $p ) ] ) ) $class .= ' yerform-list-item-error';
-			if ( isset($p['fieldtype']) ) $class .= ' yerform-item-type-' . $p['fieldtype'];
-			if ( $p['class'] ) $class .= ' ' . $p['class'];
-			if ( $p['size'] ) $class .= ' yerform-list-item-sized';
-			if ( in_array( 'label-inline', $p['layout'] ) ) $class .= ' yerform-label-inline';
-			if ( in_array( 'info-inline', $p['layout'] ) ) $class .= ' yerform-info-inline';
-			if ( in_array( 'info-sized', $p['layout'] ) ) $class .= ' yerform-info-sized';
-			if ( in_array( 'input-sized', $p['layout'] ) ) $class .= ' yerform-input-sized';
+
+			if ( isset( $this->validation[ $this->get_field_name( $p ) ] ) ) {
+
+				$class .= ' yerform-list-item-error';
+			}
+
+			if ( isset($p['fieldtype']) ) {
+
+				$class .= ' yerform-item-type-' . $p['fieldtype'];
+			}
+
+			if ( $p['class'] ) {
+
+				$class .= ' ' . $p['class'];
+			}
+
+			if ( $p['size'] ) {
+
+				$class .= ' yerform-list-item-sized';
+			}
+			
+			if ( in_array( 'label-inline', $p['layout'] ) ) {
+
+				$class .= ' yerform-label-inline';
+			}
+
+			if ( in_array( 'info-inline', $p['layout'] ) ) {
+
+				$class .= ' yerform-info-inline';
+			}
+
+			if ( in_array( 'info-sized', $p['layout'] ) ) {
+
+				$class .= ' yerform-info-sized';
+			}
+
+			if ( in_array( 'input-sized', $p['layout'] ) ) {
+
+				$class .= ' yerform-input-sized';
+			}
 
 			$style = '';
-			if ( $p['padding'][0] > 0 ) $style .= 'padding-left: ' . $p['padding'][0] . 'px;';
-			if ( $p['padding'][1] > 0 ) $style .= 'padding-right: ' . $p['padding'][1] . 'px;';
+
+			if ( $p['padding'][0] > 0 ) {
+
+				$style .= 'padding-left: ' . $p['padding'][0] . 'px;';
+			}
+
+			if ( $p['padding'][1] > 0 ) {
+
+				$style .= 'padding-right: ' . $p['padding'][1] . 'px;';
+			}
 
 			$ret = str_replace('>', ' style="' . $style . '" class="' . $class . '">', $tag);
-			if ( isset($this->p_group['list-layout']) && $this->p_group['list-layout'] == 'table' ) $ret .= '<div class="yerform-list-item-table">';
+
+			if (
+				isset($this->p_group['list-layout']) &&
+				$this->p_group['list-layout'] == 'table'
+			) {
+
+				$ret .= '<div class="yerform-list-item-table">';
+			}
+
 			//if ( $this->depht > 1 ) $ret .= '<div class="' . $class2 . '">';
 
 			return $ret;
@@ -1703,7 +1963,14 @@
 
 			//if ( $this->depht > 1 ) $ret .= '</div>';
 
-			if ( isset($this->p_group['list-layout']) && $this->p_group['list-layout'] == 'table' ) $ret .= '</div>';
+			if (
+				isset($this->p_group['list-layout']) &&
+				$this->p_group['list-layout'] == 'table'
+			) {
+
+				$ret .= '</div>';
+			}
+
 			$ret .= $this->list_item_after;
 
 			return $ret;
@@ -1747,7 +2014,11 @@
 			}
 
 			$class = 'yerform-fieldset-wrap';
-			if ( $p['class'] ) $class = ' ' . $p['class'];
+
+			if ( $p['class'] ) {
+
+				$class = ' ' . $p['class'];
+			}
 
 			$this->code .= '<div class="' . $class . '">';
 			$this->code .= '<fieldset class="yerform-fieldset">';
@@ -1815,7 +2086,10 @@
 
 			$name = $p['name'];
 
-			if ( $p['array'] !== false ) $name .= '[' . $p['array'] . ']'; 
+			if ( $p['array'] !== false ) {
+
+				$name .= '[' . $p['array'] . ']'; 
+			}
 
 			return $name;
 		}
@@ -1835,7 +2109,11 @@
 
 			if ( isset($this->request[ $p['name'] ]) ) {
 				$value = @$this->request[ $p['name'] ];
-				if ( $p['array'] !== false ) $value = @$this->request[ $p['name'] ][ $p['array'] ];
+
+				if ( $p['array'] !== false ) {
+
+					$value = @$this->request[ $p['name'] ][ $p['array'] ];
+				}
 			}
 
 			$value = $this->textfilter( $value );
