@@ -4,6 +4,7 @@
 		<title>YerForm Demo</title>
 		<meta charset="utf-8"/>
 
+		<link rel="stylesheet" href="css/normalize.css" type="text/css" />
 		<link rel="stylesheet" href="css/demo.css" type="text/css" />
 		<style rel="stylesheet" type="text/css">
 
@@ -18,7 +19,7 @@
 
 			if ( class_exists('YerForm') ) {
 
-				echo '<link rel="stylesheet" type="text/css" href="../themes/default/yerform-styles.css" />';
+				echo '<link rel="stylesheet" type="text/css" href="../themes/2015/yerform-styles.css" />';
 			}
 
 		?>
@@ -171,13 +172,15 @@
 							'sufix' => 'Sufix',
 							'prefix' => 'Prefix',
 							'validation' => array(),
+							'info-before' => 'Info Before',
+							'info-after' => 'Info After'
 						));
 
 						$form->set( 'field_select', array(
 							'name' => 'select',
 							'array' => false,
 							'data' => array(
-								'' => 'wähle…',
+								'' => 'please select…',
 								'a' => 'A',
 								'b' => 'B',
 								'Numbers' => array(
